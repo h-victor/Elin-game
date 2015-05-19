@@ -6,21 +6,21 @@ filter: Nearest,Nearest
 repeat: none
 elin01
   rotate: false
-  xy: 2, 2
+  xy: 2, 182
   size: 98, 178
   orig: 98, 178
   offset: 0, 0
   index: -1
 elin02
   rotate: false
-  xy: 102, 2
+  xy: 2, 2
   size: 98, 178
   orig: 98, 178
   offset: 0, 0
   index: -1
 elin03
   rotate: false
-  xy: 2, 182
+  xy: 102, 2
   size: 98, 178
   orig: 98, 178
   offset: 0, 0
