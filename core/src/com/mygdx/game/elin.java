@@ -3,14 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class elin extends ApplicationAdapter {
 	private gameStage stage;
-	private play play_;
-
-		public ResourceManager rs;
+	
+	public ResourceManager rs;
 
 	@Override
 	public void create () {
@@ -27,7 +25,5 @@ public class elin extends ApplicationAdapter {
 		
 		stage.act();
 		stage.draw();
-		
-
 	}
 }
