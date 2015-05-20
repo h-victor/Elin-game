@@ -1,8 +1,8 @@
-package com.mygdx.elin.desktop;
+package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.elin.elin;
+import com.mygdx.game.elin;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

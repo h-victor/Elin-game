@@ -14,8 +14,8 @@ public class gameStage extends Overlap2DStage{
 		sl = sceneLoader.loadScene("MainScene");
 		addActor(sceneLoader.getRoot());
 	
-		play play_ = new play(/*rs, sl_*/);
+		play play_ = new play(/*rs, sl_*/ getCamera());
 		sceneLoader.getRoot().addScript(play_);//getCompositeById("player").addScript(play_);
-		System.out.println("Fixture ?");
+	
 	}
 }

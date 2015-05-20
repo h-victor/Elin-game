@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriteAnimation;
 import com.uwsoft.editor.renderer.script.IScript;
@@ -14,10 +15,12 @@ public class play implements IScript{
 
 	//public ResourceManager rs;
 	//public SceneVO sl;
+	public Camera camera;
 	
-	public play(/*ResourceManager rs, SceneVO sl*/){
+	public play(Camera camera/*ResourceManager rs, SceneVO sl*/){
 		//this.rs = rs;
 		//this.sl = sl;
+		this.camera = camera;
 	}
 
 	@Override
@@ -70,8 +73,13 @@ public class play implements IScript{
 						item.getCompositeById("player").getX() / 10
 						, 4, 0);
 				plan2 = false;
-			}			
-
+			}						
 		}
+		
+		/* Set camera center to player */
+		camera.position.x =
+				item.getCompositeById("player").getX();
+		camera.update();
+		
 	}
 }
