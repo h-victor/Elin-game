@@ -40,11 +40,14 @@ public class play implements IScript{
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 			//item.getCompositeById("player").getBody().applyForceToCenter(20, 0, false);
 			item.getCompositeById("player").getBody().applyLinearImpulse(1, 0, item.getX(), item.getY(), true);
+			item.getCompositeById("player").setScaleX(1);
 			animation.start();
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			//item.getCompositeById("player").getBody().applyForceToCenter(-20, 0, false);
 			item.getCompositeById("player").getBody().applyLinearImpulse(-1, 0, item.getX(), item.getY(), true);
+			item.getCompositeById("player").setOrigin(0);
+			item.getCompositeById("player").setScaleX(-1);
 			animation.start();
 		}
 		
@@ -57,8 +60,9 @@ public class play implements IScript{
 						);
 				*/
 				item.getCompositeById("player").getBody().setTransform(
-					item.getCompositeById("player").getX() / 10
-					, 20, 0);
+					item.getCompositeById("player").getX() / 10,
+					item.getCompositeById("ground2").getY() / 10, 0
+				);
 
 				plan2 = true;
 			}
@@ -70,8 +74,8 @@ public class play implements IScript{
 						);
 				*/
 				item.getCompositeById("player").getBody().setTransform(
-						item.getCompositeById("player").getX() / 10
-						, 4, 0);
+						item.getCompositeById("player").getX() / 10,
+						item.getCompositeById("ground1").getY() / 10, 0);
 				plan2 = false;
 			}						
 		}
