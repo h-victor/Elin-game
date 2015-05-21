@@ -16,6 +16,5 @@ public class gameStage extends Overlap2DStage{
 	
 		play play_ = new play(/*rs, sl_*/ getCamera());
 		sceneLoader.getRoot().addScript(play_);//getCompositeById("player").addScript(play_);
-	
 	}
 }

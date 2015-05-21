@@ -12,6 +12,7 @@ public class play implements IScript{
 	private SpriteAnimation animation;
 	
 	public boolean plan2 = false; // boolean, is true when player in the second plan
+	public boolean landscape = true; // boolean, is true when camera is in landscape mode
 
 	//public ResourceManager rs;
 	//public SceneVO sl;
@@ -51,6 +52,21 @@ public class play implements IScript{
 			animation.start();
 		}
 		
+		/* Touch-screen */
+		if(Gdx.input.isTouched()){
+			if(Gdx.input.getX() > item.getCompositeById("player").getX()){
+				item.getCompositeById("player").getBody().applyLinearImpulse(0.5f, 0, item.getX(), item.getY(), true);
+				item.getCompositeById("player").setScaleX(1);
+				animation.start();
+			}
+			else if(Gdx.input.getX() < item.getCompositeById("player").getX()){
+				item.getCompositeById("player").getBody().applyLinearImpulse(-0.5f, 0, item.getX(), item.getY(), true);
+				item.getCompositeById("player").setOrigin(0);
+				item.getCompositeById("player").setScaleX(-1);
+				animation.start();
+			}
+		}
+		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){ //isKeyPressed(Input.Keys.SPACE)){
 			if(plan2 == false){
 				/*item.getCompositeById("player").getSpriteAnimationById("elin").setY( //.getBody().setTransform(0, 20);
@@ -84,6 +100,20 @@ public class play implements IScript{
 		camera.position.x =
 				item.getCompositeById("player").getX();
 		camera.update();
+		
+		/* Rotate the camera to landscape to portrait */
+		if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+			if(landscape == true){
+				camera.rotate(camera.direction, 90f); 
+				camera.update();
+				landscape = false;
+			}
+			else if(landscape == false){
+				camera.rotate(camera.direction, -90f); 
+				camera.update();
+				landscape = true;
+			}
+		}
 		
 	}
 }
