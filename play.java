@@ -54,12 +54,12 @@ public class play implements IScript{
 		
 		/* Touch-screen */
 		if(Gdx.input.isTouched()){
-			if(Gdx.input.getX() > item.getCompositeById("player").getX()){
+			if(Gdx.input.getX() > camera.viewportWidth / 2){
 				item.getCompositeById("player").getBody().applyLinearImpulse(0.5f, 0, item.getX(), item.getY(), true);
 				item.getCompositeById("player").setScaleX(1);
 				animation.start();
 			}
-			else if(Gdx.input.getX() < item.getCompositeById("player").getX()){
+			else if(Gdx.input.getX() < camera.viewportWidth / 2){
 				item.getCompositeById("player").getBody().applyLinearImpulse(-0.5f, 0, item.getX(), item.getY(), true);
 				item.getCompositeById("player").setOrigin(0);
 				item.getCompositeById("player").setScaleX(-1);

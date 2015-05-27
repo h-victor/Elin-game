@@ -11,13 +11,6 @@ cube
   orig: 212, 208
   offset: 0, 0
   index: -1
-elin01
-  rotate: false
-  xy: 1089, 32
-  size: 98, 178
-  orig: 98, 178
-  offset: 0, 0
-  index: -1
 ground
   rotate: false
   xy: 2, 136
