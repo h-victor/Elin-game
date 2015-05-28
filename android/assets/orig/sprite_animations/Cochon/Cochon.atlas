@@ -1,0 +1,76 @@
+
+Cochon.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Cochon01
+  rotate: false
+  xy: 2, 583
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon02
+  rotate: false
+  xy: 2, 416
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon03
+  rotate: false
+  xy: 189, 583
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon04
+  rotate: false
+  xy: 2, 249
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon05
+  rotate: false
+  xy: 189, 416
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon06
+  rotate: false
+  xy: 376, 583
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon07
+  rotate: false
+  xy: 2, 82
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon08
+  rotate: false
+  xy: 189, 249
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon09
+  rotate: false
+  xy: 376, 416
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1
+Cochon10
+  rotate: false
+  xy: 563, 583
+  size: 185, 165
+  orig: 185, 165
+  offset: 0, 0
+  index: -1

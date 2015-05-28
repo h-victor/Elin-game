@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriteAnimation;
 import com.uwsoft.editor.renderer.script.IScript;
@@ -10,7 +11,8 @@ import com.uwsoft.editor.renderer.script.IScript;
 public class play implements IScript{
 	private CompositeItem item;
 	private SpriteAnimation animation;
-	
+    private float verticalSpeed = 0;
+    
 	public boolean plan2 = false; // boolean, is true when player in the second plan
 	public boolean landscape = true; // boolean, is true when camera is in landscape mode
 
@@ -23,7 +25,7 @@ public class play implements IScript{
 		//this.sl = sl;
 		this.camera = camera;
 	}
-
+	
 	@Override
 	public void init(CompositeItem item) {
 		this.item = item;
@@ -38,13 +40,13 @@ public class play implements IScript{
 
 	@Override
 	public void act(float delta) {
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
 			//item.getCompositeById("player").getBody().applyForceToCenter(20, 0, false);
 			item.getCompositeById("player").getBody().applyLinearImpulse(1, 0, item.getX(), item.getY(), true);
 			item.getCompositeById("player").setScaleX(1);
 			animation.start();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
 			//item.getCompositeById("player").getBody().applyForceToCenter(-20, 0, false);
 			item.getCompositeById("player").getBody().applyLinearImpulse(-1, 0, item.getX(), item.getY(), true);
 			item.getCompositeById("player").setOrigin(0);
@@ -116,4 +118,6 @@ public class play implements IScript{
 		}
 		
 	}
+	
+
 }
