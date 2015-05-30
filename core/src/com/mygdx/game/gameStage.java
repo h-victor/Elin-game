@@ -3,8 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.uwsoft.editor.renderer.Overlap2DStage;
-import com.uwsoft.editor.renderer.actor.CompositeItem;
-import com.uwsoft.editor.renderer.actor.IBaseItem;
+//import com.uwsoft.editor.renderer.actor.CompositeItem;
+//import com.uwsoft.editor.renderer.actor.IBaseItem;
 import com.uwsoft.editor.renderer.data.SceneVO;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
@@ -20,12 +20,12 @@ public class gameStage extends Overlap2DStage{
 		play play_ = new play(/*rs, sl_*/ getCamera());
 		sceneLoader.getRoot().addScript(play_);//getCompositeById("player").addScript(play_);
 		
-        for(IBaseItem item: sceneLoader.getRoot().getItems()) {
+/*        for(IBaseItem item: sceneLoader.getRoot().getItems()) {
             if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
                 ((CompositeItem)item).addScript(new movingPig());
             }
         }
-	
+*/	
 		/*monster monster_ = new monster();
 		sceneLoader.getRoot().addScript(monster_);*/
 		

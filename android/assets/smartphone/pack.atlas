@@ -1,0 +1,209 @@
+
+pack.png
+size: 4096,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+GUI2
+  rotate: false
+  xy: 3554, 532
+  size: 382, 286
+  orig: 382, 286
+  offset: 0, 0
+  index: -1
+aile papillon
+  rotate: false
+  xy: 2, 2
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+arbre 3
+  rotate: false
+  xy: 2, 1126
+  size: 1065, 920
+  orig: 1065, 920
+  offset: 0, 0
+  index: -1
+arbre1
+  rotate: false
+  xy: 2572, 1160
+  size: 474, 512
+  orig: 474, 512
+  offset: 0, 0
+  index: -1
+arbre2
+  rotate: false
+  xy: 946, 60
+  size: 252, 574
+  orig: 252, 574
+  offset: 0, 0
+  index: -1
+bateau1
+  rotate: false
+  xy: 2572, 1022
+  size: 466, 136
+  orig: 466, 136
+  offset: 0, 0
+  index: -1
+bateau2
+  rotate: false
+  xy: 2572, 884
+  size: 466, 136
+  orig: 466, 136
+  offset: 0, 0
+  index: -1
+branche
+  rotate: false
+  xy: 2, 28
+  size: 168, 23
+  orig: 168, 23
+  offset: 0, 0
+  index: -1
+branche2
+  rotate: false
+  xy: 3048, 1012
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+buisson
+  rotate: false
+  xy: 1069, 988
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+champignon
+  rotate: false
+  xy: 3896, 1858
+  size: 26, 10
+  orig: 26, 10
+  offset: 0, 0
+  index: -1
+feu
+  rotate: false
+  xy: 3040, 636
+  size: 512, 374
+  orig: 512, 374
+  offset: 0, 0
+  index: -1
+groupe arbre
+  rotate: false
+  xy: 3048, 1270
+  size: 512, 402
+  orig: 512, 402
+  offset: 0, 0
+  index: -1
+groupe arbre2
+  rotate: false
+  xy: 3562, 820
+  size: 512, 299
+  orig: 512, 299
+  offset: 0, 0
+  index: -1
+layer1
+  rotate: false
+  xy: 943, 1040
+  size: 67, 84
+  orig: 67, 84
+  offset: 0, 0
+  index: -1
+mer
+  rotate: false
+  xy: 2, 395
+  size: 942, 340
+  orig: 942, 340
+  offset: 0, 0
+  index: -1
+palmier1
+  rotate: false
+  xy: 3562, 1121
+  size: 356, 551
+  orig: 356, 551
+  offset: 0, 0
+  index: -1
+palmier2
+  rotate: false
+  xy: 3896, 1870
+  size: 94, 176
+  orig: 94, 176
+  offset: 0, 0
+  index: -1
+plage
+  rotate: false
+  xy: 2, 53
+  size: 942, 340
+  orig: 942, 340
+  offset: 0, 0
+  index: -1
+plage 2
+  rotate: false
+  xy: 1069, 1320
+  size: 942, 338
+  orig: 942, 338
+  offset: 0, 0
+  index: -1
+roche
+  rotate: false
+  xy: 3938, 774
+  size: 60, 44
+  orig: 60, 44
+  offset: 0, 0
+  index: -1
+sol
+  rotate: false
+  xy: 2008, 1674
+  size: 942, 372
+  orig: 942, 372
+  offset: 0, 0
+  index: -1
+sol2
+  rotate: false
+  xy: 2013, 938
+  size: 557, 734
+  orig: 557, 734
+  offset: 0, 0
+  index: -1
+sol3
+  rotate: false
+  xy: 2952, 1674
+  size: 942, 372
+  orig: 942, 372
+  offset: 0, 0
+  index: -1
+sol4
+  rotate: false
+  xy: 2, 737
+  size: 939, 387
+  orig: 939, 387
+  offset: 0, 0
+  index: -1
+sol4 - Copie
+  rotate: false
+  xy: 1069, 1660
+  size: 937, 386
+  orig: 937, 386
+  offset: 0, 0
+  index: -1
+solarbre2
+  rotate: false
+  xy: 1069, 1246
+  size: 634, 72
+  orig: 634, 72
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 1705, 1283
+  size: 107, 35
+  orig: 107, 35
+  offset: 0, 0
+  index: -1
+tronc
+  rotate: false
+  xy: 1583, 1210
+  size: 95, 34
+  orig: 95, 34
+  offset: 0, 0
+  index: -1

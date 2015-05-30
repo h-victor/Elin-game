@@ -7,15 +7,15 @@ import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class elin extends ApplicationAdapter {
 	
-	private gameStage stage2;
-	private menuStage stage;
+	private gameStage gameStage_;
+	private menuStage menuStage_;
 
 	public ResourceManager rs;
 
 	@Override
 	public void create () {
-		stage = new menuStage(this);
-		stage2 = new gameStage(rs);
+		menuStage_ = new menuStage(this);
+		gameStage_ = new gameStage(rs);
 	}
 	
 	@Override
@@ -23,12 +23,12 @@ public class elin extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		menuStage_.act(Gdx.graphics.getDeltaTime());
+		menuStage_.draw();
 		
 		if(menuScreenScript.startGameStage == true){ // if true, draw the MenuStage
-			stage2.act(Gdx.graphics.getDeltaTime());
-			stage2.draw();
+			gameStage_.act(Gdx.graphics.getDeltaTime());
+			gameStage_.draw();
 		}
 	}
 
