@@ -1,127 +1,127 @@
 
 pack.png
-size: 4096,4096
+size: 4096,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Goldprogress
   rotate: false
-  xy: 2150, 650
-  size: 30, 102
-  split: 9, 9, 9, 9
-  orig: 30, 102
+  xy: 3987, 959
+  size: 12, 41
+  split: 4, 4, 3, 4
+  orig: 12, 41
   offset: 0, 0
   index: -1
 arbre 3
   rotate: false
-  xy: 2, 1779
-  size: 2662, 2299
-  orig: 2662, 2299
+  xy: 2, 80
+  size: 1065, 920
+  orig: 1065, 920
   offset: 0, 0
   index: -1
 arbre1
   rotate: false
-  xy: 2, 497
-  size: 1184, 1280
-  orig: 1184, 1280
+  xy: 1069, 488
+  size: 474, 512
+  orig: 474, 512
   offset: 0, 0
   index: -1
 arbre2
   rotate: false
-  xy: 2470, 878
-  size: 422, 800
-  orig: 422, 800
+  xy: 1069, 2
+  size: 169, 320
+  orig: 169, 320
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 1031, 415
-  size: 80, 80
-  orig: 80, 80
+  xy: 3601, 806
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 branche2
   rotate: false
-  xy: 2, 2
-  size: 250, 85
-  orig: 250, 85
+  xy: 1545, 562
+  size: 100, 34
+  orig: 100, 34
   offset: 0, 0
   index: -1
 buisson
   rotate: false
-  xy: 2666, 1680
-  size: 1280, 640
-  orig: 1280, 640
+  xy: 3087, 744
+  size: 512, 256
+  orig: 512, 256
   offset: 0, 0
   index: -1
 champignon
   rotate: false
-  xy: 2470, 1752
-  size: 64, 25
-  orig: 64, 25
+  xy: 2, 68
+  size: 26, 10
+  orig: 26, 10
   offset: 0, 0
   index: -1
 feu
   rotate: false
-  xy: 1188, 842
-  size: 1280, 935
-  orig: 1280, 935
+  xy: 2059, 626
+  size: 512, 374
+  orig: 512, 374
   offset: 0, 0
   index: -1
 groupe arbre
   rotate: false
-  xy: 2666, 3072
-  size: 1280, 1006
-  orig: 1280, 1006
+  xy: 1545, 598
+  size: 512, 402
+  orig: 512, 402
   offset: 0, 0
   index: -1
 groupe arbre2
   rotate: false
-  xy: 2666, 2322
-  size: 1280, 748
-  orig: 1280, 748
+  xy: 2573, 701
+  size: 512, 299
+  orig: 512, 299
   offset: 0, 0
   index: -1
 item1
   rotate: false
-  xy: 3948, 3879
-  size: 93, 199
-  orig: 93, 199
+  xy: 1482, 406
+  size: 37, 80
+  orig: 37, 80
   offset: 0, 0
   index: -1
 paltform1
   rotate: false
-  xy: 2894, 1598
-  size: 230, 80
-  split: 112, 109, 49, 28
-  orig: 230, 80
+  xy: 3087, 710
+  size: 92, 32
+  split: 44, 44, 19, 12
+  orig: 92, 32
   offset: 0, 0
   index: -1
 paltform2
   rotate: false
-  xy: 2470, 846
-  size: 220, 30
-  orig: 220, 30
+  xy: 2059, 612
+  size: 88, 12
+  orig: 88, 12
   offset: 0, 0
   index: -1
 sol
   rotate: false
-  xy: 2, 89
-  size: 1027, 406
-  orig: 1027, 406
+  xy: 1069, 324
+  size: 411, 162
+  orig: 411, 162
   offset: 0, 0
   index: -1
 sol3
   rotate: false
-  xy: 1188, 440
-  size: 960, 400
-  orig: 960, 400
+  xy: 3601, 840
+  size: 384, 160
+  orig: 384, 160
   offset: 0, 0
   index: -1
 tronc
   rotate: false
-  xy: 2150, 754
-  size: 237, 86
-  orig: 237, 86
+  xy: 2573, 665
+  size: 95, 34
+  orig: 95, 34
   offset: 0, 0
   index: -1
