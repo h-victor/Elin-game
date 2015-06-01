@@ -109,8 +109,7 @@ public class PlayerController implements IScript {
 					isWalking = true;
 				}
 			}
-			else(stage.isLandscape()==false){ 
-				System.out.println("edefede");
+			else if(stage.isLandscape()== false){ 
 				if( Gdx.input.getX()>  stage.getCamera().viewportHeight/2){
 					item.setX(item.getX() + delta*moveSpeed);
 					item.setScaleX(1f);

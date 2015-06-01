@@ -1,15 +1,8 @@
 package com.projet.elin;
 
-import sun.management.Sensor;
-import android.*;
+import android.hardware.SensorManager;
+
 
 public class Kdedede {
-	Sensor smn;
-	
-	public Kdedede() {
-		getSystemService(Sensor.TYPE_GYROSCOPE);
-	};
-	
-	
-
+	SensorManager smn;
 }
