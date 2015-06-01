@@ -1,3 +1,4 @@
+
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
@@ -5,7 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 //import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
-import com.uwsoft.editor.renderer.actor.SpriteAnimation;
+//import com.uwsoft.editor.renderer.actor.SpriteAnimation;
 import com.uwsoft.editor.renderer.script.IScript;
 
 public class play implements IScript{
@@ -21,7 +22,7 @@ public class play implements IScript{
 	public Camera camera;
 
 	public int accelerometerX, accelerometerY, accelerometerZ;
-	public boolean flat, landscape, portrait;
+	public boolean smartphoneFlat, smartphoneLandscape, smartphonePortrait;
 	
 	public play(Camera camera/*ResourceManager rs, SceneVO sl*/){
 		//this.rs = rs;
@@ -127,5 +128,30 @@ public class play implements IScript{
 		accelerometerY = (int) Gdx.input.getAccelerometerY();
 		accelerometerZ = (int) Gdx.input.getAccelerometerZ();
 	
+		if(accelerometerX == 0 && accelerometerY == 0 && accelerometerZ == 10){
+			smartphoneFlat = true;
+			smartphoneLandscape = false;
+			smartphonePortrait = false;
+		}
+		else if(accelerometerX == 10 && accelerometerY == 0 && accelerometerZ == 0){
+			smartphoneFlat = false;
+			smartphoneLandscape = true;
+			smartphonePortrait = false;
+		}
+		else if(accelerometerX == 0 && accelerometerY == 10 && accelerometerZ == 0){
+			smartphoneFlat = false;
+			smartphoneLandscape = false;
+			smartphonePortrait = true;			
+		}
+		
+		if(smartphoneLandscape){
+			camera.rotate(camera.direction, 90f); 
+			camera.update();
+		}
+		else if(smartphonePortrait){
+			camera.rotate(camera.direction, -90f); 
+			camera.update();
+		}
+		
 	}
 }
