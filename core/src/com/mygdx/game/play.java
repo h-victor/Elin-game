@@ -19,6 +19,9 @@ public class play implements IScript{
 	//public ResourceManager rs;
 	//public SceneVO sl;
 	public Camera camera;
+
+	public int accelerometerX, accelerometerY, accelerometerZ;
+	public boolean flat, landscape, portrait;
 	
 	public play(Camera camera/*ResourceManager rs, SceneVO sl*/){
 		//this.rs = rs;
@@ -101,9 +104,9 @@ public class play implements IScript{
 		/* Set camera center to player */
 		camera.position.x =
 				item.getCompositeById("player").getX();
-		camera.posiion.y =
-                                item.getCompositeById("player").getY();
-                camera.update();
+		camera.position.y =
+				item.getCompositeById("player").getY();
+		camera.update();
 		
 		/* Rotate the camera to landscape to portrait */
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
@@ -117,8 +120,12 @@ public class play implements IScript{
 				camera.update();
 				landscape = true;
 			}
-		}		
+		}			
 	
-            }
-
+		/* Accelerometer to landscape to portrait */
+		accelerometerX = (int) Gdx.input.getAccelerometerX();
+		accelerometerY = (int) Gdx.input.getAccelerometerY();
+		accelerometerZ = (int) Gdx.input.getAccelerometerZ();
+	
+	}
 }
