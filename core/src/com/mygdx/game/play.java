@@ -1,12 +1,15 @@
+
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Camera;
-//import com.badlogic.gdx.math.Vector2;
+import com.mygdx.functionality.accelerometer;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
-import com.uwsoft.editor.renderer.actor.SpriteAnimation;
 import com.uwsoft.editor.renderer.script.IScript;
+//import com.badlogic.gdx.math.Vector2;
+//import com.uwsoft.editor.renderer.actor.SpriteAnimation;
 
 public class play implements IScript{
 	private CompositeItem item;
@@ -19,9 +22,10 @@ public class play implements IScript{
 	//public ResourceManager rs;
 	//public SceneVO sl;
 	public Camera camera;
+	
+	private accelerometer accelerometer_;
 
-	public int accelerometerX, accelerometerY, accelerometerZ;
-	public boolean flat, landscape, portrait;
+		String message = "no";
 	
 	public play(Camera camera/*ResourceManager rs, SceneVO sl*/){
 		//this.rs = rs;
@@ -34,6 +38,8 @@ public class play implements IScript{
 		this.item = item;
 		//animation = item.getCompositeById("player").getSpriteAnimationById("elin");//item.getSpriteAnimationById("elin");
 		//animation.pause();
+
+		/*accelerometer */accelerometer_ = new accelerometer(camera);
 	}
 	
 	@Override
@@ -121,11 +127,61 @@ public class play implements IScript{
 				landscape = true;
 			}
 		}			
+		
+		/* accelerometer rotation camera to landscape to portrait */
+		accelerometer_.getAccelerometerPosition();
+		accelerometer_.rotateCamera();
+
+		if(accelerometer_.returnSmartphoneNormal()){
+			item.getCompositeById("player").getBody().setTransform(
+					item.getCompositeById("player").getX() / 10,
+					item.getCompositeById("ground2").getY() / 10, 0);
+			Gdx.input.vibrate(1000);
+		}
+		
+		if(accelerometer_.returnSmartphoneinverse()){
+			item.getCompositeById("player").getBody().setTransform(
+					item.getCompositeById("player").getX() / 10,
+					item.getCompositeById("ground1").getY() / 10, 0);
+			Gdx.input.vibrate(1000);
+		}
+		
+		
+		
+		/* Text input */
+		//if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+		if(Gdx.input.justTouched()){
+			Gdx.input.getTextInput(new TextInputListener() {
+					@Override
+					public void input(String text){
+						message = text;
+						if(message.equals("aspirateur")){Gdx.input.vibrate(1000);}
+					}
+					
+					@Override
+					public void canceled(){
+						message = "no";
+					}
+				}, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
+		}
 	
-		/* Accelerometer to landscape to portrait */
-		accelerometerX = (int) Gdx.input.getAccelerometerX();
-		accelerometerY = (int) Gdx.input.getAccelerometerY();
-		accelerometerZ = (int) Gdx.input.getAccelerometerZ();
-	
+		/* raise a little the smartphone */
+		if(accelerometer_.raiseALittleSmartphone()){
+			if(plan2 == false){
+				item.getCompositeById("player").getBody().setTransform(
+					item.getCompositeById("player").getX() / 10,
+					item.getCompositeById("ground2").getY() / 10, 0);
+				plan2 = true;
+			}
+			else if(plan2 == true){
+				item.getCompositeById("player").getBody().setTransform(
+						item.getCompositeById("player").getX() / 10,
+						item.getCompositeById("ground1").getY() / 10, 0);
+				plan2 = false;
+			}		
+		}
+		
 	}
+	
+	
 }
