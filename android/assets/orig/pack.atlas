@@ -1,20 +1,270 @@
 
 pack.png
-size: 2048,256
+size: 4096,4096
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+aile papillon
+  rotate: false
+  xy: 3948, 1979
+  size: 50, 61
+  orig: 50, 61
+  offset: 0, 0
+  index: -1
+arbre 3
+  rotate: false
+  xy: 2, 1786
+  size: 2662, 2299
+  orig: 2662, 2299
+  offset: 0, 0
+  index: -1
+branche
+  rotate: false
+  xy: 2599, 1182
+  size: 421, 57
+  orig: 421, 57
+  offset: 0, 0
+  index: -1
+champignon
+  rotate: false
+  xy: 3948, 2042
+  size: 64, 25
+  orig: 64, 25
+  offset: 0, 0
+  index: -1
 cube
   rotate: false
-  xy: 875, 2
+  xy: 3642, 775
   size: 212, 208
   orig: 212, 208
   offset: 0, 0
   index: -1
+elin01
+  rotate: false
+  xy: 3948, 2069
+  size: 98, 178
+  orig: 98, 178
+  offset: 0, 0
+  index: -1
+feu
+  rotate: false
+  xy: 2360, 48
+  size: 1280, 935
+  orig: 1280, 935
+  offset: 0, 0
+  index: -1
+groupe arbre
+  rotate: false
+  xy: 2666, 1241
+  size: 1280, 1006
+  orig: 1280, 1006
+  offset: 0, 0
+  index: -1
+layer1
+  rotate: false
+  xy: 3642, 564
+  size: 167, 209
+  orig: 167, 209
+  offset: 0, 0
+  index: -1
+mer
+  rotate: false
+  xy: 2, 2
+  size: 2356, 850
+  orig: 2356, 850
+  offset: 0, 0
+  index: -1
+palmier2
+  rotate: false
+  xy: 2360, 1345
+  size: 236, 439
+  orig: 236, 439
+  offset: 0, 0
+  index: -1
+roche
+  rotate: false
+  xy: 3642, 453
+  size: 150, 109
+  orig: 150, 109
+  offset: 0, 0
+  index: -1
+sol
+  rotate: false
+  xy: 2, 854
+  size: 2356, 930
+  orig: 2356, 930
+  offset: 0, 0
+  index: -1
+sol2
+  rotate: false
+  xy: 2666, 2249
+  size: 1392, 1836
+  orig: 1392, 1836
+  offset: 0, 0
+  index: -1
+solarbre2
+  rotate: false
+  xy: 2360, 985
+  size: 1584, 181
+  orig: 1584, 181
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 2360, 1256
+  size: 268, 87
+  orig: 268, 87
+  offset: 0, 0
+  index: -1
+tronc
+  rotate: false
+  xy: 2360, 1168
+  size: 237, 86
+  orig: 237, 86
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 4096,4096
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arbre1
+  rotate: false
+  xy: 2352, 2783
+  size: 1184, 1280
+  orig: 1184, 1280
+  offset: 0, 0
+  index: -1
+arbre2
+  rotate: false
+  xy: 3253, 703
+  size: 630, 1436
+  orig: 630, 1436
+  offset: 0, 0
+  index: -1
+bateau1
+  rotate: false
+  xy: 2, 2
+  size: 1165, 341
+  orig: 1165, 341
+  offset: 0, 0
+  index: -1
+bateau2
+  rotate: false
+  xy: 1169, 2
+  size: 1165, 341
+  orig: 1165, 341
+  offset: 0, 0
+  index: -1
+branche2
+  rotate: false
+  xy: 2346, 2141
+  size: 1280, 640
+  orig: 1280, 640
+  offset: 0, 0
+  index: -1
 ground
   rotate: false
-  xy: 2, 136
+  xy: 2336, 7
   size: 871, 74
   orig: 871, 74
+  offset: 0, 0
+  index: -1
+palmier1
+  rotate: false
+  xy: 2360, 761
+  size: 891, 1378
+  orig: 891, 1378
+  offset: 0, 0
+  index: -1
+plage
+  rotate: false
+  xy: 2, 345
+  size: 2356, 850
+  orig: 2356, 850
+  offset: 0, 0
+  index: -1
+sol-1
+  rotate: false
+  xy: 3202, 367
+  size: 834, 334
+  orig: 834, 334
+  offset: 0, 0
+  index: -1
+sol-3
+  rotate: false
+  xy: 2360, 83
+  size: 838, 332
+  orig: 838, 332
+  offset: 0, 0
+  index: -1
+sol-4
+  rotate: false
+  xy: 2360, 417
+  size: 840, 342
+  orig: 840, 342
+  offset: 0, 0
+  index: -1
+sol3
+  rotate: false
+  xy: 2, 1197
+  size: 2356, 930
+  orig: 2356, 930
+  offset: 0, 0
+  index: -1
+sol4
+  rotate: false
+  xy: 2, 3095
+  size: 2348, 968
+  orig: 2348, 968
+  offset: 0, 0
+  index: -1
+sol4 - Copie
+  rotate: false
+  xy: 2, 2129
+  size: 2342, 964
+  orig: 2342, 964
+  offset: 0, 0
+  index: -1
+
+pack3.png
+size: 4096,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+GUI2
+  rotate: false
+  xy: 1284, 35
+  size: 955, 715
+  orig: 955, 715
+  offset: 0, 0
+  index: -1
+buisson
+  rotate: false
+  xy: 2360, 958
+  size: 1280, 640
+  orig: 1280, 640
+  offset: 0, 0
+  index: -1
+groupe arbre2
+  rotate: false
+  xy: 2, 2
+  size: 1280, 748
+  orig: 1280, 748
+  offset: 0, 0
+  index: -1
+plage 2
+  rotate: false
+  xy: 2, 752
+  size: 2356, 846
+  orig: 2356, 846
+  offset: 0, 0
+  index: -1
+sol-2
+  rotate: false
+  xy: 2360, 95
+  size: 657, 861
+  orig: 657, 861
   offset: 0, 0
   index: -1

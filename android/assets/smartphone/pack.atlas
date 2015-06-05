@@ -76,7 +76,7 @@ buisson
   index: -1
 champignon
   rotate: false
-  xy: 3896, 1858
+  xy: 1281, 976
   size: 26, 10
   orig: 26, 10
   offset: 0, 0
@@ -104,7 +104,7 @@ groupe arbre2
   index: -1
 layer1
   rotate: false
-  xy: 943, 1040
+  xy: 3938, 734
   size: 67, 84
   orig: 67, 84
   offset: 0, 0
@@ -146,7 +146,7 @@ plage 2
   index: -1
 roche
   rotate: false
-  xy: 3938, 774
+  xy: 946, 667
   size: 60, 44
   orig: 60, 44
   offset: 0, 0
@@ -156,6 +156,34 @@ sol
   xy: 2008, 1674
   size: 942, 372
   orig: 942, 372
+  offset: 0, 0
+  index: -1
+sol-1
+  rotate: false
+  xy: 946, 713
+  size: 334, 134
+  orig: 334, 134
+  offset: 0, 0
+  index: -1
+sol-2
+  rotate: false
+  xy: 1583, 900
+  size: 263, 344
+  orig: 263, 344
+  offset: 0, 0
+  index: -1
+sol-3
+  rotate: false
+  xy: 1848, 803
+  size: 335, 133
+  orig: 335, 133
+  offset: 0, 0
+  index: -1
+sol-4
+  rotate: false
+  xy: 943, 849
+  size: 336, 137
+  orig: 336, 137
   offset: 0, 0
   index: -1
 sol2
@@ -202,7 +230,7 @@ start
   index: -1
 tronc
   rotate: false
-  xy: 1583, 1210
+  xy: 943, 1090
   size: 95, 34
   orig: 95, 34
   offset: 0, 0

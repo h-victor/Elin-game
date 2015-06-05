@@ -14,8 +14,8 @@ import com.uwsoft.editor.renderer.script.IScript;
 public class play implements IScript{
 	private CompositeItem item;
 	//private SpriteAnimation animation;
-    //private float verticalSpeed = 0;
-    
+	//private float verticalSpeed = 0;
+
 	public boolean plan2 = false; // boolean, is true when player in the second plan
 	public boolean landscape = true; // boolean, is true when camera is in landscape mode
 
@@ -62,30 +62,9 @@ public class play implements IScript{
 			item.getCompositeById("player").setScaleX(-1);
 			//animation.start();
 		}
-		
-		/* Touch-screen */
-		if(Gdx.input.isTouched()){
-			if(Gdx.input.getX() > camera.viewportWidth / 2){
-				item.getCompositeById("player").getBody().applyLinearImpulse(0.5f, 0, item.getX(), item.getY(), true);
-				item.getCompositeById("player").setScaleX(1);
-				//animation.start();
-			}
-			else if(Gdx.input.getX() < camera.viewportWidth / 2){
-				item.getCompositeById("player").getBody().applyLinearImpulse(-0.5f, 0, item.getX(), item.getY(), true);
-				item.getCompositeById("player").setOrigin(0);
-				item.getCompositeById("player").setScaleX(-1);
-				//animation.start();
-			}
-		}
-		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){ //isKeyPressed(Input.Keys.SPACE)){
+			
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
 			if(plan2 == false){
-				/*item.getCompositeById("player").getSpriteAnimationById("elin").setY( //.getBody().setTransform(0, 20);
-						item.getCompositeById("ground2").getY() //+
-						//item.getCompositeById("ground2").getHeight() / 2
-						//, 0
-						);
-				*/
 				item.getCompositeById("player").getBody().setTransform(
 					item.getCompositeById("player").getX() / 10,
 					item.getCompositeById("ground2").getY() / 10, 0
@@ -94,12 +73,6 @@ public class play implements IScript{
 				plan2 = true;
 			}
 			else if(plan2 == true){
-				/*item.getCompositeById("player").getSpriteAnimationById("elin").setY( //.getBody().setTransform(0, 20);
-						item.getCompositeById("ground1").getY() //+
-						//item.getCompositeById("ground2").getHeight() / 2
-						//, 0
-						);
-				*/
 				item.getCompositeById("player").getBody().setTransform(
 						item.getCompositeById("player").getX() / 10,
 						item.getCompositeById("ground1").getY() / 10, 0);
@@ -118,11 +91,13 @@ public class play implements IScript{
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
 			if(landscape == true){
 				camera.rotate(camera.direction, 90f); 
+					//camera.position.y = item.getCompositeById("player").getY();
 				camera.update();
 				landscape = false;
 			}
 			else if(landscape == false){
 				camera.rotate(camera.direction, -90f); 
+					//camera.position.y = item.getCompositeById("player").getY()+500;
 				camera.update();
 				landscape = true;
 			}
@@ -155,7 +130,7 @@ public class play implements IScript{
 					@Override
 					public void input(String text){
 						message = text;
-						if(message.equals("aspirateur")){Gdx.input.vibrate(1000);}
+						if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
 					}
 					
 					@Override
@@ -169,8 +144,8 @@ public class play implements IScript{
 		if(accelerometer_.raiseALittleSmartphone()){
 			if(plan2 == false){
 				item.getCompositeById("player").getBody().setTransform(
-					item.getCompositeById("player").getX() / 10,
-					item.getCompositeById("ground2").getY() / 10, 0);
+						item.getCompositeById("player").getX() / 10,
+						item.getCompositeById("ground2").getY() / 10, 0);
 				plan2 = true;
 			}
 			else if(plan2 == true){
@@ -180,7 +155,31 @@ public class play implements IScript{
 				plan2 = false;
 			}		
 		}
+
+
+        
+        //zoom et dezoom
+/*    	if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
+    		if(Gdx.input.isKeyJustPressed(Input.Keys.PLUS)){
+			    camera.zoom -= 0.1f; 
+			    camera.update();
+		    }
+		    else if(Gdx.input.isKeyJustPressed(Input.Keys.MINUS)){
+			    camera.zoom +=0.1f; 
+			    camera.update();
+    		}
+        }
+*/
 		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.L)){
+			item.setLayerVisibilty("pont", true);
+			item.setLayerLock("pont", false);
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.B)){
+			item.setLayerVisibilty("pont", true);
+			item.getItemsByLayerName("pont").get(0).getBody().setActive(false);
+		}
+
 	}
 	
 	
