@@ -4,7 +4,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.functionality.accelerometer;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
@@ -26,8 +25,7 @@ public class GameStageScript implements IScript{
 	private accelerometer accelerometer_;
 	String message = "no";
 	private GameStage stage;
-	public boolean isPast;
-
+	
 	public GameStageScript(GameStage stage){
 		this.stage= stage;
 		this.camera=(OrthographicCamera) stage.getCamera();
@@ -46,59 +44,17 @@ public class GameStageScript implements IScript{
 
 	@Override
 	public void act(float delta) {
-		//		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-		//			//item.getCompositeById("player").getBody().applyForceToCenter(20, 0, false);
-		//			item.getCompositeById("player").getBody().applyLinearImpulse(1, 0, item.getX(), item.getY(), true);
-		//			item.getCompositeById("player").setScaleX(1);
-		//			//animation.start();
-		//		}
-		//		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) ){
-		//			//item.getCompositeById("player").getBody().applyForceToCenter(-20, 0, false);
-		//			item.getCompositeById("player").getBody().applyLinearImpulse(-1, 0, item.getX(), item.getY(), true);
-		//			item.getCompositeById("player").setOrigin(0);
-		//			item.getCompositeById("player").setScaleX(-1);
-		//			//animation.start();
-		//		}
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-			if(plan2 == false){
-				item.getCompositeById("elin").setScale(.5f);
-				item.getCompositeById("elin").setPosition(
-						item.getCompositeById("elin").getX(),
-						item.getCompositeById("ground2").getTop() );
+		camera.position.x = item.getCompositeById("elin").getX();
 
-				plan2 = true;
-			}
-			else if(plan2 == true){
-				item.getCompositeById("elin").setScale(1f);
-				item.getCompositeById("elin").setPosition(
-						item.getCompositeById("elin").getX(),
-						item.getCompositeById("ground1").getTop());
-				plan2 = false;
-			}						
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)||accelerometer_.raiseALittleSmartphone()){
+			changementPlan();						
 		}
 
-		/* Set camera center to player */
-		camera.position.x =
-				item.getCompositeById("elin").getX();
-		camera.position.y =
-				item.getCompositeById("elin").getY();
-		camera.update();
 
-		/* Rotate the camera to landscape to portrait */
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-			if(landscape == true){
-				camera.rotate(camera.direction, 90f); 
-				//camera.position.y = item.getCompositeById("player").getY();
-				camera.update();
-				landscape = false;
-			}
-			else if(landscape == false){
-				camera.rotate(camera.direction, -90f); 
-				//camera.position.y = item.getCompositeById("player").getY()+500;
-				camera.update();
-				landscape = true;
-			}
+			/* Rotate the camera to landscape to portrait */
+			cameraRotation();
 		}			
 
 		/* accelerometer rotation camera to landscape to portrait */
@@ -122,37 +78,11 @@ public class GameStageScript implements IScript{
 
 
 		/* Text input */
-		//if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
-		if(Gdx.input.justTouched()){
-			Gdx.input.getTextInput(new TextInputListener() {
-				@Override
-				public void input(String text){
-					message = text;
-					if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
-				}
-
-				@Override
-				public void canceled(){
-					message = "no";
-				}
-			}, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
+		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+			showEnigma();
 		}
 
-		/* raise a little the smartphone */
-		if(accelerometer_.raiseALittleSmartphone()){
-			if(plan2 == false){
-				item.getCompositeById("elin").getBody().setTransform(
-						item.getCompositeById("elin").getX() / 10,
-						item.getCompositeById("ground2").getY() / 10, 0);
-				plan2 = true;
-			}
-			else if(plan2 == true){
-				item.getCompositeById("elin").getBody().setTransform(
-						item.getCompositeById("elin").getX() / 10,
-						item.getCompositeById("ground1").getY() / 10, 0);
-				plan2 = false;
-			}		
-		}
+
 
 
 
@@ -176,11 +106,54 @@ public class GameStageScript implements IScript{
 			item.setLayerVisibilty("pont", true);
 			item.getItemsByLayerName("pont").get(0).getBody().setActive(false);
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
-			if(isPast==false)
-				stage.goToPast();
-			else if(isPast==true)
-				stage.returnToPresent();
+		
+	}
+
+	private void showEnigma() {
+		Gdx.input.getTextInput(new TextInputListener() {
+			@Override
+			public void input(String text){
+				message = text;
+				if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
+			}
+
+			@Override
+			public void canceled(){
+				message = "no";
+			}
+		}, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
+	}
+
+	private void cameraRotation() {
+		if(landscape == true){
+			camera.rotate(camera.direction, 90f); 
+			//camera.position.y = item.getCompositeById("player").getY();
+			camera.update();
+			landscape = false;
+		}
+		else if(landscape == false){
+			camera.rotate(camera.direction, -90f); 
+			//camera.position.y = item.getCompositeById("player").getY()+500;
+			camera.update();
+			landscape = true;
+		}
+	}
+
+	private void changementPlan() {
+		if(plan2 == false){
+			item.getCompositeById("elin").setScale(.5f);
+			item.getCompositeById("elin").setPosition(
+					item.getCompositeById("elin").getX(),
+					item.getCompositeById("ground2").getTop() );
+
+			plan2 = true;
+		}
+		else if(plan2 == true){
+			item.getCompositeById("elin").setScale(1f);
+			item.getCompositeById("elin").setPosition(
+					item.getCompositeById("elin").getX(),
+					item.getCompositeById("ground1").getTop());
+			plan2 = false;
 		}
 	}
 

@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Array;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
 import com.uwsoft.editor.renderer.actor.ImageItem;
@@ -36,7 +34,7 @@ public class MartenScript implements IScript {
 	protected boolean isAttacking = false;
 	private boolean isFollowingElin;
 	private boolean wasWalking;
-	private int HP;
+	public int HP;
 
 	public MartenScript(GameStage gameStage) {
 		this.stage=gameStage;

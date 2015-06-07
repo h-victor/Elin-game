@@ -24,14 +24,16 @@ public class MenuStageScript implements IScript {
 		button = menuSceneActors.getCompositeById("button");
 		playButtonScript = new SimpleButtonScript();
 		playButtonScript.init(button);
+		
 	}
 
 	@Override
 	public void act(float delta) {
 		playButtonScript.act(delta);
-		
 		if (playButtonScript.isDown()){
 			startGameStage = true; 
+
+			
 			dispose();// clear the MenuStage
 		}
 	}
