@@ -63,9 +63,12 @@ public class MartenScript implements IScript {
 	@Override
 	public void act(float delta) {
 		followElin(delta);
-		//attack();
-		//crossBrigde();
-		//climbLadder(delta);
+		if(Gdx.input.isKeyPressed(Input.Keys.A)) 
+			attack();
+		if(Gdx.input.isKeyPressed(Input.Keys.B)) 
+			crossBrigde();
+		if(Gdx.input.isKeyJustPressed(Input.Keys.O))
+			climbLadder(delta);
 		verticalSpeed += gravity*delta;
 		checkForCollisions();
 		item.setY(item.getY() + verticalSpeed*delta);
@@ -74,38 +77,39 @@ public class MartenScript implements IScript {
 	}
 
 	private void climbLadder(float delta) {
-		
+
 		if(item.getRight()<elin.getX()) {
 			isWalking=true;
-			item.addAction(Actions.moveTo(elin.getX()-item.getWidth(), elin.getY(),1f));
-			isWalking=false;
-			item.addAction(Actions.run(new Runnable(){
-
-				@Override
-				public void run() {
-				setSpriterAnimationByName("debut monte");
-				}
-				
-			}));
-			item.addAction(Actions.delay(1f));
-			item.addAction(Actions.run(new Runnable(){
-
-				@Override
-				public void run() {
-				setSpriterAnimationByName("monter");
-				}
-				
-			}));
-			item.addAction(Actions.moveBy(0,elin.getHeight(),2f));
-			item.setScaleX(1f);
-			isWalking = true;
-		}
+			item.addAction(Actions.moveTo(elin.getX()-item.getWidth(), elin.getY()));
+			item.setX(elin.getX()-item.getWidth());
+			isWalking=false;}
 		if(item.getX()>elin.getRight()) {
-			item.setX(item.getX()-delta*moveSpeed);
-			item.setScaleX(-1f);
-			isWalking = true;
+			isWalking=true;
+			item.addAction(Actions.moveTo(elin.getRight(), elin.getY()));
+			item.setX(elin.getRight());
+			isWalking=false;
 		}
-
+		item.addAction(Actions.sequence(Actions.run(new Runnable(){
+			@Override
+			public void run() {
+				setSpriterAnimationByName("debut monte");
+			}
+		}),Actions.delay(.6f),Actions.run(new Runnable(){
+			@Override
+			public void run() {
+				setSpriterAnimationByName("monte");
+			}
+		}),Actions.moveTo(item.getX(),item.getTop()+100f,2f),Actions.run(new Runnable(){
+			@Override
+			public void run() {
+				setSpriterAnimationByName("fin monte");
+			}
+		}),Actions.delay(.6f),Actions.run(new Runnable(){
+			@Override
+			public void run() {
+				setSpriterAnimationByName("debout");
+			}
+		})));
 	}
 
 	private void crossBrigde() {
@@ -113,16 +117,25 @@ public class MartenScript implements IScript {
 		if(item.getRight()<elin.getX()) {
 			isWalking=true;
 			item.addAction(Actions.moveTo(elin.getX()-item.getWidth(), elin.getY(),1f));
+			item.addAction(Actions.moveTo(elin.getRight(), elin.getY(),1f));
+			item.setX(elin.getRight());
+			isWalking=false;
+		}
+		if(item.getX()>elin.getRight()) {
+			isWalking=true;
+			item.addAction(Actions.moveTo(elin.getRight(), elin.getY(),1f));
+			item.addAction(Actions.moveTo(elin.getX()-item.getWidth(), elin.getY(),1f));
+			item.setX(elin.getX()-item.getWidth());
 			isWalking=false;
 		}
 
 	}
 
 	private void attack() {
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-			isAttacking=true;
-			setSpriterAnimationByName("attaque");
-		}
+
+		isAttacking=true;
+		setSpriterAnimationByName("attaque");
+
 
 	}
 
@@ -136,16 +149,16 @@ public class MartenScript implements IScript {
 		wasWalking = isWalking;
 		isWalking = false;
 		//if(isFollowingElin){
-			if(item.getRight()<elin.getX()-50) {
-				item.setX(item.getX()+delta*moveSpeed);
-				item.setScaleX(1f);
-				isWalking = true;
-			}
-			if(item.getX()>elin.getRight()+50) {
-				item.setX(item.getX()-delta*moveSpeed);
-				item.setScaleX(-1f);
-				isWalking = true;
-			}
+		if(item.getRight()<elin.getX()-50) {
+			item.setX(item.getX()+delta*moveSpeed);
+			item.setScaleX(1f);
+			isWalking = true;
+		}
+		if(item.getX()>elin.getRight()+50) {
+			item.setX(item.getX()-delta*moveSpeed);
+			item.setScaleX(-1f);
+			isWalking = true;
+		}
 		//}
 		walkingAnimation();
 	}
@@ -181,30 +194,27 @@ public class MartenScript implements IScript {
 		stage.getWorld().rayCast(new RayCastCallback() {
 			public float reportRayFixture(Fixture fixture, Vector2 point,Vector2 normal, float fraction) {
 				for(IBaseItem item: stage.sceneLoader.sceneActor.getItems()) {
-		            if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
-		            	if(((CompositeItem)item).getX()*PhysicsBodyLoader.SCALE<=point.x &&((CompositeItem)item).getRight()*PhysicsBodyLoader.SCALE>=point.x){
+					if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
+						if(((CompositeItem)item).getX()*PhysicsBodyLoader.SCALE<=point.x &&((CompositeItem)item).getRight()*PhysicsBodyLoader.SCALE>=point.x){
 							if(!isAttacking){
 								hurt();
-							System.out.println("toucher monstre");
+								System.out.println("toucher monstre");
 							}
 							if(isAttacking){
 								((CompositeItem)item).setVisible(false);
 								((CompositeItem)item).getBody().setActive(false);
 							}
+
 						}
-		            }
-				}
-				stopFollowElin();
+					}
+				}  stopFollowElin();
 				if(item.getScaleX()==1){
 					item.setX(point.x/PhysicsBodyLoader.SCALE-spriterActor.getRight());
 				}
 				else if(item.getScaleX()==-1){
 					item.setX(point.x/PhysicsBodyLoader.SCALE-spriterActor.getX());
 				}
-
-
 				return 0;
-
 			}
 		}, pointA, pointB);
 	}
@@ -233,11 +243,11 @@ public class MartenScript implements IScript {
 			@Override
 			public void run() {
 				item.setPosition(initialCoordinates.x, initialCoordinates.y);
-				
+
 			}
-			
+
 		}));
-		
+
 	}
 
 	private void setSpriterAnimationByName(String string) {

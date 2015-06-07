@@ -67,37 +67,28 @@ public class GameStage extends Overlap2DStage{
 
 		super.act(delta);
 		if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
-
-			if(isPast==false){
+			if(isPast==false)
 				goToPast();
-				isPast=true;
-			}
-			else if(isPast==true){
+			else if(isPast==true)
 				returnToPresent();
-				isPast=false;
-			}
-
 		}
 	}
 
 
 	/* Loading another scene -> go back in time */
 	public void goToPast(){
-		Save.presentSave=sceneLoader;
-		System.out.println("retourne dans le passé");
-		System.out.println(Save.presentSave.getRoot());
-		sceneLoader.getRoot().clear();
+		clear();
 		sceneLoader.loadScene("PastScene");
+		elin.addScript(elinScript);
+		marten.addScript(martenScript);
 		addActor(sceneLoader.getRoot());
 		addActor(elin);
 		addActor(marten);
-		//sceneLoader.sceneActor.addScript(gameStageScript);
+		isPast=true;
 	}
 
 
 	public void returnToPresent() {
-		System.out.println("retourne dans le present");
-		System.out.println(Save.presentSave.getRoot());
 		sceneLoader.getRoot().clear();
 		//sceneLoader.loadScene("MainScene");
 		Save.presentSave.getRoot().removeActor(presentSave.getRoot().getCompositeById("elin"));
