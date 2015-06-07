@@ -2,13 +2,13 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.elin;
+import com.mygdx.game.ElinApplication;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 800;
-		config.height = 480;
-		new LwjglApplication(new elin(), config);
+		config.width = 1080;
+		config.height = 720;
+		new LwjglApplication(new ElinApplication(), config);
 	}
 }

@@ -1,0 +1,76 @@
+
+attack.png
+size: 2048,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack01
+  rotate: false
+  xy: 2, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack02
+  rotate: false
+  xy: 119, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack03
+  rotate: false
+  xy: 236, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack04
+  rotate: false
+  xy: 353, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack05
+  rotate: false
+  xy: 470, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack06
+  rotate: false
+  xy: 587, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack07
+  rotate: false
+  xy: 704, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack08
+  rotate: false
+  xy: 821, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack09
+  rotate: false
+  xy: 938, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1
+attack10
+  rotate: false
+  xy: 1055, 2
+  size: 115, 104
+  orig: 115, 104
+  offset: 0, 0
+  index: -1

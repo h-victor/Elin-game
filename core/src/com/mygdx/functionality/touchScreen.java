@@ -24,38 +24,38 @@ public class touchScreen {
 		spriterActor = item.getSpriterActorById("animation");
 	}
 	
-	public void moveMarten(){
+	public void moveElin(){
 		/* Touch-screen */
 		if(Gdx.input.isTouched()){
 			if(Gdx.input.getX() > camera.viewportWidth / 2){
-				item.getCompositeById("marten").getBody().applyLinearImpulse(0.5f, 0, item.getX(), item.getY(), true);
-				item.getCompositeById("marten").setScaleX(1);
+				item.getCompositeById("Elin").getBody().applyLinearImpulse(0.5f, 0, item.getX(), item.getY(), true);
+				item.getCompositeById("Elin").setScaleX(1);
 				//animation.start();
 			}
 			else if(Gdx.input.getX() < camera.viewportWidth / 2){
-				item.getCompositeById("marten").getBody().applyLinearImpulse(-0.5f, 0, item.getX(), item.getY(), true);
-				item.getCompositeById("marten").setOrigin(0);
-				item.getCompositeById("marten").setScaleX(-1);
+				item.getCompositeById("Elin").getBody().applyLinearImpulse(-0.5f, 0, item.getX(), item.getY(), true);
+				item.getCompositeById("Elin").setOrigin(0);
+				item.getCompositeById("Elin").setScaleX(-1);
 				//animation.start();
 			}
 		}
 	}
 	
-	public void elinFollowMarten(){ // based on Overlap2D tutorial
+	public void martenFollowElin(){ // based on Overlap2D tutorial
 		boolean wasWalking = isWalking;
 
 		isWalking = false;
-		if(item.getCompositeById("elin").getX()<item.getCompositeById("marten").getX()+150) {
+		if(item.getCompositeById("Marten").getX()<item.getCompositeById("Elin").getX()+150) {
 			// Go right
-			item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() + delta*moveSpeed);
-			item.getCompositeById("elin").setScaleX(1f);
+			item.getCompositeById("Marten").setX(item.getCompositeById("Marten").getX() + delta*moveSpeed);
+			item.getCompositeById("Marten").setScaleX(1f);
 			isWalking = true;
 			//spriterActor.setAnimation(spriterActor.getAnimations().indexOf("marche"));
 		}
-		if(item.getCompositeById("elin").getX()>item.getCompositeById("marten").getX()-150) {
+		if(item.getCompositeById("Marten").getX()>item.getCompositeById("Elin").getX()-150) {
 			// Go left
-			item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() - delta*moveSpeed);
-			item.getCompositeById("elin").setScaleX(-1f);
+			item.getCompositeById("Marten").setX(item.getCompositeById("Marten").getX() - delta*moveSpeed);
+			item.getCompositeById("Marten").setScaleX(-1f);
 			isWalking = true;
 			//spriterActor.setAnimation(spriterActor.getAnimations().indexOf("marche"));
 		}
@@ -74,7 +74,7 @@ public class touchScreen {
 		}
 		
 		// set the position
-		item.getCompositeById("elin").setY(item.getCompositeById("elin").getY() + verticalSpeed*delta);
+		item.getCompositeById("Marten").setY(item.getCompositeById("Marten").getY() + verticalSpeed*delta);
 
 	}
 }

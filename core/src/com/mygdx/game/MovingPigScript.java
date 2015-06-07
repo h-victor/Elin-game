@@ -5,7 +5,7 @@ import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.physics.PhysicsBodyLoader;
 import com.uwsoft.editor.renderer.script.IScript;
 
-public class movingPig implements IScript {
+public class MovingPigScript implements IScript {
 	
 	private CompositeItem item;
     private float originalPosX;
