@@ -96,6 +96,7 @@ public class GameStage extends Overlap2DStage{
 		addActor(Save.presentSave.getRoot());
 		addActor(elin);
 		addActor(marten);
+		
 	}        
 
 

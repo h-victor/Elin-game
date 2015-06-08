@@ -32,7 +32,7 @@ public class MartenScript implements IScript {
 	private int verticalSpeed;
 	private boolean isWalking;
 	protected boolean isAttacking = false;
-	private boolean isFollowingElin;
+	private boolean isFollowingElin=true;
 	private boolean wasWalking;
 	public int HP;
 
@@ -110,6 +110,7 @@ public class MartenScript implements IScript {
 				setSpriterAnimationByName("debout");
 			}
 		})));
+		item.setPosition(item.getX(),item.getTop()+100f);
 	}
 
 	private void crossBrigde() {
