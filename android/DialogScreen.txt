@@ -1,0 +1,5 @@
+#beginDialog
+(Martin et Elin se regarde)
+Martin: Hello
+Elin: Hello
+#endDialog

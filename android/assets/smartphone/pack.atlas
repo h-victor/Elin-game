@@ -4,16 +4,23 @@ size: 4096,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+GUI
+  rotate: false
+  xy: 2013, 1472
+  size: 960, 200
+  orig: 960, 200
+  offset: 0, 0
+  index: -1
 GUI2
   rotate: false
-  xy: 3554, 532
+  xy: 2527, 1184
   size: 382, 286
   orig: 382, 286
   offset: 0, 0
   index: -1
 aile papillon
   rotate: false
-  xy: 2, 2
+  xy: 440, 2
   size: 20, 24
   orig: 20, 24
   offset: 0, 0
@@ -27,42 +34,49 @@ arbre 3
   index: -1
 arbre1
   rotate: false
-  xy: 2572, 1160
+  xy: 946, 474
   size: 474, 512
   orig: 474, 512
   offset: 0, 0
   index: -1
 arbre2
   rotate: false
-  xy: 946, 60
+  xy: 1460, 66
   size: 252, 574
   orig: 252, 574
   offset: 0, 0
   index: -1
 bateau1
   rotate: false
-  xy: 2572, 1022
+  xy: 1687, 775
   size: 466, 136
   orig: 466, 136
   offset: 0, 0
   index: -1
 bateau2
   rotate: false
-  xy: 2572, 884
+  xy: 1714, 637
   size: 466, 136
   orig: 466, 136
   offset: 0, 0
   index: -1
+blur0
+  rotate: false
+  xy: 1813, 1214
+  size: 97, 104
+  orig: 97, 104
+  offset: 0, 0
+  index: -1
 branche
   rotate: false
-  xy: 2, 28
+  xy: 440, 28
   size: 168, 23
   orig: 168, 23
   offset: 0, 0
   index: -1
 branche2
   rotate: false
-  xy: 3048, 1012
+  xy: 2013, 1214
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
@@ -76,35 +90,56 @@ buisson
   index: -1
 champignon
   rotate: false
-  xy: 1281, 976
+  xy: 2, 2
   size: 26, 10
   orig: 26, 10
   offset: 0, 0
   index: -1
+cube
+  rotate: false
+  xy: 1705, 1214
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+elin01
+  rotate: false
+  xy: 2911, 1381
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
 feu
   rotate: false
-  xy: 3040, 636
+  xy: 3534, 745
   size: 512, 374
   orig: 512, 374
   offset: 0, 0
   index: -1
+ground
+  rotate: false
+  xy: 2, 14
+  size: 436, 37
+  orig: 436, 37
+  offset: 0, 0
+  index: -1
 groupe arbre
   rotate: false
-  xy: 3048, 1270
+  xy: 946, 70
   size: 512, 402
   orig: 512, 402
   offset: 0, 0
   index: -1
 groupe arbre2
   rotate: false
-  xy: 3562, 820
+  xy: 1687, 913
   size: 512, 299
   orig: 512, 299
   offset: 0, 0
   index: -1
 layer1
   rotate: false
-  xy: 3938, 734
+  xy: 943, 1040
   size: 67, 84
   orig: 67, 84
   offset: 0, 0
@@ -118,7 +153,7 @@ mer
   index: -1
 palmier1
   rotate: false
-  xy: 3562, 1121
+  xy: 3534, 1121
   size: 356, 551
   orig: 356, 551
   offset: 0, 0
@@ -146,7 +181,7 @@ plage 2
   index: -1
 roche
   rotate: false
-  xy: 946, 667
+  xy: 3896, 1824
   size: 60, 44
   orig: 60, 44
   offset: 0, 0
@@ -160,35 +195,35 @@ sol
   index: -1
 sol-1
   rotate: false
-  xy: 946, 713
+  xy: 1714, 362
   size: 334, 134
   orig: 334, 134
   offset: 0, 0
   index: -1
 sol-2
   rotate: false
-  xy: 1583, 900
+  xy: 1422, 642
   size: 263, 344
   orig: 263, 344
   offset: 0, 0
   index: -1
 sol-3
   rotate: false
-  xy: 1848, 803
+  xy: 1714, 227
   size: 335, 133
   orig: 335, 133
   offset: 0, 0
   index: -1
 sol-4
   rotate: false
-  xy: 943, 849
+  xy: 1714, 498
   size: 336, 137
   orig: 336, 137
   offset: 0, 0
   index: -1
 sol2
   rotate: false
-  xy: 2013, 938
+  xy: 2975, 938
   size: 557, 734
   orig: 557, 734
   offset: 0, 0
@@ -223,14 +258,14 @@ solarbre2
   index: -1
 start
   rotate: false
-  xy: 1705, 1283
+  xy: 2201, 1177
   size: 107, 35
   orig: 107, 35
   offset: 0, 0
   index: -1
 tronc
   rotate: false
-  xy: 943, 1090
+  xy: 3992, 2012
   size: 95, 34
   orig: 95, 34
   offset: 0, 0

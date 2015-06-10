@@ -1,4 +1,3 @@
-
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
@@ -6,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.functionality.accelerometer;
+import com.mygdx.functionality.touchScreen;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
@@ -13,8 +13,6 @@ import com.uwsoft.editor.renderer.script.IScript;
 /*
  * contient la logique de la scene : changer de plan, tourner la camera, remonter dans le temps, dialogue
  */
-
-
 
 
 public class GameStageScript implements IScript{
@@ -29,12 +27,24 @@ public class GameStageScript implements IScript{
 	public GameStageScript(GameStage stage){
 		this.stage= stage;
 		this.camera=(OrthographicCamera) stage.getCamera();
+
 	}
 
 	@Override
 	public void init(CompositeItem item) {
 		this.item = item;
 		accelerometer_ = new accelerometer(camera);
+		
+		touchScreen touchScreen_ = new touchScreen(camera, item);
+		touchScreen_.elinFollowMarten();
+		
+
+//		/*Dialog*/ dialog = new Dialog(this.item);
+//		dialog.readFile();
+//		dialog.readLine("#beginIntroduction", "endIntroduction");
+//		dialog.readLine("#beginCalin", "#endCalin");
+//		item.essentials.rm.getSceneVO("DialogScreen").composite.sLabels.get(0).text = "hello";
+
 	}
 
 	@Override
@@ -44,7 +54,7 @@ public class GameStageScript implements IScript{
 
 	@Override
 	public void act(float delta) {
-
+		
 		camera.position.x = item.getCompositeById("elin").getX();
 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)||accelerometer_.raiseALittleSmartphone()){
@@ -156,8 +166,5 @@ public class GameStageScript implements IScript{
 			plan2 = false;
 		}
 	}
-
-
-
-
+	
 }
