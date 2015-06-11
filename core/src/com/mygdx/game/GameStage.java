@@ -26,6 +26,7 @@ public class GameStage extends Overlap2DStage{
 	private ElinScript elinScript;
 	private GameStageScript gameStageScript;
 	private boolean isPast = false;
+	public int itemNb;
 
 
 	public GameStage(ResourceManager resourceManager){
