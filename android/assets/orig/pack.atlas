@@ -20,7 +20,7 @@ GUI2
   index: -1
 aile papillon
   rotate: false
-  xy: 3948, 1979
+  xy: 3948, 1645
   size: 50, 61
   orig: 50, 61
   offset: 0, 0
@@ -55,7 +55,7 @@ branche
   index: -1
 champignon
   rotate: false
-  xy: 3948, 2042
+  xy: 3948, 1708
   size: 64, 25
   orig: 64, 25
   offset: 0, 0
@@ -67,9 +67,16 @@ cube
   orig: 212, 208
   offset: 0, 0
   index: -1
+echelle018
+  rotate: false
+  xy: 3948, 1915
+  size: 103, 332
+  orig: 103, 332
+  offset: 0, 0
+  index: -1
 elin01
   rotate: false
-  xy: 3948, 2069
+  xy: 3948, 1735
   size: 98, 178
   orig: 98, 178
   offset: 0, 0
@@ -100,6 +107,13 @@ layer1
   xy: 2470, 1226
   size: 167, 209
   orig: 167, 209
+  offset: 0, 0
+  index: -1
+pont018
+  rotate: false
+  xy: 3129, 76
+  size: 567, 172
+  orig: 567, 172
   offset: 0, 0
   index: -1
 roche
@@ -139,7 +153,7 @@ solarbre2
   index: -1
 start
   rotate: false
-  xy: 3129, 161
+  xy: 3698, 161
   size: 268, 87
   orig: 268, 87
   offset: 0, 0

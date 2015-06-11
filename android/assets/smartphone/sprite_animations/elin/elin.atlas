@@ -1,0 +1,34 @@
+
+elin.png
+size: 64,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elin01
+  rotate: false
+  xy: 2, 275
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
+elin02
+  rotate: false
+  xy: 2, 184
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
+elin03
+  rotate: false
+  xy: 2, 93
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
+elin04
+  rotate: false
+  xy: 2, 2
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1

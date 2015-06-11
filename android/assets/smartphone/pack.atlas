@@ -62,7 +62,7 @@ bateau2
   index: -1
 blur0
   rotate: false
-  xy: 1813, 1214
+  xy: 3992, 1942
   size: 97, 104
   orig: 97, 104
   offset: 0, 0
@@ -97,14 +97,21 @@ champignon
   index: -1
 cube
   rotate: false
-  xy: 1705, 1214
+  xy: 943, 1020
   size: 106, 104
   orig: 106, 104
   offset: 0, 0
   index: -1
+echelle018
+  rotate: false
+  xy: 2911, 1337
+  size: 41, 133
+  orig: 41, 133
+  offset: 0, 0
+  index: -1
 elin01
   rotate: false
-  xy: 2911, 1381
+  xy: 1583, 1155
   size: 49, 89
   orig: 49, 89
   offset: 0, 0
@@ -139,7 +146,7 @@ groupe arbre2
   index: -1
 layer1
   rotate: false
-  xy: 943, 1040
+  xy: 3896, 1784
   size: 67, 84
   orig: 67, 84
   offset: 0, 0
@@ -179,9 +186,16 @@ plage 2
   orig: 942, 338
   offset: 0, 0
   index: -1
+pont018
+  rotate: false
+  xy: 1705, 1249
+  size: 227, 69
+  orig: 227, 69
+  offset: 0, 0
+  index: -1
 roche
   rotate: false
-  xy: 3896, 1824
+  xy: 1934, 1274
   size: 60, 44
   orig: 60, 44
   offset: 0, 0
@@ -265,7 +279,7 @@ start
   index: -1
 tronc
   rotate: false
-  xy: 3992, 2012
+  xy: 2052, 601
   size: 95, 34
   orig: 95, 34
   offset: 0, 0
