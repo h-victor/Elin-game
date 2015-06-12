@@ -46,8 +46,8 @@ public class ElinApplication extends ApplicationAdapter {
             //			uiStage.act(Gdx.graphics.getDeltaTime());
             //			uiStage.draw();
 
-            dialogStage.act();
-            dialogStage.draw();
+//            dialogStage.act();
+//            dialogStage.draw();
         }
     }
 

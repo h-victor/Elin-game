@@ -32,9 +32,9 @@ public class ItemScript implements IScript{
 	public void act(float delta) {
 		if(martenTouchObject()){
 			stage.itemNb ++;
-			item.setBody(null);
-			item.setVisible(false);
-			System.out.println("marten a obtenu"+ item.getName());
+			item.remove();
+			
+			System.out.println("marten a obtenu "+" nb item= "+stage.itemNb);
 		}
 		
 		

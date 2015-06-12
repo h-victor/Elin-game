@@ -151,17 +151,24 @@ public class GameStageScript implements IScript{
 
 	private void changementPlan() {
 		if(plan2 == false){
-			item.getCompositeById("elin").setScale(.5f);
+			item.getCompositeById("elin").setScale(.9f);
+			item.getCompositeById("marten").setScale(.9f);
 			item.getCompositeById("elin").setPosition(
 					item.getCompositeById("elin").getX(),
 					item.getCompositeById("ground2").getTop() );
-
+			item.getCompositeById("marten").setPosition(
+					item.getCompositeById("marten").getX(),
+					item.getCompositeById("ground2").getTop() );
 			plan2 = true;
 		}
 		else if(plan2 == true){
 			item.getCompositeById("elin").setScale(1f);
 			item.getCompositeById("elin").setPosition(
 					item.getCompositeById("elin").getX(),
+					item.getCompositeById("ground1").getTop());
+			item.getCompositeById("marten").setScale(1f);
+			item.getCompositeById("marten").setPosition(
+					item.getCompositeById("marten").getX(),
 					item.getCompositeById("ground1").getTop());
 			plan2 = false;
 		}

@@ -12,16 +12,26 @@ public class MovingPigScript implements IScript {
     private int direction = 1;
 	private float moveSpeed = 50f;
 	private float margin = 100f;
+	private GameStage stage;
+	private CompositeItem marten;
+	
+	public MovingPigScript(GameStage gameStage){
+		
+	this.stage=gameStage;
+		
+	}
 	@Override
 	public void init(CompositeItem item) {
 		// TODO Auto-generated method stub
 		this.item = item;
 		originalPosX = item.getX();
-		
+		marten=stage.marten;
+		this.item.setOrigin(this.item.getWidth()/2, 0);
         if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null)
             moveSpeed = item.getCustomVariables().getFloatVariable("cochonSpeed");
         if(item.getCustomVariables().getFloatVariable("cochonMargin") != null)
             margin = item.getCustomVariables().getFloatVariable("cochonMargin");
+        item.setScaleX(item.getScaleX()*-1);
 	}
 	@Override
 	public void dispose() {
@@ -32,12 +42,20 @@ public class MovingPigScript implements IScript {
 	public void act(float delta) {
 		// TODO Auto-generated method stub
         setX(getX()+direction*delta*moveSpeed);
-        if(getX() > originalPosX + margin || getX() < originalPosX - margin) direction*= -1;
+        if(getX() > originalPosX + margin || getX() < originalPosX - margin) {direction*= -1;
+        item.setScaleX(item.getScaleX()*-1);
+        }
         item.setX(getX());
+        
+        if(martenHitMonster()){
+			item.remove();
+			item.getBody().setActive(false);
+        }
 		
 	}
 	
-    public float getX() {
+    
+	public float getX() {
         Vector2 currPos = item.getBody().getPosition();
         return currPos.x/ PhysicsBodyLoader.SCALE;
     }
@@ -45,6 +63,11 @@ public class MovingPigScript implements IScript {
         Vector2 currPos = item.getBody().getPosition();
         item.getBody().setTransform(x*PhysicsBodyLoader.SCALE, currPos.y, item.getBody().getAngle());
     }
-			
+    
+    
+	private boolean martenHitMonster() {
+		Vector2 martenPos = new Vector2(marten.getX()+marten.getWidth()/2,marten.getY()+marten.getHeight()/2);
+		return (martenPos.x>item.getX()&&martenPos.x<item.getRight())&&(martenPos.y>item.getY()&&martenPos.y<item.getTop())&&MartenScript.isAttacking;
+	}		
 		
 }

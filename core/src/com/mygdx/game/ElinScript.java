@@ -22,6 +22,7 @@ public class ElinScript implements IScript {
 
 	public static boolean isBridge = false;
 	public static boolean isLadder = false;
+	public static boolean goMarten = false;
 
 	public ElinScript(final GameStage gameStage) {
 		this.gameStage=gameStage;
@@ -48,9 +49,11 @@ public class ElinScript implements IScript {
 	@Override
 	public void act(final float delta) {
 		elinMove(delta);
-		if(Gdx.input.isKeyPressed(Input.Keys.B))
+		if(Gdx.input.isKeyJustPressed(Input.Keys.B)&&MartenScript.isCloseEnough()){
 			elinTransformToBridge();
-		if(Gdx.input.isKeyPressed(Input.Keys.L))
+
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.L)&&MartenScript.isCloseEnough())
 			elinTransformToLadder();
 		if(MartenScript.isActionFinished)
 			elinTransformBack();
@@ -63,6 +66,7 @@ public class ElinScript implements IScript {
 	}
 
 	private void elinTransformBack() {
+		MartenScript.isActionFinished=false;
 		item.getImageById("bridge").setVisible(false);
 		item.getImageById("ladder").setVisible(false);
 		spriterActor.setVisible(true);
@@ -70,7 +74,7 @@ public class ElinScript implements IScript {
 			item.addAction(Actions.sequence(Actions.run(new Runnable(){
 				@Override
 				public void run() {
-					
+
 					setSpriterAnimationByName("transformation Echelle 2");
 				}}),Actions.delay(1.5f),Actions.run(new Runnable(){
 
@@ -79,6 +83,33 @@ public class ElinScript implements IScript {
 						setSpriterAnimationByName("marche");
 					}
 
+				}),Actions.run(new Runnable(){
+
+					@Override
+					public void run() {
+						if(marten.getScaleX()>0){
+							if(item.getScaleX()<0)
+								item.setScaleX(item.getScaleX()*-1);
+							item.addAction(Actions.sequence(Actions.moveTo(marten.getRight()-spriterActor.getX(), marten.getY(),1f),
+									Actions.run(new Runnable(){
+										@Override
+										public void run() {
+											isLadder=false;
+										}
+									})));
+						}
+						else {
+							if(item.getScaleX()>0)
+								item.setScaleX(item.getScaleX()*-1);
+							item.addAction(Actions.sequence(Actions.moveTo(marten.getX()-spriterActor.getRight(), marten.getY(),1f),
+									Actions.run(new Runnable(){
+										@Override
+										public void run() {
+											isLadder=false;
+										}
+									})));
+						}
+					}
 				})));
 		}else if (isBridge){
 			item.addAction(Actions.sequence(Actions.run(new Runnable(){
@@ -86,28 +117,43 @@ public class ElinScript implements IScript {
 				public void run() {
 					setSpriterAnimationByName("transformation Pont 2");
 				}}),Actions.delay(1.5f),Actions.run(new Runnable(){
-
 					@Override
 					public void run() {
 						setSpriterAnimationByName("marche");
+
 					}
 
+				}),Actions.run(new Runnable(){
+
+					@Override
+					public void run() {
+						if(marten.getScaleX()>0){
+							if(item.getScaleX()<0)
+								item.setScaleX(item.getScaleX()*-1);
+							item.addAction(Actions.sequence(Actions.moveTo(marten.getRight()-spriterActor.getX(), marten.getY(),1f),
+									Actions.run(new Runnable(){
+										@Override
+										public void run() {
+											isBridge=false;
+										}
+									})));
+						}
+						else {
+							if(item.getScaleX()>0)
+								item.setScaleX(item.getScaleX()*-1);
+							item.addAction(Actions.sequence(Actions.moveTo(marten.getX()-spriterActor.getRight(), marten.getY(),1f),
+									Actions.run(new Runnable(){
+										@Override
+										public void run() {
+											isBridge=false;
+										}
+									})));
+						}
+					}
 				})));
 		}
 		else System.out.println("error");
-		if(marten.getScaleX()>0){
-			if(item.getScaleX()<0)
-				item.setScaleX(item.getScaleX()*-1);
-			Actions.moveTo(marten.getRight(), marten.getY(),1f);
-		}
-		else {
-			if(item.getScaleX()>0)
-				item.setScaleX(item.getScaleX()*-1);
-			Actions.moveTo(marten.getX(),marten.getY(),1f);
-		}
-		isBridge=false;
-		isLadder=false;
-		MartenScript.isActionFinished=false;
+
 
 	}
 
@@ -116,17 +162,20 @@ public class ElinScript implements IScript {
 			@Override
 			public void run() {
 				setSpriterAnimationByName("transformation Pont");
-			}}), Actions.delay(1.5f),Actions.run(new Runnable(){
+			}
+		}), Actions.delay(1.5f,Actions.run(new Runnable(){
 
-				@Override
-				public void run() {
-					spriterActor.setVisible(false);
-					item.getImageById("bridge").setVisible(true);
-					item.getImageById("ladder").setVisible(false);
-					isBridge=true;
-				}
+			@Override
+			public void run() {
+				spriterActor.setVisible(false);
+				item.getImageById("bridge").setVisible(true);
+				item.getImageById("ladder").setVisible(false);
+				isBridge=true;
+				goMarten=true;
+			}
 
-			})));
+		}))));
+
 
 	}
 
@@ -135,17 +184,18 @@ public class ElinScript implements IScript {
 			@Override
 			public void run() {
 				setSpriterAnimationByName("transformation Echelle");
-			}}), Actions.delay(1.5f),Actions.run(new Runnable(){
+			}
+		}), Actions.delay(1.5f),Actions.run(new Runnable(){
 
-				@Override
-				public void run() {
-					spriterActor.setVisible(false);
-					item.getImageById("bridge").setVisible(false);
-					item.getImageById("ladder").setVisible(true);
-					isLadder=true;
-				}
-
-			})));
+			@Override
+			public void run() {
+				spriterActor.setVisible(false);
+				item.getImageById("bridge").setVisible(false);
+				item.getImageById("ladder").setVisible(true);
+				isLadder=true;
+				goMarten=true;
+			}
+		})));
 
 	}
 
