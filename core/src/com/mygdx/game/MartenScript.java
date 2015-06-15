@@ -31,13 +31,15 @@ public class MartenScript implements IScript {
 	private ImageItem blur;
 	private CompositeItem elin;
 	private Vector2 initialCoordinates;
+
+	
 	public static Vector2 elinPos;
 	public static Vector2 martenPos;
 
 	public static int HP;
 	public static boolean isAttacking = false;
 	public static boolean isActionFinished = false;
-
+	private static boolean isDead = false;
 	private static boolean isHurt;
 
 	public MartenScript(final GameStage gameStage) {
@@ -70,7 +72,7 @@ public class MartenScript implements IScript {
 		martenPos = new Vector2(item.getX()+item.getWidth()/2,item.getY()+item.getHeight()/2);
 		if(!isCloseEnough())
 			goToElin(delta); 
-		else if(getCurrentAnimationName().equals("marche")&&!(ElinScript.isBridge||ElinScript.isLadder||isHurt)){
+		else if(getCurrentAnimationName().equals("marche")&&!(ElinScript.isBridge||ElinScript.isLadder||isHurt||isDead)){
 			setSpriterAnimationByName("debout");
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.A)&&getCurrentAnimationName().equals("debout")) 
@@ -79,18 +81,19 @@ public class MartenScript implements IScript {
 			crossBrigde();
 		if(isCloseEnough()&&ElinScript.isLadder&&ElinScript.goMarten)
 			climbLadder(delta);
-
+		if(HP<1)
+			isDead=true;
+		
 		verticalSpeed += gravity*delta;
 		checkForCollisions();
 		item.setY(item.getY() + verticalSpeed*delta);
-
 	}
 
 	/*
 	 * Check if the distance between Elin and Marten if distance > 50 return false, if distance <= 50 return true
 	 */
 	public static boolean isCloseEnough() {
-		if (ElinScript.isLadder||ElinScript.isBridge||isHurt)
+		if (ElinScript.isLadder||ElinScript.isBridge||isHurt||isDead)
 			return true;
 		else
 			return !(elinPos.dst(martenPos)>200);
@@ -290,7 +293,6 @@ public class MartenScript implements IScript {
 
 
 	protected void hurt() {
-		// TODO à modifier
 		HP=HP-1;
 		System.out.println(HP);
 		isHurt=true;
@@ -340,13 +342,18 @@ public class MartenScript implements IScript {
 			})));
 		}
 	}
+	
 
-	public void die(){
+	public void restart(){
 		item.addAction(Actions.sequence(Actions.fadeOut(2f),Actions.delay(1f),
 				Actions.run(new Runnable(){
 					@Override
 					public void run() {
 						item.setPosition(initialCoordinates.x, initialCoordinates.y);
+						HP=3;
+						isDead=false;
+						verticalSpeed=0;
+						elin.setPosition(initialCoordinates.x, initialCoordinates.y);
 					}
 				})));
 	}

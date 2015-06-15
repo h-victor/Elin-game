@@ -35,7 +35,7 @@ public class ElinScript implements IScript {
 		moveSpeed = 220f * this.item.mulX;
 		marten = item.getParentItem().getCompositeById("marten");
 		spriterActor=item.getSpriterActorById("animation");
-		this.item.setOrigin(item.getWidth()/2, 0);
+		this.item.setOrigin(item.getX()+spriterActor.getWidth()/2, 0);
 		initialCoordinates = new Vector2(item.getX(), item.getY());
 	}
 
@@ -219,13 +219,7 @@ public class ElinScript implements IScript {
 			item.setY(item.getY() - delta*moveSpeed);
 		}
 	}
-
-
-
-
-
-
-
+	
 	/***** Coding Tools  *******/
 	private void setSpriterAnimationByName(final String string) {
 		spriterActor.setAnimation(spriterActor.getAnimations().indexOf(string));

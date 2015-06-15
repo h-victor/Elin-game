@@ -2,16 +2,26 @@ package com.mygdx.game;
 
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
+import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
 public class UIScript implements IScript {
 
+	
+	private UIStage stage;
+	private CompositeItem item;
+	private CompositeItem button;
+	private SimpleButtonScript playButtonScript; 
+	
 	public UIScript(UIStage uiStage) {
-		// TODO Auto-generated constructor stub
+		this.stage=uiStage;
 	}
 
 	@Override
 	public void init(CompositeItem item) {
-		// TODO Auto-generated method stub
+		this.item=item;
+		button=item.getCompositeById("restartBtn");
+		playButtonScript=new SimpleButtonScript();
+		playButtonScript.init(button);
 		
 	}
 
@@ -23,7 +33,16 @@ public class UIScript implements IScript {
 
 	@Override
 	public void act(float delta) {
-		// TODO Auto-generated method stub
+		playButtonScript.act(delta);
+		item.getLabelById("HP").setText("HP= "+MartenScript.HP);
+		stage.getGameStage().getMartenScript();
+		if(MartenScript.HP==0||stage.getGameStage().marten.getY()<-1000)
+			button.setVisible(true);
+		else
+			button.setVisible(false);
+		if(playButtonScript.isDown()){
+			stage.getGameStage().getMartenScript().restart();
+		}
 		
 	}
 

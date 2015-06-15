@@ -20,9 +20,18 @@ public class GameStage extends Overlap2DStage{
 	public Array<CompositeItem> pigs;
 	public Array<CompositeItem> questItems;
 	public Array<CompositeItem> food;
-	public SceneLoader presentSave;
 
 	private MartenScript martenScript;
+	/**
+	 * @return the martenScript
+	 */
+	public MartenScript getMartenScript() {
+		return martenScript;
+	}
+
+
+
+
 	private ElinScript elinScript;
 	private GameStageScript gameStageScript;
 	private boolean isPast = false;
@@ -49,7 +58,7 @@ public class GameStage extends Overlap2DStage{
 		marten.addScript(martenScript);
 		gameStageScript = new GameStageScript(this);
 		sceneLoader.sceneActor.addScript(gameStageScript);
-
+		save=new Save();
 		for(IBaseItem item: sceneLoader.sceneActor.getItems()) {
 			if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new MovingPigScript(this));//item.getParentItem().getLabelById(null).setText(newText);
@@ -70,8 +79,7 @@ public class GameStage extends Overlap2DStage{
 	 */
 	@Override
 	public void act(float delta) {
-
-		//super.act(delta);
+		super.act(delta);
 		if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
 			if(isPast==false)
 				goToPast();
@@ -83,7 +91,7 @@ public class GameStage extends Overlap2DStage{
 
 	/* Loading another scene -> go back in time */
 	public void goToPast(){
-		save= new Save(sceneLoader.getRoot());
+		save.setPresentSave(sceneLoader.sceneActor);
 		clear();
 		sceneLoader.loadScene("PastScene");
 		elin.addScript(elinScript);
@@ -94,6 +102,8 @@ public class GameStage extends Overlap2DStage{
 		isPast=true;
 	}
 
+
+	
 
 	public void returnToPresent() {
 		//sceneLoader.loadScene("MainScene");

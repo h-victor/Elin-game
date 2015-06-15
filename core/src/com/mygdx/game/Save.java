@@ -5,7 +5,7 @@ import com.uwsoft.editor.renderer.actor.CompositeItem;
 
 public class Save {
 	
-	private final CompositeItem presentSave;
+	private CompositeItem presentSave;
 	
 	/**
 	 * @return the presentSave
@@ -13,15 +13,16 @@ public class Save {
 	
 	
 
-	public Save(CompositeItem item) {
-		presentSave=item;
+	public Save() {
 	}
 	
 	public CompositeItem getPresentSave() {
 		return presentSave;
 	}
 
-
+	public void setPresentSave(CompositeItem sceneActor) {
+		presentSave=sceneActor;
+	}
 
 
 

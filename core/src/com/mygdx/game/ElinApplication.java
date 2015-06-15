@@ -23,6 +23,7 @@ public class ElinApplication extends ApplicationAdapter {
 
         menuStage_ = new MenuStage(resourceManager);
         gameStage_ = new GameStage(resourceManager);
+        uiStage = new UIStage(resourceManager,gameStage_);
         //uiStage= new UIStage(resourceManager,gameStage_);
 
         dialogStage = new DialogStage(gameStage_);
@@ -31,6 +32,10 @@ public class ElinApplication extends ApplicationAdapter {
 
         inputMultiplexer.addProcessor(gameStage_);
         inputMultiplexer.addProcessor(dialogStage);
+        inputMultiplexer.addProcessor(uiStage);
+        inputMultiplexer.addProcessor(menuStage_);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        
     }
 
     @Override
@@ -43,8 +48,8 @@ public class ElinApplication extends ApplicationAdapter {
         if(MenuStageScript.startGameStage == true){ // if true, draw the MenuStage
             gameStage_.act(Gdx.graphics.getDeltaTime());
             gameStage_.draw();
-            //			uiStage.act(Gdx.graphics.getDeltaTime());
-            //			uiStage.draw();
+            			uiStage.act(Gdx.graphics.getDeltaTime());
+            			uiStage.draw();
 
 //            dialogStage.act();
 //            dialogStage.draw();

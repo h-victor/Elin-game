@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.physics.PhysicsBodyLoader;
 import com.uwsoft.editor.renderer.script.IScript;
@@ -48,10 +49,22 @@ public class MovingPigScript implements IScript {
         item.setX(getX());
         
         if(martenHitMonster()){
-			item.remove();
-			item.getBody().setActive(false);
+        	item.addAction(Actions.sequence(Actions.run(new Runnable(){
+
+				@Override
+				public void run() {
+					setSpriterAnimationByName("mort");
+					
+				}
+        		
+        	}),Actions.delay(.5f),Actions.run(new Runnable(){
+				@Override
+				public void run() {
+					item.remove();
+					item.getBody().setActive(false);
+				}
+        	})));
         }
-		
 	}
 	
     
@@ -70,4 +83,7 @@ public class MovingPigScript implements IScript {
 		return (martenPos.x>item.getX()&&martenPos.x<item.getRight())&&(martenPos.y>item.getY()&&martenPos.y<item.getTop())&&MartenScript.isAttacking;
 	}		
 		
+	private void setSpriterAnimationByName(final String string) {
+		item.getSpriterActorById("animation").setAnimation(item.getSpriterActorById("animation").getAnimations().indexOf(string));
+	}
 }
