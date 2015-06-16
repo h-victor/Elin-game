@@ -68,7 +68,7 @@ public class MartenScript implements IScript {
 
 	@Override
 	public void act(final float delta) {
-		elinPos= new Vector2(elin.getX()+elin.getWidth()/2,elin.getY()+elin.getHeight()/2);
+		elinPos= new Vector2(elin.getX()+elin.getSpriterActorById("animation").getX()+elin.getSpriterActorById("animation").getWidth()/2,elin.getY()+elin.getSpriterActorById("animation").getY()+elin.getSpriterActorById("animation").getHeight()/2);
 		martenPos = new Vector2(item.getX()+item.getWidth()/2,item.getY()+item.getHeight()/2);
 		if(!isCloseEnough())
 			goToElin(delta); 
@@ -84,7 +84,8 @@ public class MartenScript implements IScript {
 		if(HP<1)
 			isDead=true;
 		
-		verticalSpeed += gravity*delta;
+		if(ElinScript.isBridge)verticalSpeed=0;
+		else verticalSpeed += gravity*delta;
 		checkForCollisions();
 		item.setY(item.getY() + verticalSpeed*delta);
 	}
@@ -180,7 +181,7 @@ public class MartenScript implements IScript {
 					setSpriterAnimationByName("marche");
 				}
 
-			}))),Actions.moveBy(200, 0,5f),Actions.run(new Runnable(){
+			}))),Actions.moveBy(1000, 0,5f),Actions.run(new Runnable(){
 
 				@Override
 				public void run() {
@@ -198,7 +199,7 @@ public class MartenScript implements IScript {
 				public void run() {
 					setSpriterAnimationByName("marche");
 				}
-			}),Actions.moveBy(-200, 0,5f),Actions.run(new Runnable(){
+			}),Actions.moveBy(-1000, 0,5f),Actions.run(new Runnable(){
 				@Override
 				public void run() {
 					setSpriterAnimationByName("debout");
@@ -217,8 +218,12 @@ public class MartenScript implements IScript {
 			}}), Actions.delay(.6f),Actions.run(new Runnable(){
 				@Override
 				public void run() {
-					isAttacking=false;
+					isAttacking=true;
 					setSpriterAnimationByName("debout");
+				}}),Actions.delay(1f),Actions.run(new Runnable(){
+				@Override
+				public void run() {
+					isAttacking=false;
 				}})));
 	}
 

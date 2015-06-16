@@ -31,7 +31,8 @@ public class ElinScript implements IScript {
 	@Override
 	public void init(final CompositeItem item) {
 		this.item=item;
-
+		this.item.getImageById("ladder").setVisible(false);
+		this.item.getImageById("bridge").setVisible(false);
 		moveSpeed = 220f * this.item.mulX;
 		marten = item.getParentItem().getCompositeById("marten");
 		spriterActor=item.getSpriterActorById("animation");

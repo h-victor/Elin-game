@@ -61,16 +61,20 @@ public class GameStage extends Overlap2DStage{
 		save=new Save();
 		for(IBaseItem item: sceneLoader.sceneActor.getItems()) {
 			if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
-				((CompositeItem)item).addScript(new MovingPigScript(this));//item.getParentItem().getLabelById(null).setText(newText);
+				((CompositeItem)item).addScript(new MovingPigScript(this));
 			}
 			if(item.getCustomVariables().getFloatVariable("item") != null && item.isComposite()) {
-				((CompositeItem)item).addScript(new ItemScript(this));//item.getParentItem().getLabelById(null).setText(newText);
+				((CompositeItem)item).addScript(new ItemScript(this));
+			}
+			if(item.getCustomVariables().getFloatVariable("food") != null && item.isComposite()) {
+				((CompositeItem)item).addScript(new FoodScript(this));
+						
 			}
 		}
-
-		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
-		music.play();
-		music.setLooping(true);
+//
+//		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
+//		music.play();
+//		music.setLooping(true);
 
 	}
 

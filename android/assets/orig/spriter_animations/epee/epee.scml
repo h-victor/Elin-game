@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b7">
+    <folder id="0">
+        <file id="0" name="epee.png" width="80" height="300" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="blur_0.png" width="242" height="259" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <animation id="0" name="NewAnimation" length="600">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="34">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="56">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="137">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="173">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="219">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="220">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="7" time="251">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                </key>
+                <key id="8" time="358">
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="epee_000">
+                <key id="0">
+                    <object folder="0" file="0" x="2.58503" y="3.34134" angle="295.992" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="1" time="34">
+                    <object folder="0" file="0" x="-3.17134" y="12.40073" angle="314.952" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="2" time="56">
+                    <object folder="0" file="0" x="-62.51877" y="24.5528" angle="20.671" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="3" time="137" spin="-1">
+                    <object folder="0" file="0" x="-98.39666" y="4.05999" angle="97.055" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="4" time="173" spin="-1">
+                    <object folder="0" file="0" x="-81.90886" y="65.51005" angle="44.347" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="5" time="219" spin="-1">
+                    <object folder="0" file="0" x="47.24352" y="62.27606" angle="351.862" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="6" time="251">
+                    <object folder="0" file="0" x="51.12242" y="-10.93968" angle="283.625" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+                <key id="7" time="358" spin="-1">
+                    <object folder="0" file="0" x="36.31159" y="1.80076" angle="302.182" scale_x="0.19791" scale_y="0.26848"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="blur_0">
+                <key id="0" time="220" spin="0">
+                    <object folder="0" file="1" x="-91" y="184"/>
+                </key>
+                <key id="1" time="251" spin="0">
+                    <object folder="0" file="1" x="-91" y="184"/>
+                </key>
+                <key id="2" time="358" spin="0">
+                    <object folder="0" file="1" x="-91" y="184"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

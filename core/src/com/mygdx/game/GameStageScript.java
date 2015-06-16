@@ -108,14 +108,7 @@ public class GameStageScript implements IScript{
 			}
 		}
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.J)){
-			item.setLayerVisibilty("pont", true);
-			item.setLayerLock("pont", false);
-		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-			item.setLayerVisibilty("pont", true);
-			item.getItemsByLayerName("pont").get(0).getBody().setActive(false);
-		}
+		
 		
 	}
 
