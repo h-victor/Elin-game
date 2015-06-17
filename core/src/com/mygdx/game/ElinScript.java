@@ -2,16 +2,16 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriterActor;
 import com.uwsoft.editor.renderer.script.IScript;
 
 public class ElinScript implements IScript {
-
 	private final GameStage gameStage;
-
 	private float moveSpeed;
 
 	private CompositeItem item;
@@ -19,13 +19,22 @@ public class ElinScript implements IScript {
 	private CompositeItem marten;
 	private Vector2 initialCoordinates;
 
-
 	public static boolean isBridge = false;
 	public static boolean isLadder = false;
 	public static boolean goMarten = false;
+	
+	public static boolean isBridgeCreate = false;
+	public static boolean isLadderCreate = false;
+	
+	public static boolean current = false;
+	
+	
+    MyGestureListener myGestureListener;
+    boolean first = false;
 
-	public ElinScript(final GameStage gameStage) {
+	public ElinScript(final GameStage gameStage, MyGestureListener myGestureListener) {
 		this.gameStage=gameStage;
+        this.myGestureListener = myGestureListener;
 	}
 
 	@Override
@@ -36,7 +45,7 @@ public class ElinScript implements IScript {
 		moveSpeed = 220f * this.item.mulX;
 		marten = item.getParentItem().getCompositeById("marten");
 		spriterActor=item.getSpriterActorById("animation");
-		this.item.setOrigin(item.getX()+spriterActor.getWidth()/2, 0);
+        this.item.setOrigin(this.item.getWidth()/2, 0);
 		initialCoordinates = new Vector2(item.getX(), item.getY());
 	}
 
@@ -44,7 +53,7 @@ public class ElinScript implements IScript {
 	public void dispose() {
 		spriterActor.dispose();
 		item.dispose();
-
+        marten.dispose();
 	}
 
 	@Override
@@ -52,15 +61,35 @@ public class ElinScript implements IScript {
 		elinMove(delta);
 		if(Gdx.input.isKeyJustPressed(Input.Keys.B)&&MartenScript.isCloseEnough()){
 			elinTransformToBridge();
-
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.L)&&MartenScript.isCloseEnough())
 			elinTransformToLadder();
-		if(MartenScript.isActionFinished)
+
+		// Gesture Detector
+        if(!first){
+            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
+            first = true;
+        }
+
+        /* Bridge */        
+        if(myGestureListener.getZoom() && MartenScript.isCloseEnough() && !isBridgeCreate && !isLadderCreate){
+			elinTransformToBridge();
+			isBridgeCreate =  true;
+        }
+        if(myGestureListener.getLadder() && MartenScript.isCloseEnough() && !isLadderCreate && !isBridgeCreate){
+			elinTransformToLadder();
+			isLadderCreate =  true;
+        }
+		if(MartenScript.isActionFinished){
 			elinTransformBack();
+			isBridgeCreate = false;
+			isLadderCreate = false;
+			myGestureListener.setZoom(false);
+			myGestureListener.setLadder(false);
+		}
+
+        myGestureListener.update();
 	}
-
-
 
 	public void reset(){
 		item.setPosition(initialCoordinates.x,initialCoordinates.y);
@@ -75,7 +104,6 @@ public class ElinScript implements IScript {
 			item.addAction(Actions.sequence(Actions.run(new Runnable(){
 				@Override
 				public void run() {
-
 					setSpriterAnimationByName("transformation Echelle 2");
 				}}),Actions.delay(1.5f),Actions.run(new Runnable(){
 
@@ -121,7 +149,6 @@ public class ElinScript implements IScript {
 					@Override
 					public void run() {
 						setSpriterAnimationByName("marche");
-
 					}
 
 				}),Actions.run(new Runnable(){
@@ -154,8 +181,6 @@ public class ElinScript implements IScript {
 				})));
 		}
 		else System.out.println("error");
-
-
 	}
 
 	private void elinTransformToBridge() {
@@ -174,10 +199,7 @@ public class ElinScript implements IScript {
 				isBridge=true;
 				goMarten=true;
 			}
-
 		}))));
-
-
 	}
 
 	private void elinTransformToLadder() {
@@ -197,7 +219,6 @@ public class ElinScript implements IScript {
 				goMarten=true;
 			}
 		})));
-
 	}
 
 	private void elinMove(final float delta) {
@@ -225,6 +246,4 @@ public class ElinScript implements IScript {
 	private void setSpriterAnimationByName(final String string) {
 		spriterActor.setAnimation(spriterActor.getAnimations().indexOf(string));
 	}
-
-
 }

@@ -4,16 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.functionality.MyGestureListener;
 import com.mygdx.functionality.accelerometer;
 import com.mygdx.functionality.touchScreen;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
-
 /*
  * contient la logique de la scene : changer de plan, tourner la camera, remonter dans le temps, dialogue
  */
-
 
 public class GameStageScript implements IScript{
 	private CompositeItem item;
@@ -24,10 +23,12 @@ public class GameStageScript implements IScript{
 	String message = "no";
 	private GameStage stage;
 	
+	MyGestureListener myGestureListener;
+	boolean first = false;
+	
 	public GameStageScript(GameStage stage){
 		this.stage= stage;
 		this.camera=(OrthographicCamera) stage.getCamera();
-
 	}
 
 	@Override
@@ -37,30 +38,31 @@ public class GameStageScript implements IScript{
 		
 		touchScreen touchScreen_ = new touchScreen(camera, item);
 		touchScreen_.elinFollowMarten();
-		
 
-//		/*Dialog*/ dialog = new Dialog(this.item);
-//		dialog.readFile();
-//		dialog.readLine("#beginIntroduction", "endIntroduction");
-//		dialog.readLine("#beginCalin", "#endCalin");
-//		item.essentials.rm.getSceneVO("DialogScreen").composite.sLabels.get(0).text = "hello";
-
+/* (A supprimer)
+		Dialog dialog = new Dialog(this.item);
+		dialog.readFile();
+		dialog.readLine("#beginIntroduction", "endIntroduction");
+		dialog.readLine("#beginCalin", "#endCalin");
+		item.essentials.rm.getSceneVO("DialogScreen").composite.sLabels.get(0).text = "hello";
+*/
+		// Gesture Detector
+		myGestureListener = new MyGestureListener();
 	}
 
 	@Override
 	public void dispose() {
-
+		item.dispose();
+		stage.dispose();
 	}
 
 	@Override
 	public void act(float delta) {
-		
 		camera.position.x = item.getCompositeById("elin").getX();
 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)||accelerometer_.raiseALittleSmartphone()){
 			changementPlan();						
 		}
-
 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
 			/* Rotate the camera to landscape to portrait */
@@ -85,19 +87,13 @@ public class GameStageScript implements IScript{
 			Gdx.input.vibrate(1000);
 		}
 
-
-
 		/* Text input */
 		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
 			showEnigma();
 		}
 
-
-
-
-
 		//zoom et dezoom
-		if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
+/*		if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
 			if(Gdx.input.isKeyJustPressed(Input.Keys.PLUS)){
 				camera.zoom -= 0.1f; 
 				camera.update();
@@ -107,9 +103,35 @@ public class GameStageScript implements IScript{
 				camera.update();
 			}
 		}
+*/					
+		
+		/* Creation of bridge */
+		if (Gdx.input.isKeyJustPressed(Input.Keys.J)){
+			item.setLayerVisibilty("pont", true);
+			item.setLayerLock("pont", false);
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+			item.setLayerVisibilty("pont", true);
+			item.getItemsByLayerName("pont").get(0).getBody().setActive(false);
+		}
 
-		
-		
+		/* Move Elin */
+		float moveSpeed = 220f * this.item.getCompositeById("elin").mulX;
+
+		if(Gdx.input.isTouched()){
+			if(Gdx.input.getX() > camera.viewportWidth / 2){
+				item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+				if(item.getCompositeById("elin").getScaleX()<0){
+					item.getCompositeById("elin").setScaleX(item.getCompositeById("elin").getScaleX()*-1f);
+				}
+			}
+			else if(Gdx.input.getX() < camera.viewportWidth / 2 ){
+				item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+				if(item.getCompositeById("elin").getScaleX()>0){
+					item.getCompositeById("elin").setScaleX(item.getCompositeById("elin").getScaleX()*-1f);
+				}
+			}
+		}
 	}
 
 	private void showEnigma() {
@@ -144,8 +166,8 @@ public class GameStageScript implements IScript{
 
 	private void changementPlan() {
 		if(plan2 == false){
-			item.getCompositeById("elin").setScale(.9f);
-			item.getCompositeById("marten").setScale(.9f);
+			item.getCompositeById("elin").setScale(.4f);
+			item.getCompositeById("marten").setScale(.4f);
 			item.getCompositeById("elin").setPosition(
 					item.getCompositeById("elin").getX(),
 					item.getCompositeById("ground2").getTop() );
@@ -155,16 +177,15 @@ public class GameStageScript implements IScript{
 			plan2 = true;
 		}
 		else if(plan2 == true){
-			item.getCompositeById("elin").setScale(1f);
+			item.getCompositeById("elin").setScale(.5f);
 			item.getCompositeById("elin").setPosition(
 					item.getCompositeById("elin").getX(),
 					item.getCompositeById("ground1").getTop());
-			item.getCompositeById("marten").setScale(1f);
+			item.getCompositeById("marten").setScale(.5f);
 			item.getCompositeById("marten").setPosition(
 					item.getCompositeById("marten").getX(),
 					item.getCompositeById("ground1").getTop());
 			plan2 = false;
 		}
 	}
-	
 }

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class ElinApplication extends ApplicationAdapter {
-
     private GameStage gameStage_;
     private MenuStage menuStage_;
     private ResourceManager resourceManager;
@@ -23,19 +22,15 @@ public class ElinApplication extends ApplicationAdapter {
 
         menuStage_ = new MenuStage(resourceManager);
         gameStage_ = new GameStage(resourceManager);
-        uiStage = new UIStage(resourceManager,gameStage_);
-        //uiStage= new UIStage(resourceManager,gameStage_);
-
+//        uiStage = new UIStage(resourceManager,gameStage_);
         dialogStage = new DialogStage(gameStage_);
 
         inputMultiplexer = new InputMultiplexer();
-
         inputMultiplexer.addProcessor(gameStage_);
         inputMultiplexer.addProcessor(dialogStage);
-        inputMultiplexer.addProcessor(uiStage);
-        inputMultiplexer.addProcessor(menuStage_);
-        Gdx.input.setInputProcessor(inputMultiplexer);
-        
+//        inputMultiplexer.addProcessor(uiStage);
+//        inputMultiplexer.addProcessor(menuStage_);
+//        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -48,12 +43,11 @@ public class ElinApplication extends ApplicationAdapter {
         if(MenuStageScript.startGameStage == true){ // if true, draw the MenuStage
             gameStage_.act(Gdx.graphics.getDeltaTime());
             gameStage_.draw();
-            			uiStage.act(Gdx.graphics.getDeltaTime());
+/*            			uiStage.act(Gdx.graphics.getDeltaTime());
             			uiStage.draw();
-
-//            dialogStage.act();
-//            dialogStage.draw();
+*/
+            dialogStage.act();
+            dialogStage.draw();
         }
     }
-
 }

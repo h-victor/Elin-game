@@ -5,7 +5,6 @@ import com.uwsoft.editor.renderer.script.IScript;
 import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
 public class MenuStageScript implements IScript {
-	
 	private MenuStage menuStage_;
 	private CompositeItem menuSceneActors;
 	private CompositeItem button;
@@ -24,7 +23,6 @@ public class MenuStageScript implements IScript {
 		button = menuSceneActors.getCompositeById("button");
 		playButtonScript = new SimpleButtonScript();
 		playButtonScript.init(button);
-		
 	}
 
 	@Override
@@ -32,8 +30,6 @@ public class MenuStageScript implements IScript {
 		playButtonScript.act(delta);
 		if (playButtonScript.isDown()){
 			startGameStage = true; 
-
-			
 			dispose();// clear the MenuStage
 		}
 	}
@@ -45,5 +41,4 @@ public class MenuStageScript implements IScript {
 		playButtonScript.clearListeners();
 		menuSceneActors.clear();
 	}
-	
 }

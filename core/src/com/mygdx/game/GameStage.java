@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.Overlap2DStage;
-import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
 import com.uwsoft.editor.renderer.data.SceneVO;
@@ -22,23 +21,21 @@ public class GameStage extends Overlap2DStage{
 	public Array<CompositeItem> food;
 
 	private MartenScript martenScript;
-	/**
-	 * @return the martenScript
-	 */
-	public MartenScript getMartenScript() {
-		return martenScript;
-	}
-
-
-
-
 	private ElinScript elinScript;
 	private GameStageScript gameStageScript;
 	private boolean isPast = false;
 	public int itemNb;
 	private Save save;
 
-
+    private MyGestureListener myGestureListener;
+	
+	/**
+	 * @return the martenScript
+	 */
+	public MartenScript getMartenScript() {
+		return martenScript;
+	}
+	
 	public GameStage(ResourceManager resourceManager){
 		super(new FitViewport(resourceManager.getProjectVO().originalResolution.width, resourceManager.getProjectVO().originalResolution.height));
 		initSceneLoader(resourceManager);
@@ -47,18 +44,21 @@ public class GameStage extends Overlap2DStage{
 	}
 
 	private void initMainScene() {
-		@SuppressWarnings("unused")
+        myGestureListener = new MyGestureListener();
+        
+		//@SuppressWarnings("unused")
 		SceneVO mainScene = sceneLoader.loadScene("MainScene");//Load scene data: world physic , resolution, light 
 		addActor(sceneLoader.sceneActor);
-		martenScript=new MartenScript(this);
-		elinScript= new ElinScript(this);
+		martenScript=new MartenScript(this, myGestureListener);
+		elinScript= new ElinScript(this, myGestureListener);
 		elin=sceneLoader.sceneActor.getCompositeById("elin");
 		marten= sceneLoader.sceneActor.getCompositeById("marten");
 		elin.addScript(elinScript);
 		marten.addScript(martenScript);
 		gameStageScript = new GameStageScript(this);
 		sceneLoader.sceneActor.addScript(gameStageScript);
-		save=new Save();
+		
+//		save=new Save();
 		for(IBaseItem item: sceneLoader.sceneActor.getItems()) {
 			if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new MovingPigScript(this));
@@ -66,16 +66,15 @@ public class GameStage extends Overlap2DStage{
 			if(item.getCustomVariables().getFloatVariable("item") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new ItemScript(this));
 			}
-			if(item.getCustomVariables().getFloatVariable("food") != null && item.isComposite()) {
+/*			if(item.getCustomVariables().getFloatVariable("food") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new FoodScript(this));
 						
-			}
+			}*/
 		}
-//
-//		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
-//		music.play();
-//		music.setLooping(true);
 
+		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
+		music.play();
+		music.setLooping(true);
 	}
 
 	/* (non-Javadoc)
@@ -92,7 +91,6 @@ public class GameStage extends Overlap2DStage{
 		}
 	}
 
-
 	/* Loading another scene -> go back in time */
 	public void goToPast(){
 		save.setPresentSave(sceneLoader.sceneActor);
@@ -106,29 +104,21 @@ public class GameStage extends Overlap2DStage{
 		isPast=true;
 	}
 
-
-	
-
-	public void returnToPresent() {
-		//sceneLoader.loadScene("MainScene");
-		clear();
-		System.out.println("3"+save.getPresentSave()+save.getPresentSave());
-		save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("elin"));
-		save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("marten"));
-		addActor(save.getPresentSave());
-		addActor(elin);
-		addActor(marten);
-		isPast=false;
-	}        
-
+    public void returnToPresent() {
+        //sceneLoader.loadScene("MainScene");
+        clear();
+        System.out.println("3"+save.getPresentSave()+save.getPresentSave());
+        save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("elin"));
+        save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("marten"));
+        addActor(save.getPresentSave());
+        addActor(elin);
+        addActor(marten);
+        isPast=false;
+    }        
 
 	/*	public void dialog(){
 		//clear();
 		sceneLoader.loadScene("DialogScreen");
 	}
 	 */
-
-
-
-
 }

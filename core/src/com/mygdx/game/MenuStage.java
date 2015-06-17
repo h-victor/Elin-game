@@ -8,6 +8,7 @@ public class MenuStage extends Overlap2DStage {
 
 	public MenuStage(ResourceManager resourceManager){
 		super();
+		Gdx.input.setInputProcessor(this);	
 		initSceneLoader(resourceManager);
 		initMenu();
 	}

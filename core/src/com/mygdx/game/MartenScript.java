@@ -1,12 +1,13 @@
-
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
 import com.uwsoft.editor.renderer.actor.ImageItem;
@@ -19,8 +20,6 @@ import com.uwsoft.editor.renderer.script.IScript;
  */
 
 public class MartenScript implements IScript {
-
-
 	private final GameStage stage;
 
 	private int verticalSpeed;
@@ -31,8 +30,6 @@ public class MartenScript implements IScript {
 	private ImageItem blur;
 	private CompositeItem elin;
 	private Vector2 initialCoordinates;
-
-	
 	public static Vector2 elinPos;
 	public static Vector2 martenPos;
 
@@ -41,9 +38,13 @@ public class MartenScript implements IScript {
 	public static boolean isActionFinished = false;
 	private static boolean isDead = false;
 	private static boolean isHurt;
+	
+    MyGestureListener myGestureListener;
+    boolean first = false;
 
-	public MartenScript(final GameStage gameStage) {
+	public MartenScript(final GameStage gameStage, MyGestureListener myGestureListener) {
 		this.stage=gameStage;
+        this.myGestureListener = myGestureListener;
 	}
 
 	@Override
@@ -58,18 +59,21 @@ public class MartenScript implements IScript {
 		blur.setVisible(false);
 		this.item.setOrigin(this.item.getWidth()/2, 0);
 		initialCoordinates = new Vector2(item.getX(), item.getY());
-
 	}
 
 	@Override
 	public void dispose() {
 		item.dispose();
+        elin.dispose();
+        spriterActor.dispose();
+        blur.dispose();
 	}
 
 	@Override
 	public void act(final float delta) {
 		elinPos= new Vector2(elin.getX()+elin.getSpriterActorById("animation").getX()+elin.getSpriterActorById("animation").getWidth()/2,elin.getY()+elin.getSpriterActorById("animation").getY()+elin.getSpriterActorById("animation").getHeight()/2);
 		martenPos = new Vector2(item.getX()+item.getWidth()/2,item.getY()+item.getHeight()/2);
+
 		if(!isCloseEnough())
 			goToElin(delta); 
 		else if(getCurrentAnimationName().equals("marche")&&!(ElinScript.isBridge||ElinScript.isLadder||isHurt||isDead)){
@@ -88,6 +92,19 @@ public class MartenScript implements IScript {
 		else verticalSpeed += gravity*delta;
 		checkForCollisions();
 		item.setY(item.getY() + verticalSpeed*delta);
+		
+	     // Gesture Detector
+        if(!first){
+            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
+            first = true;
+        }
+
+        myGestureListener.update();
+
+        if(myGestureListener.getTap()){
+            attack();
+            myGestureListener.setTap(false);
+        }
 	}
 
 	/*
@@ -240,7 +257,6 @@ public class MartenScript implements IScript {
 			if(item.getScaleX()<0){
 				item.setScaleX(item.getScaleX()*-1f);
 			}
-
 		}
 		if(martenPos.x>elinPos.x+20) {
 			item.setX(item.getX()-delta*moveSpeed);
@@ -251,7 +267,6 @@ public class MartenScript implements IScript {
 		if(!(getCurrentAnimationName().equals("marche")))
 			setSpriterAnimationByName("marche");
 	}
-
 
 	private void checkBottomCollision() {
 		float raySize = -(verticalSpeed+Gdx.graphics.getDeltaTime())*Gdx.graphics.getDeltaTime();
@@ -296,7 +311,6 @@ public class MartenScript implements IScript {
 		}, pointA, pointB);
 	}
 
-
 	protected void hurt() {
 		HP=HP-1;
 		System.out.println(HP);
@@ -319,7 +333,6 @@ public class MartenScript implements IScript {
 					isHurt=false;
 
 				}
-
 			})));
 		}
 		else{
@@ -343,11 +356,9 @@ public class MartenScript implements IScript {
 					isHurt=false;
 
 				}
-
 			})));
 		}
 	}
-	
 
 	public void restart(){
 		item.addAction(Actions.sequence(Actions.fadeOut(2f),Actions.delay(1f),
@@ -368,7 +379,6 @@ public class MartenScript implements IScript {
 	}
 
 	private String getCurrentAnimationName(){
-
 		return spriterActor.getAnimations().get(spriterActor.getCurrentAnimationIndex());
 	}
 }

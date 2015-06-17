@@ -66,7 +66,7 @@ public class touchScreen {
 			}
 		}
 		// GO LEFT
-		else if(item.getCompositeById("elin").getX() > (item.getCompositeById("marten").getX() + 100 ) /*- 50*/) {
+		else if(item.getCompositeById("elin").getX() > (item.getCompositeById("marten").getX() + 100) /*- 50*/) {
 			if(!left){
 				item.getCompositeById("elin").setScaleX(-1f);
 				item.getCompositeById("elin").setOrigin(0);
@@ -124,7 +124,7 @@ public class touchScreen {
 				}
 			}
 			// GO LEFT
-			else if(item.getCompositeById("elin").getX() > (item.getCompositeById("marten").getX() - 100 ) /*- 50*/) {
+			else if(item.getCompositeById("elin").getX() > (item.getCompositeById("marten").getX() - 100) /*- 50*/) {
 				if(!left){
 //					item.getCompositeById("elin").setScaleX(-1f);
 					item.getCompositeById("elin").setOrigin(0);
