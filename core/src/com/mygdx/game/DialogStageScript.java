@@ -2,11 +2,18 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
 public class DialogStageScript implements IScript{
     private DialogStage dialogStage;
+    private GameStage gameStage;
+    private MyGestureListener myGestureListener;
+    boolean first = false;
+    
     private CompositeItem item;
 
     private Dialog dialog;
@@ -15,8 +22,11 @@ public class DialogStageScript implements IScript{
     boolean readLineWait = false;
     boolean readLine = false;
 
-    public DialogStageScript(DialogStage dialogStage){
+    public DialogStageScript(DialogStage dialogStage, GameStage gameStage/*, MyGestureListener myGestureListener*/){
         this.dialogStage = dialogStage;
+        this.gameStage = gameStage;
+        
+ //       this.myGestureListener = myGestureListener;
     }
 
     @Override
@@ -25,6 +35,8 @@ public class DialogStageScript implements IScript{
 
         /*Dialog*/ dialog = new Dialog(this.item);
         dialog.readFile();
+        
+        myGestureListener = new MyGestureListener();
     }
 
     @Override
@@ -33,30 +45,57 @@ public class DialogStageScript implements IScript{
 
     @Override
     public void act(float delta) {
-        readDialog();
+	     // Gesture Detector
+        if(!first){
+            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
+            first = true;
+        }
+        
+    	readDialog();
+
+    	myGestureListener.update();
     }
 
-    public void readDialog(){
+    public void readDialog(){  	
         if(wait == 0){
-            if(!readLineWait) 
-                readLineWait = readDialogLine("#beginIntroduction", "#endIntroduction");
-
-            else if(readLineWait){
-                wait++;
-                readLineWait = false;
-                readLine = false;
-            }
+            readAndShowDialog("#beginIntroduction", "#endIntroduction");
         }
-        else if(Gdx.input.isKeyJustPressed(Input.Keys.N) && wait == 1){
-            if(!readLineWait) 
-                readLineWait = readDialogLine("#beginCalin", "#endCalin");
-            else if(readLineWait){
-                wait++;
-                readLineWait = false;
-                readLine = false;
-            }
+        else if(myGestureListener.getTap() && wait == 1){
+            readAndShowDialog("#beginRetrouvaille", "#endRetrouvaille");
         }
-
+        else if(myGestureListener.getTap() && wait == 2){
+            readAndShowDialog("#beginDialog1", "#endDialog1");
+        }
+        else if(myGestureListener.getTap() && wait == 3){
+            readAndShowDialog("#beginDialog2", "#endDialog2");
+        }
+        else if(myGestureListener.getTap() && wait == 4){
+            readAndShowDialog("#beginCalin", "#endCalin");
+        }
+        else if(myGestureListener.getTap() && wait == 5){
+            readAndShowDialog("#beginDialog3", "#endDialog3");
+        }
+        /* Monster */
+        else if(isNearObject("dialogMonster") && wait == 6){
+            readAndShowDialog("#beginDialog4", "#endDialog4");
+        }
+        /* Meet Volund */
+        else if(isNearObject("dialogVolund") && wait == 7){
+            readAndShowDialog("#beginDialog5", "#endDialog5");
+        }
+        /* Meet Volund + butterfly wings */
+        else if(isNearObject("dialogVolund") && gameStage.itemNb == 3 && wait == 8){
+            readAndShowDialog("#beginDialog6", "#endDialog6");
+        }
+        else if(myGestureListener.getTap() && wait == 9){
+            readAndShowDialog("#beginJourSuivant", "#endJourSuivant");
+        }
+        else if(myGestureListener.getTap() && wait == 10){
+            readAndShowDialog("#beginDialog7", "#endDialog7");
+        } 
+//		System.out.println(gameStage.sceneLoader.getRoot().getCompositeById("dialogMonster").getX());
+//		System.out.println(gameStage.marten.getX()+100);       
+       
     }
 
     public boolean readDialogLine(String beginDialog, String endDialog){
@@ -66,10 +105,34 @@ public class DialogStageScript implements IScript{
             readLine = true;
         }
         if(!readLineWait){
-            if(Gdx.input.isKeyJustPressed(Input.Keys.V)){
+            if(/*Gdx.input.isTouched()*/myGestureListener.getTap()){//isKeyJustPressed(Input.Keys.V)){
                 readLineWait = dialog.readLineWait();
+                myGestureListener.setTap(false);
             }			
         }
         return readLineWait;
+    }
+    
+    public void readAndShowDialog(String beginDialog, String endDialog){
+        if(!readLineWait) 
+            readLineWait = readDialogLine(beginDialog, endDialog);
+
+        else if(readLineWait){
+            wait++;
+            readLineWait = false;
+            readLine = false;
+            
+            myGestureListener.setTap(false);
+        }    	
+    }
+    
+    public boolean isNearObject(String object){
+    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.marten.getX()
+        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.marten.getX())){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
     }
 }

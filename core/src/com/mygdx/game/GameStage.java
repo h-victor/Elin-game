@@ -26,8 +26,8 @@ public class GameStage extends Overlap2DStage{
 	private boolean isPast = false;
 	public int itemNb;
 	private Save save;
-
-    private MyGestureListener myGestureListener;
+	
+	MyGestureListener myGestureListener;
 	
 	/**
 	 * @return the martenScript

@@ -39,7 +39,7 @@ public class MartenScript implements IScript {
 	private static boolean isDead = false;
 	private static boolean isHurt;
 	
-    MyGestureListener myGestureListener;
+    private MyGestureListener myGestureListener;
     boolean first = false;
 
 	public MartenScript(final GameStage gameStage, MyGestureListener myGestureListener) {
@@ -198,7 +198,7 @@ public class MartenScript implements IScript {
 					setSpriterAnimationByName("marche");
 				}
 
-			}))),Actions.moveBy(1000, 0,5f),Actions.run(new Runnable(){
+			}))),Actions.moveBy(450, 0,5f),Actions.run(new Runnable(){
 
 				@Override
 				public void run() {

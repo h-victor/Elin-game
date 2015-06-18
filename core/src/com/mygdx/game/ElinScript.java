@@ -66,10 +66,10 @@ public class ElinScript implements IScript {
 			elinTransformToLadder();
 
 		// Gesture Detector
-        if(!first){
+ /*       if(!first){
             Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
             first = true;
-        }
+        }*/
 
         /* Bridge */        
         if(myGestureListener.getZoom() && MartenScript.isCloseEnough() && !isBridgeCreate && !isLadderCreate){

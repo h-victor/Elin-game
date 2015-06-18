@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.input.GestureDetector;
+import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class ElinApplication extends ApplicationAdapter {
@@ -14,16 +16,20 @@ public class ElinApplication extends ApplicationAdapter {
     private InputMultiplexer inputMultiplexer;
 
     private DialogStage dialogStage;
+	private MyGestureListener myGestureListener;
 
     @Override
     public void create () {
         resourceManager = new ResourceManager();
         resourceManager.initAllResources();
 
+		// Gesture Detector
+//		myGestureListener = new MyGestureListener();
+		
         menuStage_ = new MenuStage(resourceManager);
-        gameStage_ = new GameStage(resourceManager);
+        gameStage_ = new GameStage(resourceManager/*, myGestureListener*/);
 //        uiStage = new UIStage(resourceManager,gameStage_);
-        dialogStage = new DialogStage(gameStage_);
+        dialogStage = new DialogStage(gameStage_/*, myGestureListener*/);
 
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(gameStage_);
@@ -31,6 +37,8 @@ public class ElinApplication extends ApplicationAdapter {
 //        inputMultiplexer.addProcessor(uiStage);
 //        inputMultiplexer.addProcessor(menuStage_);
 //        Gdx.input.setInputProcessor(inputMultiplexer);
+        
+
     }
 
     @Override
