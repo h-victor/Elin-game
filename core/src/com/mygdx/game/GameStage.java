@@ -96,8 +96,6 @@ public class GameStage extends Overlap2DStage{
 		save.setPresentSave(sceneLoader.sceneActor);
 		clear();
 		sceneLoader.loadScene("PastScene");
-		elin.addScript(elinScript);
-		marten.addScript(martenScript);
 		addActor(sceneLoader.getRoot());
 		addActor(elin);
 		addActor(marten);

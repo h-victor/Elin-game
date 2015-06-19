@@ -79,7 +79,7 @@ public class MartenScript implements IScript {
 		else if(getCurrentAnimationName().equals("marche")&&!(ElinScript.isBridge||ElinScript.isLadder||isHurt||isDead)){
 			setSpriterAnimationByName("debout");
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.A)&&getCurrentAnimationName().equals("debout")) 
+		if(Gdx.input.isKeyJustPressed(Input.Keys.A)&&!isAttacking) 
 			attack();
 		if(isCloseEnough()&&ElinScript.isBridge&&ElinScript.goMarten) 
 			crossBrigde();
@@ -111,7 +111,7 @@ public class MartenScript implements IScript {
 	 * Check if the distance between Elin and Marten if distance > 50 return false, if distance <= 50 return true
 	 */
 	public static boolean isCloseEnough() {
-		if (ElinScript.isLadder||ElinScript.isBridge||isHurt||isDead)
+		if (ElinScript.isLadder||ElinScript.isBridge||isHurt||isDead||isAttacking)
 			return true;
 		else
 			return !(elinPos.dst(martenPos)>200);
