@@ -36,7 +36,7 @@ public class DialogStageScript implements IScript{
         /*Dialog*/ dialog = new Dialog(this.item);
         dialog.readFile();
         
-        myGestureListener = new MyGestureListener();
+       // myGestureListener = new MyGestureListener();
     }
 
     @Override
@@ -46,33 +46,33 @@ public class DialogStageScript implements IScript{
     @Override
     public void act(float delta) {
 	     // Gesture Detector
-        if(!first){
-            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
-            first = true;
-        }
+//        if(!first){
+//            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
+//            first = true;
+//        }
         
-    	readDialog();
+    	//readDialog();
 
-    	myGestureListener.update();
+    //	myGestureListener.update();
     }
 
     public void readDialog(){  	
         if(wait == 0){
             readAndShowDialog("#beginIntroduction", "#endIntroduction");
         }
-        else if(myGestureListener.getTap() && wait == 1){
+        else if( wait == 1){
             readAndShowDialog("#beginRetrouvaille", "#endRetrouvaille");
         }
-        else if(myGestureListener.getTap() && wait == 2){
+        else if( wait == 2){
             readAndShowDialog("#beginDialog1", "#endDialog1");
         }
-        else if(myGestureListener.getTap() && wait == 3){
+        else if( wait == 3){
             readAndShowDialog("#beginDialog2", "#endDialog2");
         }
-        else if(myGestureListener.getTap() && wait == 4){
+        else if( wait == 4){
             readAndShowDialog("#beginCalin", "#endCalin");
         }
-        else if(myGestureListener.getTap() && wait == 5){
+        else if( wait == 5){
             readAndShowDialog("#beginDialog3", "#endDialog3");
         }
         /* Monster */
@@ -84,13 +84,13 @@ public class DialogStageScript implements IScript{
             readAndShowDialog("#beginDialog5", "#endDialog5");
         }
         /* Meet Volund + butterfly wings */
-        else if(isNearObject("dialogVolund") && gameStage.itemNb == 3 && wait == 8){
+        else if(isNearObject("dialogVolund") && gameStage.getItemNb() == 3 && wait == 8){
             readAndShowDialog("#beginDialog6", "#endDialog6");
         }
-        else if(myGestureListener.getTap() && wait == 9){
+        else if( wait == 9){
             readAndShowDialog("#beginJourSuivant", "#endJourSuivant");
         }
-        else if(myGestureListener.getTap() && wait == 10){
+        else if( wait == 10){
             readAndShowDialog("#beginDialog7", "#endDialog7");
         } 
 //		System.out.println(gameStage.sceneLoader.getRoot().getCompositeById("dialogMonster").getX());
@@ -105,10 +105,10 @@ public class DialogStageScript implements IScript{
             readLine = true;
         }
         if(!readLineWait){
-            if(/*Gdx.input.isTouched()*/myGestureListener.getTap()){//isKeyJustPressed(Input.Keys.V)){
+//            if(/*Gdx.input.isTouched()*/myGestureListener.isTap()){//isKeyJustPressed(Input.Keys.V)){
                 readLineWait = dialog.readLineWait();
-                myGestureListener.setTap(false);
-            }			
+                //myGestureListener.setTap(false);
+        //    }			
         }
         return readLineWait;
     }
@@ -122,13 +122,13 @@ public class DialogStageScript implements IScript{
             readLineWait = false;
             readLine = false;
             
-            myGestureListener.setTap(false);
+           // myGestureListener.setTap(false);
         }    	
     }
     
     public boolean isNearObject(String object){
-    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.marten.getX()
-        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.marten.getX())){
+    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
+        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
     		return true;
     	}
     	else{

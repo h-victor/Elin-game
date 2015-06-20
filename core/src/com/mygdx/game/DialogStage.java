@@ -7,9 +7,11 @@ import com.uwsoft.editor.renderer.SceneLoader;
 public class DialogStage extends Stage{
 	
 //	MyGestureListener myGestureListener;
+	 private DialogStageScript dialogStageScript;
 	
-    public DialogStage(final GameStage gameStage/*, MyGestureListener myGestureListener*/){
-//    	this.myGestureListener = myGestureListener;
+
+	public DialogStage(final GameStage gameStage){
+    	super();
     	
         //Creating a scene loader and passing it a resource manager of game stage
         SceneLoader sl = new SceneLoader(gameStage.essentials.rm);
@@ -17,11 +19,15 @@ public class DialogStage extends Stage{
         // loading UI scene
         sl.loadScene("DialogScreen");
 
-        // adding it's root composite item to the stage       
-        //	        addActor(sl.getRoot());
-
-        DialogStageScript dialogStageScript = new DialogStageScript(this, gameStage/*, myGestureListener*/);
+        dialogStageScript = new DialogStageScript(this, gameStage);
         sl.getRoot().addScript(dialogStageScript);
         addActor(sl.getRoot());	 
     }
+	
+    /**
+	 * @return the dialogStageScript
+	 */
+	public DialogStageScript getDialogStageScript() {
+		return dialogStageScript;
+	}
 }

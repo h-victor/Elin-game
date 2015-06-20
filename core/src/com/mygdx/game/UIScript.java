@@ -36,7 +36,7 @@ public class UIScript implements IScript {
 		playButtonScript.act(delta);
 		item.getLabelById("HP").setText("HP= "+MartenScript.HP);
 		stage.getGameStage().getMartenScript();
-		if(MartenScript.HP==0||stage.getGameStage().marten.getY()<-1000)
+		if(MartenScript.isDead||stage.getGameStage().getMarten().getY()<-1000)
 			button.setVisible(true);
 		else
 			button.setVisible(false);

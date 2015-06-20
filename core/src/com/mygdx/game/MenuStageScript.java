@@ -8,10 +8,8 @@ public class MenuStageScript implements IScript {
 	private MenuStage menuStage_;
 	private CompositeItem menuSceneActors;
 	private CompositeItem button;
-	
 	private SimpleButtonScript playButtonScript; 
-	
-	public static boolean startGameStage = false; // boolean, true when we hit the play button
+	public static boolean startGameStage = false;
 	
 	public MenuStageScript(MenuStage menuStage_){
 		this.menuStage_ = menuStage_;
@@ -30,15 +28,12 @@ public class MenuStageScript implements IScript {
 		playButtonScript.act(delta);
 		if (playButtonScript.isDown()){
 			startGameStage = true; 
-			dispose();// clear the MenuStage
+			dispose();
 		}
 	}
 
 	@Override
 	public void dispose() {
 		menuStage_.dispose();
-		button.clear();
-		playButtonScript.clearListeners();
-		menuSceneActors.clear();
 	}
 }

@@ -15,7 +15,7 @@ public class MenuStage extends Overlap2DStage {
 	
 	private void initMenu(){
 		clear();
-		sceneLoader.loadScene("Menu"); //("MenuScene");
+		sceneLoader.loadScene("Menu"); 
 		MenuStageScript menuScript= new MenuStageScript(this);
 		sceneLoader.getRoot().addScript(menuScript);
 		addActor(sceneLoader.getRoot());

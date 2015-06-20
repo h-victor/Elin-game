@@ -3,62 +3,50 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
-import com.uwsoft.editor.renderer.data.SceneVO;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class GameStage extends Overlap2DStage{
-	public SceneVO mainScene;
-	public CompositeItem elin;
-	public CompositeItem marten;
-	public Array<CompositeItem> pigs;
-	public Array<CompositeItem> questItems;
-	public Array<CompositeItem> food;
-
+	private CompositeItem elin;
+	private CompositeItem marten;
 	private MartenScript martenScript;
 	private ElinScript elinScript;
-	private GameStageScript gameStageScript;
-	private boolean isPast = false;
-	public int itemNb;
 	private Save save;
+	private boolean isPast = false;
+	private boolean isTimeTravaler = false;
+	private int itemNb;
+	private GameStageScript gameStageScript;
 	
-	MyGestureListener myGestureListener;
-	
-	/**
-	 * @return the martenScript
-	 */
-	public MartenScript getMartenScript() {
-		return martenScript;
-	}
-	
+
+
+//	private MyGestureListener myGestureListener;
+
+
+
 	public GameStage(ResourceManager resourceManager){
-		super(new FitViewport(resourceManager.getProjectVO().originalResolution.width, resourceManager.getProjectVO().originalResolution.height));
+		super();
 		initSceneLoader(resourceManager);
-		//		dialog();
 		initMainScene();
 	}
 
 	private void initMainScene() {
-        myGestureListener = new MyGestureListener();
-        
-		//@SuppressWarnings("unused")
-		SceneVO mainScene = sceneLoader.loadScene("MainScene");//Load scene data: world physic , resolution, light 
+
+		sceneLoader.loadScene("MainScene");//Load scene data: world physic , resolution, light 
 		addActor(sceneLoader.sceneActor);
-		martenScript=new MartenScript(this, myGestureListener);
-		elinScript= new ElinScript(this, myGestureListener);
 		elin=sceneLoader.sceneActor.getCompositeById("elin");
 		marten= sceneLoader.sceneActor.getCompositeById("marten");
+		gameStageScript = new GameStageScript(this,elin , marten);
+		sceneLoader.sceneActor.addScript(gameStageScript);
+		save=new Save();
+		martenScript=new MartenScript(this);
+		elinScript= new ElinScript(this);
+		
 		elin.addScript(elinScript);
 		marten.addScript(martenScript);
-		gameStageScript = new GameStageScript(this);
-		sceneLoader.sceneActor.addScript(gameStageScript);
-		
-//		save=new Save();
 		for(IBaseItem item: sceneLoader.sceneActor.getItems()) {
 			if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new MovingPigScript(this));
@@ -66,24 +54,23 @@ public class GameStage extends Overlap2DStage{
 			if(item.getCustomVariables().getFloatVariable("item") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new ItemScript(this));
 			}
-/*			if(item.getCustomVariables().getFloatVariable("food") != null && item.isComposite()) {
+			if(item.getCustomVariables().getFloatVariable("food") != null && item.isComposite()) {
 				((CompositeItem)item).addScript(new FoodScript(this));
-						
-			}*/
+
+			}
 		}
 
-		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
-		music.play();
-		music.setLooping(true);
+		//		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
+		//		music.play();
+		//		music.setLooping(true);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.uwsoft.editor.renderer.Overlap2DStage#act(float)
-	 */
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		if(Gdx.input.isKeyJustPressed(Input.Keys.K)) {
+		this.getCamera().position.x = elin.getX();
+		if(Gdx.input.isKeyJustPressed(Input.Keys.K)&&!isTimeTravaler) {
 			if(isPast==false)
 				goToPast();
 			else if(isPast==true)
@@ -91,32 +78,61 @@ public class GameStage extends Overlap2DStage{
 		}
 	}
 
-	/* Loading another scene -> go back in time */
 	public void goToPast(){
 		save.setPresentSave(sceneLoader.sceneActor);
-		clear();
+		getActors().clear();
 		sceneLoader.loadScene("PastScene");
+		sceneLoader.getRoot().addActor(elin);
+		sceneLoader.getRoot().addActor(marten);
 		addActor(sceneLoader.getRoot());
-		addActor(elin);
-		addActor(marten);
+		sceneLoader.getRoot().addScript(gameStageScript);
 		isPast=true;
 	}
 
-    public void returnToPresent() {
-        //sceneLoader.loadScene("MainScene");
-        clear();
-        System.out.println("3"+save.getPresentSave()+save.getPresentSave());
-        save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("elin"));
-        save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("marten"));
-        addActor(save.getPresentSave());
-        addActor(elin);
-        addActor(marten);
-        isPast=false;
-    }        
+	public void returnToPresent() {
+		isTimeTravaler=true;
+		isPast=false;
+		getActors().clear();
+		save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("elin"));
+		save.getPresentSave().removeActor(save.getPresentSave().getCompositeById("marten"));
+		addActor(save.getPresentSave());
+		addActor(elin);
+		addActor(marten);
+		
+	}        
 
-	/*	public void dialog(){
-		//clear();
-		sceneLoader.loadScene("DialogScreen");
-	}
+	/**
+	 * @return the itemNb
 	 */
+	public int getItemNb() {
+		return itemNb;
+	}
+
+	/**
+	 * @param itemNb the itemNb to set
+	 */
+	public void setItemNb(int itemNb) {
+		this.itemNb = itemNb;
+	}
+
+	/**
+	 * @return the marten
+	 */
+	public CompositeItem getMarten() {
+		return marten;
+	}
+
+	/**
+	 * @return the martenScript
+	 */
+	public MartenScript getMartenScript() {
+		return martenScript;
+	}
+
+	/**
+	 * @return the elinScript
+	 */
+	public ElinScript getElinScript() {
+		return elinScript;
+	}
 }

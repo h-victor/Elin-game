@@ -3,38 +3,31 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriterActor;
 import com.uwsoft.editor.renderer.script.IScript;
 
-public class ElinScript implements IScript {
-	private final GameStage gameStage;
+public class ElinScript implements IScript{
+	private GameStage gameStage;
 	private float moveSpeed;
 
 	private CompositeItem item;
 	private SpriterActor spriterActor;
 	private CompositeItem marten;
 	private Vector2 initialCoordinates;
+	private Vector2 elinPos;
+	private Vector2 mousePos;
 
 	public static boolean isBridge = false;
 	public static boolean isLadder = false;
 	public static boolean goMarten = false;
-	
-	public static boolean isBridgeCreate = false;
-	public static boolean isLadderCreate = false;
-	
-	public static boolean current = false;
-	
-	
-    MyGestureListener myGestureListener;
-    boolean first = false;
 
-	public ElinScript(final GameStage gameStage, MyGestureListener myGestureListener) {
+	public ElinScript(final GameStage gameStage) {
 		this.gameStage=gameStage;
-        this.myGestureListener = myGestureListener;
 	}
 
 	@Override
@@ -43,52 +36,46 @@ public class ElinScript implements IScript {
 		this.item.getImageById("ladder").setVisible(false);
 		this.item.getImageById("bridge").setVisible(false);
 		moveSpeed = 220f * this.item.mulX;
-		marten = item.getParentItem().getCompositeById("marten");
+		marten = gameStage.getMarten();
 		spriterActor=item.getSpriterActorById("animation");
-        this.item.setOrigin(this.item.getWidth()/2, 0);
+		this.item.setOrigin(this.item.getWidth()/2, 0);
 		initialCoordinates = new Vector2(item.getX(), item.getY());
+		elinPos = new Vector2();
+		mousePos = new Vector2();
 	}
 
 	@Override
 	public void dispose() {
 		spriterActor.dispose();
 		item.dispose();
-        marten.dispose();
+		marten.dispose();
 	}
 
 	@Override
 	public void act(final float delta) {
-		elinMove(delta);
-		if(Gdx.input.isKeyJustPressed(Input.Keys.B)&&MartenScript.isCloseEnough()){
-			elinTransformToBridge();
+		elinPos.set(item.getX()+spriterActor.getX()+spriterActor.getWidth()/2,item.getY()+spriterActor.getY()+spriterActor.getHeight()/2);
+		mousePos.set(Gdx.input.getX(),Gdx.input.getY());
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+			System.out.println("Gdx.input.pos  ="+gameStage.screenToStageCoordinates(mousePos)+
+					" \n elinPos ="+elinPos );
 		}
+		/****elin Move****/
+		if(Gdx.input.isKeyPressed(Input.Keys.D)) 
+			elinMoveRight(delta);
+		if(Gdx.input.isKeyPressed(Input.Keys.Q)) 
+			elinMoveLeft(delta);
+		if(Gdx.input.isKeyPressed(Input.Keys.Z)) 
+			elinMoveTop(delta);
+		if(Gdx.input.isKeyPressed(Input.Keys.S)) 
+			elinMoveBot(delta);
+
+		/******elin Transform******/
+		if((Gdx.input.isKeyJustPressed(Input.Keys.B))&&MartenScript.isCloseEnough())
+			elinTransformToBridge();
 		if(Gdx.input.isKeyJustPressed(Input.Keys.L)&&MartenScript.isCloseEnough())
 			elinTransformToLadder();
-
-		// Gesture Detector
- /*       if(!first){
-            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
-            first = true;
-        }*/
-
-        /* Bridge */        
-        if(myGestureListener.getZoom() && MartenScript.isCloseEnough() && !isBridgeCreate && !isLadderCreate){
-			elinTransformToBridge();
-			isBridgeCreate =  true;
-        }
-        if(myGestureListener.getLadder() && MartenScript.isCloseEnough() && !isLadderCreate && !isBridgeCreate){
-			elinTransformToLadder();
-			isLadderCreate =  true;
-        }
-		if(MartenScript.isActionFinished){
+		if(MartenScript.isActionFinished)
 			elinTransformBack();
-			isBridgeCreate = false;
-			isLadderCreate = false;
-			myGestureListener.setZoom(false);
-			myGestureListener.setLadder(false);
-		}
-
-        myGestureListener.update();
 	}
 
 	public void reset(){
@@ -145,14 +132,10 @@ public class ElinScript implements IScript {
 				@Override
 				public void run() {
 					setSpriterAnimationByName("transformation Pont 2");
-				}}),Actions.delay(1.5f),Actions.run(new Runnable(){
+				}}),Actions.delay(1f),Actions.run(new Runnable(){
 					@Override
-					public void run() {
-						setSpriterAnimationByName("marche");
-					}
-
+					public void run() {setSpriterAnimationByName("marche");}
 				}),Actions.run(new Runnable(){
-
 					@Override
 					public void run() {
 						if(marten.getScaleX()>0){
@@ -176,14 +159,12 @@ public class ElinScript implements IScript {
 											isBridge=false;
 										}
 									})));
-						}
-					}
-				})));
+						}}})));
 		}
 		else System.out.println("error");
 	}
 
-	private void elinTransformToBridge() {
+	public void elinTransformToBridge() {
 		item.addAction(Actions.sequence(Actions.run(new Runnable(){
 			@Override
 			public void run() {
@@ -195,14 +176,13 @@ public class ElinScript implements IScript {
 			public void run() {
 				spriterActor.setVisible(false);
 				item.getImageById("bridge").setVisible(true);
-				item.getImageById("ladder").setVisible(false);
 				isBridge=true;
 				goMarten=true;
 			}
 		}))));
 	}
 
-	private void elinTransformToLadder() {
+	public void elinTransformToLadder() {
 		item.addAction(Actions.sequence(Actions.run(new Runnable(){
 			@Override
 			public void run() {
@@ -213,7 +193,6 @@ public class ElinScript implements IScript {
 			@Override
 			public void run() {
 				spriterActor.setVisible(false);
-				item.getImageById("bridge").setVisible(false);
 				item.getImageById("ladder").setVisible(true);
 				isLadder=true;
 				goMarten=true;
@@ -221,29 +200,31 @@ public class ElinScript implements IScript {
 		})));
 	}
 
-	private void elinMove(final float delta) {
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-			item.setX(item.getX() + delta*moveSpeed);
-			if(item.getScaleX()<0){
-				item.setScaleX(item.getScaleX()*-1f);
-			}
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.Q)) {
-			item.setX(item.getX() - delta*moveSpeed);
-			if(item.getScaleX()>0){
-				item.setScaleX(item.getScaleX()*-1f);
-			}
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.Z)) {
-			item.setY(item.getY() + delta*moveSpeed);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-			item.setY(item.getY() - delta*moveSpeed);
+	public void elinMoveBot(final float delta) {
+		item.setY(item.getY() - delta*moveSpeed);
+	}
+
+	public void elinMoveTop(final float delta) {
+		item.setY(item.getY() + delta*moveSpeed);
+	}
+
+	public void elinMoveLeft(final float delta) {
+		item.setX(item.getX() - delta*moveSpeed);
+		if(item.getScaleX()>0){
+			item.setScaleX(item.getScaleX()*-1f);
 		}
 	}
-	
+
+	public void elinMoveRight(final float delta) {
+		item.setX(item.getX() + delta*moveSpeed);
+		if(item.getScaleX()<0){
+			item.setScaleX(item.getScaleX()*-1f);
+		}
+	}
+
 	/***** Coding Tools  *******/
 	private void setSpriterAnimationByName(final String string) {
 		spriterActor.setAnimation(spriterActor.getAnimations().indexOf(string));
 	}
+
 }
