@@ -55,7 +55,7 @@ private ElinApplication app;
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		isTap = true;
-		System.out.println("tap ="+isTap);
+//		System.out.println("tap ="+isTap);
 		if(count==2){
 			app.getGameStage_().getMartenScript().attack();
 		}
@@ -65,7 +65,7 @@ private ElinApplication app;
 	@Override
 	public boolean longPress(float x, float y) {
 		isLongPress = true;
-		System.out.println("longpress ="+isLongPress);
+//		System.out.println("longpress ="+isLongPress);
 //		app.getGameStage_().getElinScript().elinTransformToLadder();
 		return true;
 	}
@@ -79,7 +79,7 @@ private ElinApplication app;
 		//			}
 		//			isLadder = true;
 		isFling=true;
-		System.out.println("fling ="+isFling);
+//		System.out.println("fling ="+isFling);
 		return true;
 	}
 
@@ -89,7 +89,7 @@ private ElinApplication app;
 		//				camera.position.add(-deltaX * camera.zoom, deltaY * camera.zoom, 0);
 		//			}
 		isPan=true;
-		System.out.println("pan ="+deltaX+":"+ deltaY);
+//		System.out.println("pan ="+deltaX+":"+ deltaY);
 		if(deltaY==-15)
 			app.getGameStage_().getElinScript().elinTransformToLadder();
 		if(deltaX==15||deltaX==-15)

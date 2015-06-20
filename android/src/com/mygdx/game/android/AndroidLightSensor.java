@@ -1,4 +1,4 @@
-package com.mygdx.game.android;
+/*package com.mygdx.game.android;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +38,7 @@ public class AndroidLightSensor extends Activity implements LightSensorInterface
     @Override
     public void onSensorChanged(SensorEvent event) {
         this.currentLux = event.values[0];
-        
+*/        
 //			Gdx.input.getTextInput(new TextInputListener() {
 //			@Override
 //			public void input(String text){
@@ -55,7 +55,7 @@ public class AndroidLightSensor extends Activity implements LightSensorInterface
 //			System.out.println("hello");
 //			System.out.println(currentLux);
 //			Gdx.input.vibrate(1000);
-    }
+/*    }
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -75,7 +75,7 @@ public class AndroidLightSensor extends Activity implements LightSensorInterface
 	    super.onPause();
 	    mSensorManager.unregisterListener(this);
 	  }	
-	  
+*/	  
 	  
 /*		public SensorEventListener lightListener = new SensorEventListener() {
 			public void onAccuracyChanged(Sensor sensor, int acc) { }
@@ -86,4 +86,4 @@ public class AndroidLightSensor extends Activity implements LightSensorInterface
 				//textLight.setText((int)x + " lux");
 			}
 		};*/
-}
+//}

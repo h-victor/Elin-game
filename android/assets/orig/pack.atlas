@@ -20,9 +20,16 @@ GUI2
   index: -1
 aile papillon
   rotate: false
-  xy: 2, 17
+  xy: 813, 6
   size: 50, 61
   orig: 50, 61
+  offset: 0, 0
+  index: -1
+apple
+  rotate: false
+  xy: 1240, 685
+  size: 34, 31
+  orig: 34, 31
   offset: 0, 0
   index: -1
 arbre1
@@ -95,6 +102,13 @@ feu
   orig: 128, 93
   offset: 0, 0
   index: -1
+g4239
+  rotate: false
+  xy: 2, 39
+  size: 245, 39
+  orig: 245, 39
+  offset: 0, 0
+  index: -1
 groupe arbre
   rotate: false
   xy: 813, 158
@@ -125,7 +139,7 @@ pont018
   index: -1
 sol
   rotate: false
-  xy: 1083, 42
+  xy: 1423, 68
   size: 236, 92
   orig: 236, 92
   offset: 0, 0
@@ -139,7 +153,7 @@ sol2
   index: -1
 sol3
   rotate: false
-  xy: 1423, 67
+  xy: 1083, 41
   size: 236, 93
   orig: 236, 93
   offset: 0, 0

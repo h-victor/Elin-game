@@ -51,7 +51,7 @@ public class DialogStageScript implements IScript{
 //            first = true;
 //        }
         
-    	//readDialog();
+    	readDialog();
 
     //	myGestureListener.update();
     }
@@ -60,19 +60,19 @@ public class DialogStageScript implements IScript{
         if(wait == 0){
             readAndShowDialog("#beginIntroduction", "#endIntroduction");
         }
-        else if( wait == 1){
+        else if(wait == 1){
             readAndShowDialog("#beginRetrouvaille", "#endRetrouvaille");
         }
-        else if( wait == 2){
+        else if(wait == 2){
             readAndShowDialog("#beginDialog1", "#endDialog1");
         }
-        else if( wait == 3){
+        else if(wait == 3){
             readAndShowDialog("#beginDialog2", "#endDialog2");
         }
-        else if( wait == 4){
+        else if(wait == 4){
             readAndShowDialog("#beginCalin", "#endCalin");
         }
-        else if( wait == 5){
+        else if(wait == 5){
             readAndShowDialog("#beginDialog3", "#endDialog3");
         }
         /* Monster */
@@ -87,10 +87,10 @@ public class DialogStageScript implements IScript{
         else if(isNearObject("dialogVolund") && gameStage.getItemNb() == 3 && wait == 8){
             readAndShowDialog("#beginDialog6", "#endDialog6");
         }
-        else if( wait == 9){
+        else if(wait == 9){
             readAndShowDialog("#beginJourSuivant", "#endJourSuivant");
         }
-        else if( wait == 10){
+        else if(wait == 10){
             readAndShowDialog("#beginDialog7", "#endDialog7");
         } 
 //		System.out.println(gameStage.sceneLoader.getRoot().getCompositeById("dialogMonster").getX());
@@ -106,9 +106,10 @@ public class DialogStageScript implements IScript{
         }
         if(!readLineWait){
 //            if(/*Gdx.input.isTouched()*/myGestureListener.isTap()){//isKeyJustPressed(Input.Keys.V)){
-                readLineWait = dialog.readLineWait();
+        	if(Gdx.input.justTouched() && Gdx.input.getY() < 200){
+        		readLineWait = dialog.readLineWait();
                 //myGestureListener.setTap(false);
-        //    }			
+            }			
         }
         return readLineWait;
     }
@@ -127,10 +128,13 @@ public class DialogStageScript implements IScript{
     }
     
     public boolean isNearObject(String object){
-    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
-        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
-    		return true;
-    	}
+       	if(gameStage.sceneLoader.getRoot().getCompositeById(object) != null){	
+	    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
+	        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
+	    		return true;
+	    	}
+	    	else{return false;}
+	    }
     	else{
     		return false;
     	}

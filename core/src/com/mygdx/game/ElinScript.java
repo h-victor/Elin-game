@@ -2,32 +2,33 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriterActor;
 import com.uwsoft.editor.renderer.script.IScript;
-
+																																																																																																																																																												
 public class ElinScript implements IScript{
 	private GameStage gameStage;
 	private float moveSpeed;
 
 	private CompositeItem item;
 	private SpriterActor spriterActor;
-	private CompositeItem marten;
+	private CompositeItem marten;																																																																																								
 	private Vector2 initialCoordinates;
 	private Vector2 elinPos;
 	private Vector2 mousePos;
-
+	
 	public static boolean isBridge = false;
 	public static boolean isLadder = false;
 	public static boolean goMarten = false;
+	
+	private Camera camera;
 
-	public ElinScript(final GameStage gameStage) {
+	public ElinScript(final GameStage gameStage, Camera camera) {
 		this.gameStage=gameStage;
+		this.camera = camera;
 	}
 
 	@Override
@@ -76,6 +77,25 @@ public class ElinScript implements IScript{
 			elinTransformToLadder();
 		if(MartenScript.isActionFinished)
 			elinTransformBack();
+
+		/******elin Move******/
+				float moveSpeed = 220f * this.item.mulX;
+		
+				if(Gdx.input.isTouched()){
+					if(Gdx.input.getX() > camera.viewportWidth / 2){
+						item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+						if(item.getScaleX()<0){
+							item.setScaleX(item.getScaleX()*-1f);
+						}
+					}
+					else if(Gdx.input.getX() < camera.viewportWidth / 2 ){
+						item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+						if(item.getScaleX()>0){
+							item.setScaleX(item.getScaleX()*-1f);
+						}
+					}
+				}
+
 	}
 
 	public void reset(){

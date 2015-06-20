@@ -43,7 +43,7 @@ public class GameStage extends Overlap2DStage{
 		sceneLoader.sceneActor.addScript(gameStageScript);
 		save=new Save();
 		martenScript=new MartenScript(this);
-		elinScript= new ElinScript(this);
+		elinScript= new ElinScript(this, this.getCamera());
 		
 		elin.addScript(elinScript);
 		marten.addScript(martenScript);
