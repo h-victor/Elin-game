@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.functionality.MyGestureListener;
+import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.IBaseItem;
@@ -21,7 +22,7 @@ public class GameStage extends Overlap2DStage{
 	private int itemNb;
 	private GameStageScript gameStageScript;
 	
-
+//		private Accelerometer accelerometer_;
 
 //	private MyGestureListener myGestureListener;
 
@@ -60,9 +61,12 @@ public class GameStage extends Overlap2DStage{
 			}
 		}
 
-		//		Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
-		//		music.play();
-		//		music.setLooping(true);
+				Music music = Gdx.audio.newMusic(Gdx.files.internal("Celestial_Aeon_Project_-_Children.mp3"));
+				music.play();
+				music.setLooping(true);
+
+//				accelerometer_ = new Accelerometer(this.getCamera());
+
 	}
 
 	
@@ -75,6 +79,20 @@ public class GameStage extends Overlap2DStage{
 				goToPast();
 			else if(isPast==true)
 				returnToPresent();
+
+			
+/*					accelerometer_.getAccelerometerPosition();
+			
+					if(accelerometer_.returnSmartphoneNormal() && !isTimeTravaler){
+						goToPast();
+//						Gdx.input.vibrate(1000);
+					}
+			
+					if(accelerometer_.returnSmartphoneinverse() && !isTimeTravaler){
+						returnToPresent();
+//						Gdx.input.vibrate(1000);
+					}
+*/
 		}
 	}
 

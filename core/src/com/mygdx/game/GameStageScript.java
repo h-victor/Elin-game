@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.mygdx.functionality.accelerometer;
+import com.badlogic.gdx.math.Vector3;
+import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
@@ -16,7 +17,7 @@ public class GameStageScript implements IScript{
 	private GameStage stage;
 	private CompositeItem item;
 	private OrthographicCamera camera;
-	private accelerometer accelerometer_;
+	private Accelerometer accelerometer_;
 	private String message = "no";
 	private boolean plan2 = false; // boolean, is true when player in the second plan
 	private boolean landscape = true; // boolean, is true when camera is in landscape mode
@@ -33,7 +34,7 @@ public class GameStageScript implements IScript{
 	@Override
 	public void init(CompositeItem item) {
 		this.item = item;
-		accelerometer_ = new accelerometer(camera);
+		accelerometer_ = new Accelerometer(camera);
 
 		//		touchScreen touchScreen_ = new touchScreen(camera, item);
 		//		touchScreen_.elinFollowMarten();
@@ -71,10 +72,10 @@ public class GameStageScript implements IScript{
 			}
 		}
 
-		//		/* accelerometer rotation camera to landscape to portrait */
-		//		accelerometer_.getAccelerometerPosition();
-		//		accelerometer_.rotateCamera();
-		//
+				/* accelerometer rotation camera to landscape to portrait */
+				accelerometer_.getAccelerometerPosition();
+				accelerometer_.rotateCamera();
+		
 		//		if(accelerometer_.returnSmartphoneNormal()){
 		//			item.getCompositeById("elin").setPosition(
 		//					item.getCompositeById("elin").getX() / 10,
@@ -132,6 +133,8 @@ public class GameStageScript implements IScript{
 	private void cameraRotation() {
 		if(landscape == true){
 			camera.rotate(camera.direction, 90f); 
+//			camera.translate(camera.position.x, camera.position.y + camera.viewportWidth / 2);
+//			camera.project(new Vector3(camera.position.x, camera.position.y + camera.viewportWidth / 2, 0));
 			camera.update();
 			landscape = false;
 		}

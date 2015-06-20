@@ -31,14 +31,14 @@ public class ElinApplication extends ApplicationAdapter {
 		menuStage_ = new MenuStage(resourceManager);
 		gameStage_ = new GameStage(resourceManager/*, myGestureListener*/);
 		dialogStage = new DialogStage(gameStage_/*, myGestureListener*/);
-		//        uiStage = new UIStage(resourceManager,gameStage_);
+		        uiStage = new UIStage(resourceManager,gameStage_);
 
 
 		        inputMultiplexer = new InputMultiplexer();
 		        inputMultiplexer.addProcessor(gameStage_);
 		        inputMultiplexer.addProcessor(new GestureDetector(new MyGestureListener(this)));
 		        inputMultiplexer.addProcessor(dialogStage);
-		//        inputMultiplexer.addProcessor(uiStage);
+		        inputMultiplexer.addProcessor(uiStage);
 		        inputMultiplexer.addProcessor(menuStage_);
 		        Gdx.input.setInputProcessor(inputMultiplexer);
 
@@ -56,8 +56,8 @@ public class ElinApplication extends ApplicationAdapter {
 			gameStage_.draw();
 						dialogStage.act();
 						dialogStage.draw();
-			//			uiStage.act(Gdx.graphics.getDeltaTime());
-			//			uiStage.draw();
+						uiStage.act(Gdx.graphics.getDeltaTime());
+						uiStage.draw();
 
 
 		}

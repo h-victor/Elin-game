@@ -3,7 +3,7 @@ package com.mygdx.functionality;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 
-public class accelerometer {
+public class Accelerometer {
 	public int accelerometerX, accelerometerY, accelerometerZ;
 	public boolean smartphoneFlatNormal, smartphoneLandscapeNormal, smartphonePortraitNormal;
 	public boolean smartphoneFlatInverse, smartphoneLandscapeInverse, smartphonePortraitInverse;
@@ -20,7 +20,7 @@ public class accelerometer {
 
 	public Camera camera;
 
-	public accelerometer(Camera camera){
+	public Accelerometer(Camera camera){
 		this.camera = camera;
 		isRotated = false;
 
@@ -94,17 +94,20 @@ public class accelerometer {
 	public void rotateCamera(){
 		/* Activate the rotation of the camera Normal Mode*/
 		if(smartphoneLandscapeNormal && isRotated){
-			if(wasSmartphonePortraitNormal)
+			if(wasSmartphonePortraitNormal){
 				this.camera.rotate(camera.direction, 90f); 
-			else if(wasSmartphonePortraitInverse)
-				this.camera.rotate(camera.direction, -90f); 	
-
+			}
+			else if(wasSmartphonePortraitInverse){
+				this.camera.rotate(camera.direction, -90f);
+			}
+			
 			this.camera.update();
 			isRotated = false;
 		}
 		else if(smartphonePortraitNormal && !isRotated){
-			if(wasSmartphoneLandscapeNormal)
+			if(wasSmartphoneLandscapeNormal){
 				camera.rotate(camera.direction, 90f); 
+			}
 			else if(wasSmartphoneLandscapeInverse)
 				camera.rotate(camera.direction, -90f);
 
