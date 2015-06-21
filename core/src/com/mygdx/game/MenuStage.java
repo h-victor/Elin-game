@@ -5,20 +5,18 @@ import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class MenuStage extends Overlap2DStage {
+    public MenuStage(ResourceManager resourceManager){
+        super();
+        Gdx.input.setInputProcessor(this);	
+        initSceneLoader(resourceManager);
+        initMenu();
+    }
 
-	public MenuStage(ResourceManager resourceManager){
-		super();
-		Gdx.input.setInputProcessor(this);	
-		initSceneLoader(resourceManager);
-		initMenu();
-	}
-	
-	private void initMenu(){
-		clear();
-		sceneLoader.loadScene("Menu"); 
-		MenuStageScript menuScript= new MenuStageScript(this);
-		sceneLoader.getRoot().addScript(menuScript);
-		addActor(sceneLoader.getRoot());
-	}
-
+    private void initMenu(){
+        clear();
+        sceneLoader.loadScene("Menu"); 
+        MenuStageScript menuScript= new MenuStageScript(this);
+        sceneLoader.getRoot().addScript(menuScript);
+        addActor(sceneLoader.getRoot());
+    }
 }

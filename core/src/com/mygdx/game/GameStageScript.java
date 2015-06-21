@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
@@ -14,161 +13,115 @@ import com.uwsoft.editor.renderer.script.IScript;
  */
 
 public class GameStageScript implements IScript{
-	private GameStage stage;
-	private CompositeItem item;
-	private OrthographicCamera camera;
-	private Accelerometer accelerometer_;
-	private String message = "no";
-	private boolean plan2 = false; // boolean, is true when player in the second plan
-	private boolean landscape = true; // boolean, is true when camera is in landscape mode
-	private CompositeItem marten;
-	private CompositeItem elin;
+    private GameStage stage;
+    private CompositeItem item;
+    private OrthographicCamera camera;
+    private Accelerometer accelerometer_;
+    private String message = "no";
+    private boolean plan2 = false; // boolean, is true when player in the second plan
+    private boolean landscape = true; // boolean, is true when camera is in landscape mode
+    private CompositeItem marten;
+    private CompositeItem elin;
 
-	public GameStageScript(GameStage stage, CompositeItem elin, CompositeItem marten){
-		this.marten=marten;
-		this.elin=elin;
-		this.stage= stage;
-		this.camera=(OrthographicCamera) stage.getCamera();
-	}
+    public GameStageScript(GameStage stage, CompositeItem elin, CompositeItem marten){
+        this.marten=marten;
+        this.elin=elin;
+        this.stage= stage;
+        this.camera=(OrthographicCamera) stage.getCamera();
+    }
 
-	@Override
-	public void init(CompositeItem item) {
-		this.item = item;
-		accelerometer_ = new Accelerometer(camera);
+    @Override
+    public void init(CompositeItem item) {
+        this.item = item;
+        accelerometer_ = new Accelerometer(camera);
+    }
 
-		//		touchScreen touchScreen_ = new touchScreen(camera, item);
-		//		touchScreen_.elinFollowMarten();
+    @Override
+    public void dispose() {
+        item.dispose();
+        stage.dispose();
+    }
 
+    @Override
+    public void act(float delta) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)||accelerometer_.raiseALittleSmartphone())
+            changementPlan();		
 
-	}
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P))
+            cameraRotation();
 
-	@Override
-	public void dispose() {
-		item.dispose();
-		stage.dispose();
-	}
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            showEnigma();
 
-	@Override
-	public void act(float delta) {
-		
+        if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.PLUS)){
+                camera.zoom -= 0.1f; 
+                camera.update();
+            }
+            else if(Gdx.input.isKeyJustPressed(Input.Keys.MINUS)){
+                camera.zoom +=0.1f; 
+                camera.update();
+            }
+        }
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)||accelerometer_.raiseALittleSmartphone())
-			changementPlan();		
+        /* accelerometer rotation camera to landscape to portrait */
+        accelerometer_.getAccelerometerPosition();
+        accelerometer_.rotateCamera();
+    }
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.P))
-			cameraRotation();
+    /***** NE PAS TOUCHER********/
+    private void showEnigma() {
+        Gdx.input.getTextInput(new TextInputListener() {
+            @Override
+            public void input(String text){
+                message = text;
+                if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
+            }
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.E))
-			showEnigma();
+            @Override
+            public void canceled(){
+                message = "no";
+            }
+        }, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
+    }
 
-		if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
-			if(Gdx.input.isKeyJustPressed(Input.Keys.PLUS)){
-				camera.zoom -= 0.1f; 
-				camera.update();
-			}
-			else if(Gdx.input.isKeyJustPressed(Input.Keys.MINUS)){
-				camera.zoom +=0.1f; 
-				camera.update();
-			}
-		}
+    private void cameraRotation() {
+        if(landscape == true){
+            camera.rotate(camera.direction, 90f); 
+            camera.update();
+            landscape = false;
+        }
+        else if(landscape == false){
+            camera.rotate(camera.direction, -90f); 
+            camera.update();
+            landscape = true;
+        }
+    }
 
-				/* accelerometer rotation camera to landscape to portrait */
-				accelerometer_.getAccelerometerPosition();
-				accelerometer_.rotateCamera();
-		
-		//		if(accelerometer_.returnSmartphoneNormal()){
-		//			item.getCompositeById("elin").setPosition(
-		//					item.getCompositeById("elin").getX() / 10,
-		//					item.getCompositeById("ground2").getY() / 10, 0);
-		//			Gdx.input.vibrate(1000);
-		//		}
-		//
-		//		if(accelerometer_.returnSmartphoneinverse()){
-		//			item.getCompositeById("elin").setPosition(
-		//					item.getCompositeById("elin").getX() / 10,
-		//					item.getCompositeById("ground1").getY() / 10, 0);
-		//			Gdx.input.vibrate(1000);
-		//		}
-		//		float moveSpeed = 220f * this.item.getCompositeById("elin").mulX;
-		//
-		//		if(Gdx.input.isTouched()){
-		//			if(Gdx.input.getX() > camera.viewportWidth / 2){
-		//				item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
-		//				if(item.getCompositeById("elin").getScaleX()<0){
-		//					item.getCompositeById("elin").setScaleX(item.getCompositeById("elin").getScaleX()*-1f);
-		//				}
-		//			}
-		//			else if(Gdx.input.getX() < camera.viewportWidth / 2 ){
-		//				item.getCompositeById("elin").setX(item.getCompositeById("elin").getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
-		//				if(item.getCompositeById("elin").getScaleX()>0){
-		//					item.getCompositeById("elin").setScaleX(item.getCompositeById("elin").getScaleX()*-1f);
-		//				}
-		//			}
-		//		}
-	}
+    private void changementPlan() {
+        if(plan2 == false){
+            elin.setScale(.9f);
+            elin.setPosition(
+                    elin.getX(),
+                    item.getCompositeById("ground2").getTop() );
 
+            marten.setScale(.9f);
+            marten.setPosition(
+                    marten.getX(),
+                    item.getCompositeById("ground2").getTop() );
+            plan2 = true;
+        }
+        else if(plan2 == true){
+            elin.setScale(1);
+            elin.setPosition(
+                    elin.getX(),
+                    item.getCompositeById("ground1").getTop());
 
-
-
-
-
-
-
-	/***** NE PAS TOUCHER********/
-	private void showEnigma() {
-		Gdx.input.getTextInput(new TextInputListener() {
-			@Override
-			public void input(String text){
-				message = text;
-				if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
-			}
-
-			@Override
-			public void canceled(){
-				message = "no";
-			}
-		}, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
-	}
-
-	private void cameraRotation() {
-		if(landscape == true){
-			camera.rotate(camera.direction, 90f); 
-//			camera.translate(camera.position.x, camera.position.y + camera.viewportWidth / 2);
-//			camera.project(new Vector3(camera.position.x, camera.position.y + camera.viewportWidth / 2, 0));
-			camera.update();
-			landscape = false;
-		}
-		else if(landscape == false){
-			camera.rotate(camera.direction, -90f); 
-			camera.update();
-			landscape = true;
-		}
-	}
-
-	private void changementPlan() {
-		if(plan2 == false){
-			elin.setScale(.9f);
-			elin.setPosition(
-					elin.getX(),
-					item.getCompositeById("ground2").getTop() );
-
-			marten.setScale(.9f);
-			marten.setPosition(
-					marten.getX(),
-					item.getCompositeById("ground2").getTop() );
-			plan2 = true;
-		}
-		else if(plan2 == true){
-			elin.setScale(1);
-			elin.setPosition(
-					elin.getX(),
-					item.getCompositeById("ground1").getTop());
-
-			marten.setScale(1);
-			marten.setPosition(
-					marten.getX(),
-					item.getCompositeById("ground1").getTop());
-			plan2 = false;
-		}
-	}
+            marten.setScale(1);
+            marten.setPosition(
+                    marten.getX(),
+                    item.getCompositeById("ground1").getTop());
+            plan2 = false;
+        }
+    }
 }

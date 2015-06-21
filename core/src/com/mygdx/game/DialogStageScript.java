@@ -1,19 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.functionality.MyGestureListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
 public class DialogStageScript implements IScript{
-    private DialogStage dialogStage;
     private GameStage gameStage;
-    private MyGestureListener myGestureListener;
     boolean first = false;
-    
+
     private CompositeItem item;
 
     private Dialog dialog;
@@ -22,11 +16,8 @@ public class DialogStageScript implements IScript{
     boolean readLineWait = false;
     boolean readLine = false;
 
-    public DialogStageScript(DialogStage dialogStage, GameStage gameStage/*, MyGestureListener myGestureListener*/){
-        this.dialogStage = dialogStage;
+    public DialogStageScript(GameStage gameStage){
         this.gameStage = gameStage;
-        
- //       this.myGestureListener = myGestureListener;
     }
 
     @Override
@@ -35,8 +26,6 @@ public class DialogStageScript implements IScript{
 
         /*Dialog*/ dialog = new Dialog(this.item);
         dialog.readFile();
-        
-       // myGestureListener = new MyGestureListener();
     }
 
     @Override
@@ -45,15 +34,7 @@ public class DialogStageScript implements IScript{
 
     @Override
     public void act(float delta) {
-	     // Gesture Detector
-//        if(!first){
-//            Gdx.input.setInputProcessor(new GestureDetector(20, 0.5f, .5f, 0.15f, myGestureListener));
-//            first = true;
-//        }
-        
-    	readDialog();
-
-    //	myGestureListener.update();
+        readDialog();
     }
 
     public void readDialog(){  	
@@ -93,9 +74,6 @@ public class DialogStageScript implements IScript{
         else if(wait == 10){
             readAndShowDialog("#beginDialog7", "#endDialog7");
         } 
-//		System.out.println(gameStage.sceneLoader.getRoot().getCompositeById("dialogMonster").getX());
-//		System.out.println(gameStage.marten.getX()+100);       
-       
     }
 
     public boolean readDialogLine(String beginDialog, String endDialog){
@@ -105,15 +83,13 @@ public class DialogStageScript implements IScript{
             readLine = true;
         }
         if(!readLineWait){
-//            if(/*Gdx.input.isTouched()*/myGestureListener.isTap()){//isKeyJustPressed(Input.Keys.V)){
-        	if(Gdx.input.justTouched() && Gdx.input.getY() < 200){
-        		readLineWait = dialog.readLineWait();
-                //myGestureListener.setTap(false);
+            if(Gdx.input.justTouched() && Gdx.input.getY() < 200){
+                readLineWait = dialog.readLineWait();
             }			
         }
         return readLineWait;
     }
-    
+
     public void readAndShowDialog(String beginDialog, String endDialog){
         if(!readLineWait) 
             readLineWait = readDialogLine(beginDialog, endDialog);
@@ -122,21 +98,19 @@ public class DialogStageScript implements IScript{
             wait++;
             readLineWait = false;
             readLine = false;
-            
-           // myGestureListener.setTap(false);
         }    	
     }
-    
+
     public boolean isNearObject(String object){
-       	if(gameStage.sceneLoader.getRoot().getCompositeById(object) != null){	
-	    	if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
-	        		&& (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
-	    		return true;
-	    	}
-	    	else{return false;}
-	    }
-    	else{
-    		return false;
-    	}
+        if(gameStage.sceneLoader.getRoot().getCompositeById(object) != null){	
+            if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
+                        && (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
+                return true;
+            }
+            else{return false;}
+        }
+        else{
+            return false;
+        }
     }
 }
