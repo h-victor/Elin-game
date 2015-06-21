@@ -10,8 +10,12 @@ public class UIScript implements IScript {
     private CompositeItem button;
     private SimpleButtonScript playButtonScript; 
 
-    public UIScript(UIStage uiStage) {
+    private GameStage gameStage;
+    
+    public UIScript(UIStage uiStage, GameStage gameStage) {
         this.stage=uiStage;
+        
+        this.gameStage = gameStage;
     }
 
     @Override
@@ -20,10 +24,16 @@ public class UIScript implements IScript {
         button=item.getCompositeById("restartBtn");
         playButtonScript=new SimpleButtonScript();
         playButtonScript.init(button);
+        
+        item.getLabelById("label").setVisible(false);
     }
 
     @Override
     public void dispose() {
+    	stage.dispose();
+    	item.dispose();
+    	button.dispose();
+    	playButtonScript.dispose();
     }
 
     @Override
@@ -31,10 +41,22 @@ public class UIScript implements IScript {
         playButtonScript.act(delta);
         item.getLabelById("HP").setText("HP= " + MartenScript.HP);
         stage.getGameStage().getMartenScript();
-        if(MartenScript.isDead || stage.getGameStage().getMarten().getY() < -1000)
+        if(MartenScript.isDead || stage.getGameStage().getMarten().getY() < -1000){
             button.setVisible(true);
-        else
+            
+            item.getLabelById("label").setVisible(true);
+        }
+/*        else if(gameStage.getElinScript().endGame()){
+            button.setVisible(true);
+
+            item.getLabelById("label").setText("Thank you for playing to this demo version of Elin-game");
+            item.getLabelById("label").setVisible(true);
+        }*/
+        else{
             button.setVisible(false);
+            
+            item.getLabelById("label").setVisible(false);
+        }
         if(playButtonScript.isDown()){
             stage.getGameStage().getMartenScript().restart();
         }

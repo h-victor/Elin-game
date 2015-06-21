@@ -1,0 +1,69 @@
+﻿#beginIntroduction
+(Il y a 4 ans, un incendie surgi dans la forêt de Jöhgndur, tuant de nombreux animaux et la princesse Elin du royaume des elfes.
+Marten qui était le gardien de la forêt ce soir-là, était le premier suspect de l'incendie et du meurtre de la princesse. 
+Il fut jugé, puis exilé par le roi Elrik sur l'île Yorick.)
+#endIntroduction
+#beginRetrouvaille
+(Après 4 ans de recherche autour du globe, l’esprit de la princesse Elin retrouva le Marten. )
+#endRetrouvaille
+#beginDialog1
+(Elin : Hey! Marten! Pst hey! Réveille toi !
+Marten : Qui me parle ? Zzz)
+#endDialog1
+#beginEBruleM
+(Marten se rendort, Elin prend alors un bout de bois flambé et brûle Marten, il se réveille donc en sursaut et voit la princesse.)
+#endEBruleM
+#beginDialog2
+(Marten : Princesse Elin ? C’est bien vous ?! Je dois encore être en train de rêver.
+Elin : Marten, tu veux encore que je te brûle ?
+Marten: Non ça ira pourquoi êtes vous ici? Je vous croyais morte par l'incendie.
+Elin: Je le suis. Mais mon esprit ne sera pas en paix tant que je n'aurais pas rétablie la vérité! Je sais qui est à l'origine de l'incendie! C'est mon oncle, le frère du roi Elrik, Hrólf!
+Marten: Je suis si content de vous revoir!)
+#endDialog2
+#beginCalin
+(Il essaie d'attraper Elin, mais il tombe par terre.)
+#endCalin
+#beginDialog3
+(Elin: Hey ! Est-ce que tu m'as écouté? J'ai dit que c'est le frère du roi, Hrólf qui a provoqué l'incendie! Il faut que tu retournes au royaume pour le dire au roi et punir le véritable meurtrier.
+Marten: Mais, comment je vais faire? Je ne peux pas quitter l'île.
+Elin: T’en fais pas, je vais t'aider à quitter l'île.
+Elin: Tu as juste besoin de me suivre.
+Elin: Je peux aussi me transformer en pont ou en échelle.
+#endDialog3
+#beginDialog4
+Elin : va-t’en!  Vil monstre. Aller Marten élimine le!
+Elin : Pourquoi tu n'as pas dégainé ton épée? Tu aurais pu les battre en deux coups
+Marten : Désolé princesse, je suis un minable (T_T) je n'ai pas d'épée et je ne sais pas me battre.
+Elin : Alors pourquoi tu as foncé sur le monstre? N’accordes-tu aucune importance à ta vie ?
+Marten : Je ne voulais pas vous décevoir !
+Elin : On va passer par un autre chemin!
+#endDialog4
+#beginDialog5
+Elin : Zut alors ! On se retrouve encore coincé!
+Volund : Pardonnez-moi de vous déranger mais ça fais un moment que je vous suis et j'ai l'impression que vous aviez des problèmes avec une bête de la forêt.
+Marten : Qui êtes-vous ? Et pourquoi êtes-vous ici ?
+Volund : Je m'appelle Volund et je vis ici sous la terre. Nous avons été chassés de la surface de cette terre par ces bêtes et je pense que vous pouvez nous aider à les battre.
+Marten : Mais comment ? Je n'ai pas d'épée et je ne sais pas me battre =(.
+Volund : Je peux vous forger une épée et même si vous ne savez pas vous battre, je sens que vous avez beaucoup de courage. Vous dégagez une aura très spéciale. Pour fabriquer l'épée j'aurai besoin de deux coquilles de papillon noir de glace, tu peux le trouver sur les cimes des arbres.
+#endDialog5
+#beginDialog6
+Volund : Ah! Merci beaucoup! Venez dans mon atelier pour que je forge votre épée.
+Volund : Je vais vous apprendre à manier cette épée.
+Volund : La leçon est terminée, allez-vous reposer, demain une dure journée vous attend.
+Marten : Pouvez-Vous nous expliquer la présence de ces monstres ?
+Volund : Les bêtes sont arrivées sur l’île il y a environ 6 ans et une bataille éclata entre les elfes noirs et les bêtes. Mais nous avons été rapidement vaincus puis nous nous somme caché sous terre.)
+#endDialog6
+#beginJourSuivant
+(Le lendemain)
+#endJourSuivant
+#beginDialog7
+(Volund : Leur chef se trouve au fond de la grotte Snorri. Bon courage et bonne chance.)
+#endDialog7
+#beginEnigma
+Elin: J'ai besoin de ton aide. Pour pouvoir passer, il faut résoudre une énigme.
+#endEnigma
+#beginResolveEnigma
+Elin: Bravo, ça à l'air de fonctionner. 
+Elin: Je viens de débloquer un nouveau pouvoir, je peux remonter 4 ans auparavant, avant l'incendie, 
+Elin: ce qui nous permettra de passer.
+#endResolveEnigma

@@ -23,6 +23,8 @@ public class GameStageScript implements IScript{
     private CompositeItem marten;
     private CompositeItem elin;
 
+    private DialogStageScript dialogStageScript;
+    
     public GameStageScript(GameStage stage, CompositeItem elin, CompositeItem marten){
         this.marten=marten;
         this.elin=elin;
@@ -34,6 +36,8 @@ public class GameStageScript implements IScript{
     public void init(CompositeItem item) {
         this.item = item;
         accelerometer_ = new Accelerometer(camera);
+
+        dialogStageScript = new DialogStageScript(stage);
     }
 
     @Override
@@ -67,6 +71,10 @@ public class GameStageScript implements IScript{
         /* accelerometer rotation camera to landscape to portrait */
         accelerometer_.getAccelerometerPosition();
         accelerometer_.rotateCamera();
+
+        /* show enigma */
+        if(dialogStageScript.enigma)
+        	showEnigma();
     }
 
     /***** NE PAS TOUCHER********/
@@ -123,5 +131,9 @@ public class GameStageScript implements IScript{
                     item.getCompositeById("ground1").getTop());
             plan2 = false;
         }
+    }
+    
+    public CompositeItem getItem(){
+    	return item;
     }
 }

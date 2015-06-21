@@ -94,7 +94,7 @@ public class ElinScript implements IScript{
                     item.setScaleX(item.getScaleX()*-1f);
                 }
             }
-        }
+        }  
     }
 
     public void reset(){
@@ -245,4 +245,14 @@ public class ElinScript implements IScript{
     private void setSpriterAnimationByName(final String string) {
         spriterActor.setAnimation(spriterActor.getAnimations().indexOf(string));
     }
+    
+    /* end game  => null pointer exception */
+/*    public boolean endGame(){
+    	if(item.getParentItem().getCompositeById("endGame").getX() > item.getX()){
+    		return true;
+    	}
+    	else
+    		return false;
+    }
+*/
 }

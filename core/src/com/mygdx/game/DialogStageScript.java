@@ -16,6 +16,8 @@ public class DialogStageScript implements IScript{
     boolean readLineWait = false;
     boolean readLine = false;
 
+    public boolean enigma = false; // true, when we want to show the enigma
+    
     public DialogStageScript(GameStage gameStage){
         this.gameStage = gameStage;
     }
@@ -73,7 +75,16 @@ public class DialogStageScript implements IScript{
         }
         else if(wait == 10){
             readAndShowDialog("#beginDialog7", "#endDialog7");
-        } 
+        }
+        /* Enigma before going to past */
+        else if(isNearObject("dialogEnigma") && wait == 11){
+        	readAndShowDialog("beginEnigma", "endEnigma");
+        	enigma = true;
+        }
+        /* Enigma after returning to present */
+        else if(isNearObject("dialogResolveEnigma") && wait == 12){
+        	readAndShowDialog("beginResolveEnigma", "endResolveEnigma");
+        }
     }
 
     public boolean readDialogLine(String beginDialog, String endDialog){
@@ -91,19 +102,25 @@ public class DialogStageScript implements IScript{
     }
 
     public void readAndShowDialog(String beginDialog, String endDialog){
-        if(!readLineWait) 
-            readLineWait = readDialogLine(beginDialog, endDialog);
+        if(!readLineWait){ 
+        	readLineWait = readDialogLine(beginDialog, endDialog);
 
+        	item.getLabelById("dialog").setVisible(true);
+            item.getImageById("frame").setVisible(true);
+        }
         else if(readLineWait){
             wait++;
             readLineWait = false;
             readLine = false;
+            
+            item.getLabelById("dialog").setVisible(false);
+            item.getImageById("frame").setVisible(false);
         }    	
     }
 
     public boolean isNearObject(String object){
         if(gameStage.sceneLoader.getRoot().getCompositeById(object) != null){	
-            if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() +100 > (int)gameStage.getMarten().getX()
+            if(((int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX() + 100 > (int)gameStage.getMarten().getX()
                         && (int)gameStage.sceneLoader.getRoot().getCompositeById(object).getX()- 100 < (int)gameStage.getMarten().getX())){
                 return true;
             }
