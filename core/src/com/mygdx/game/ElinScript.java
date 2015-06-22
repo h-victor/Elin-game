@@ -208,9 +208,9 @@ public class ElinScript implements IScript{
 
     public void elinTransformToLadder() {
     	if(marten.getScaleX()>0)
-    		item.addAction(Actions.moveTo(marten.getRight()-(spriterActor.getX()+spriterActor.getWidth()/2)-50, marten.getY(), 1f));
+    		item.addAction(Actions.moveTo(marten.getRight()-(spriterActor.getX()+spriterActor.getWidth()/2)-80, marten.getY(), 1f));
     	else
-    		item.addAction(Actions.moveTo(marten.getX()-(spriterActor.getX()+spriterActor.getWidth()/2)+20, marten.getY(), 1f));
+    		item.addAction(Actions.moveTo(marten.getX()-(spriterActor.getX()+spriterActor.getWidth()/2)+10, marten.getY(), 1f));
         item.addAction(Actions.sequence(
         		Actions.run(new Runnable(){
             @Override
@@ -264,5 +264,4 @@ public class ElinScript implements IScript{
     	else
     		return false;
     }
-
 }

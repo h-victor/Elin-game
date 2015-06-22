@@ -17,7 +17,7 @@ public class GameStageScript implements IScript{
     private CompositeItem item;
     private OrthographicCamera camera;
     private Accelerometer accelerometer_;
-    private String message = "no";
+//    private String message = "no";
     private boolean plan2 = false; // boolean, is true when player in the second plan
     private boolean landscape = true; // boolean, is true when camera is in landscape mode
     private CompositeItem marten;
@@ -37,7 +37,8 @@ public class GameStageScript implements IScript{
         this.item = item;
         accelerometer_ = new Accelerometer(camera);
 
-        dialogStageScript = new DialogStageScript(stage);
+        dialogStageScript = new DialogStageScript(stage);       
+        stage.getMarten().getParentItem().getCompositeById("volund").setVisible(false);
     }
 
     @Override
@@ -54,8 +55,8 @@ public class GameStageScript implements IScript{
         if(Gdx.input.isKeyJustPressed(Input.Keys.P))
             cameraRotation();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
-            showEnigma();
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+//            showEnigma();
 
         if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
             if(Gdx.input.isKeyJustPressed(Input.Keys.PLUS)){
@@ -73,26 +74,11 @@ public class GameStageScript implements IScript{
         accelerometer_.rotateCamera();
 
         /* show enigma */
-        if(dialogStageScript.enigma)
-        	showEnigma();
+//        if(dialogStageScript.enigma)
+//        	showEnigma();
     }
 
     /***** NE PAS TOUCHER********/
-    private void showEnigma() {
-        Gdx.input.getTextInput(new TextInputListener() {
-            @Override
-            public void input(String text){
-                message = text;
-                if(message/*.equals("aspirateur")*/ == "aspirateur"){Gdx.input.vibrate(1000);}
-            }
-
-            @Override
-            public void canceled(){
-                message = "no";
-            }
-        }, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
-    }
-
     private void cameraRotation() {
         if(landscape == true){
             camera.rotate(camera.direction, 90f); 

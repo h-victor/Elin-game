@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
 
@@ -17,6 +18,11 @@ public class DialogStageScript implements IScript{
     boolean readLine = false;
 
     public boolean enigma = false; // true, when we want to show the enigma
+    
+    	private String message = "no";
+    	private boolean showEnigma = true;
+    	private boolean tryAgain = false;
+
     
     public DialogStageScript(GameStage gameStage){
         this.gameStage = gameStage;
@@ -61,6 +67,7 @@ public class DialogStageScript implements IScript{
         /* Monster */
         else if(isNearObject("dialogMonster") && wait == 6){
             readAndShowDialog("#beginDialog4", "#endDialog4");
+            gameStage.getMarten().getParentItem().getCompositeById("volund").setVisible(true);
         }
         /* Meet Volund */
         else if(isNearObject("dialogVolund") && wait == 7){
@@ -79,10 +86,22 @@ public class DialogStageScript implements IScript{
         /* Enigma before going to past */
         else if(isNearObject("dialogEnigma") && wait == 11){
         	readAndShowDialog("beginEnigma", "endEnigma");
-        	enigma = true;
+        	if(wait == 12)
+        		showEnigma();        	
         }
+        else if(!enigma /*&& message != "aspirateur"*/ && wait == 12){
+        	if(!showEnigma){
+        		showEnigma();
+        		showEnigma = true;
+        		
+        		tryAgain = false;
+        	}
+        	else if(tryAgain){
+        		showEnigma = false;	
+        	}
+        }        
         /* Enigma after returning to present */
-        else if(isNearObject("dialogResolveEnigma") && wait == 12){
+        else if(/*isNearObject("dialogResolveEnigma") && */ enigma && wait == 12){
         	readAndShowDialog("beginResolveEnigma", "endResolveEnigma");
         }
     }
@@ -129,5 +148,28 @@ public class DialogStageScript implements IScript{
         else{
             return false;
         }
+    }
+    
+    private void showEnigma() {
+        Gdx.input.getTextInput(new TextInputListener() {
+            @Override
+            public void input(String text){
+                message = text;
+                if(message.equals("aspirateur") /*== "aspirateur"*/){
+                	Gdx.input.vibrate(1000); 
+                	enigma = true;
+                	tryAgain = false;
+                	System.out.println("true");
+                }
+                else{
+                	tryAgain = true;
+                }
+            }
+
+            @Override
+            public void canceled(){
+                message = "no";
+            }
+        }, "Je ne respire jamais, mais j'ai beaucoup de soufle. Qui suis-je ?", "", "");
     }
 }
