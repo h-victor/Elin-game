@@ -74,7 +74,7 @@ public class MovingPigScript implements IScript {
     private boolean martenHitMonster() {
         Vector2 martenPos = new Vector2(marten.getX() + marten.getWidth() / 2, 
                 marten.getY() + marten.getHeight() / 2);
-        return (martenPos.x > item.getX() && martenPos.x < item.getRight()) && 
+        return (martenPos.x > item.getX()-20 && martenPos.x < item.getRight()+20) && 
             (martenPos.y > item.getY() && martenPos.y < item.getTop()) && MartenScript.isAttacking;
     }		
 

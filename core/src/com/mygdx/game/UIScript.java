@@ -10,12 +10,11 @@ public class UIScript implements IScript {
     private CompositeItem button;
     private SimpleButtonScript playButtonScript; 
 
-    private GameStage gameStage;
+
     
-    public UIScript(UIStage uiStage, GameStage gameStage) {
+    public UIScript(UIStage uiStage) {
         this.stage=uiStage;
         
-        this.gameStage = gameStage;
     }
 
     @Override
@@ -43,21 +42,15 @@ public class UIScript implements IScript {
         stage.getGameStage().getMartenScript();
         if(MartenScript.isDead || stage.getGameStage().getMarten().getY() < -1000){
             button.setVisible(true);
-            
-            item.getLabelById("label").setVisible(true);
         }
-/*        else if(gameStage.getElinScript().endGame()){
-            button.setVisible(true);
-
-            item.getLabelById("label").setText("Thank you for playing to this demo version of Elin-game");
-            item.getLabelById("label").setVisible(true);
-        }*/
         else{
             button.setVisible(false);
-            
-            item.getLabelById("label").setVisible(false);
+        }  
+        if(stage.getGameStage().getElinScript().endGame()){
+            item.getLabelById("label").setVisible(true);
         }
         if(playButtonScript.isDown()){
+        	
             stage.getGameStage().getMartenScript().restart();
         }
     }

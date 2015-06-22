@@ -230,10 +230,10 @@ public class MartenScript implements IScript {
     }
 
     private void checkSideCollision() {
-        final Vector2 pointA = new Vector2(((item.getX() - 5) * PhysicsBodyLoader.SCALE), 
-                (item.getY() + item.getHeight() / 2) * PhysicsBodyLoader.SCALE);
-        final Vector2 pointB = new Vector2(((item.getRight() + 5) * PhysicsBodyLoader.SCALE), 
-                (item.getY() + item.getHeight() / 2) * PhysicsBodyLoader.SCALE);
+        final Vector2 pointA = new Vector2(((item.getX()+spriterActor.getX() - 5) * PhysicsBodyLoader.SCALE), 
+                (item.getY() + spriterActor.getHeight() / 2) * PhysicsBodyLoader.SCALE);
+        final Vector2 pointB = new Vector2(((item.getX()+spriterActor.getRight() + 5) * PhysicsBodyLoader.SCALE), 
+                (item.getY() + spriterActor.getHeight() / 2) * PhysicsBodyLoader.SCALE);
         
         stage.getWorld().rayCast(new RayCastCallback() {
             public float reportRayFixture(final Fixture fixture, final Vector2 point, 
@@ -303,7 +303,7 @@ public class MartenScript implements IScript {
         if (ElinScript.isLadder || ElinScript.isBridge || isHurt || isDead || isAttacking)
             return true;
         else
-            return !(elinPos.dst(martenPos) > 200);
+            return !(elinPos.dst(martenPos) > 190);
     }
 
     public void restart(){

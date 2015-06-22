@@ -16,7 +16,7 @@ public class UIStage extends Overlap2DStage{
     private void initUI() {
         clear();
         sceneLoader.loadScene("UIScene"); 
-        sceneLoader.getRoot().addScript(new UIScript(this, gameStage));
+        sceneLoader.getRoot().addScript(new UIScript(this));
         addActor(sceneLoader.getRoot());
     }
 

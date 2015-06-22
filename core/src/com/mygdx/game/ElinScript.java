@@ -184,7 +184,12 @@ public class ElinScript implements IScript{
     }
 
     public void elinTransformToBridge() {
-        item.addAction(Actions.sequence(Actions.run(new Runnable(){
+    	if(marten.getScaleX()>0)
+    		item.addAction(Actions.moveTo(marten.getRight(), marten.getY()-item.getHeight()/2, 1f));
+    	else
+    		item.addAction(Actions.moveTo(marten.getX()-item.getWidth(), marten.getY()-item.getHeight()/2, 1f));
+        item.addAction(Actions.sequence(
+        		Actions.run(new Runnable(){
             @Override
             public void run() {
                 setSpriterAnimationByName("transformation Pont");
@@ -202,7 +207,12 @@ public class ElinScript implements IScript{
     }
 
     public void elinTransformToLadder() {
-        item.addAction(Actions.sequence(Actions.run(new Runnable(){
+    	if(marten.getScaleX()>0)
+    		item.addAction(Actions.moveTo(marten.getRight()-(spriterActor.getX()+spriterActor.getWidth()/2)-50, marten.getY(), 1f));
+    	else
+    		item.addAction(Actions.moveTo(marten.getX()-(spriterActor.getX()+spriterActor.getWidth()/2)+20, marten.getY(), 1f));
+        item.addAction(Actions.sequence(
+        		Actions.run(new Runnable(){
             @Override
             public void run() {
                 setSpriterAnimationByName("transformation Echelle");
@@ -247,12 +257,12 @@ public class ElinScript implements IScript{
     }
     
     /* end game  => null pointer exception */
-/*    public boolean endGame(){
-    	if(item.getParentItem().getCompositeById("endGame").getX() > item.getX()){
+   public boolean endGame(){
+    	if(item.getParentItem().getCompositeById("endGame").getX() < item.getX()){
     		return true;
     	}
     	else
     		return false;
     }
-*/
+
 }
