@@ -81,7 +81,7 @@ public class ElinScript implements IScript{
         /******elin Move Touched******/
         float moveSpeed = 220f * this.item.mulX;
 
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.isTouched() && numberFinger() == 1 && !gameStage.getIsDialog()){
             if(Gdx.input.getX() > camera.viewportWidth / 2){
                 item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
                 if(item.getScaleX()<0){
@@ -263,5 +263,17 @@ public class ElinScript implements IScript{
     	}
     	else
     		return false;
+    }
+   
+   // Number of finger that currently touch the screen
+   public int numberFinger(){
+	   int activeTouch = 0;
+       int i = 0;
+       while(Gdx.app.getInput().isTouched(i) && i < 20){
+    	   activeTouch++;
+    	   i++;
+       }
+       //System.out.println(activeTouch);
+       return activeTouch;
     }
 }

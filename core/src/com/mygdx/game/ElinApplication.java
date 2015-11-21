@@ -33,7 +33,7 @@ public class ElinApplication extends ApplicationAdapter {
         inputMultiplexer.addProcessor(dialogStage); 
         inputMultiplexer.addProcessor(uiStage);
         inputMultiplexer.addProcessor(gameStage_);
-        inputMultiplexer.addProcessor(new GestureDetector(new MyGestureListener(this))); 
+        inputMultiplexer.addProcessor(new GestureDetector(new MyGestureListener(this)));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 

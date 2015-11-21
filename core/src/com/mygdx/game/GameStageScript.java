@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.script.IScript;
@@ -33,7 +35,7 @@ public class GameStageScript implements IScript{
     }
 
     @Override
-    public void init(CompositeItem item) {
+    public void init(CompositeItem item) {    	
         this.item = item;
         accelerometer_ = new Accelerometer(camera);
 

@@ -23,7 +23,6 @@ public class DialogStageScript implements IScript{
     	private boolean showEnigma = true;
     	private boolean tryAgain = false;
 
-    
     public DialogStageScript(GameStage gameStage){
         this.gameStage = gameStage;
     }
@@ -115,7 +114,7 @@ public class DialogStageScript implements IScript{
         if(!readLineWait){
             if(Gdx.input.justTouched() && Gdx.input.getY() < 200){
                 readLineWait = dialog.readLineWait();
-            }			
+            }
         }
         return readLineWait;
     }
@@ -126,6 +125,9 @@ public class DialogStageScript implements IScript{
 
         	item.getLabelById("dialog").setVisible(true);
             item.getImageById("frame").setVisible(true);
+
+            // set boolean isDialog to true in GameStage
+            gameStage.setIsDialog(true);
         }
         else if(readLineWait){
             wait++;
@@ -134,6 +136,9 @@ public class DialogStageScript implements IScript{
             
             item.getLabelById("dialog").setVisible(false);
             item.getImageById("frame").setVisible(false);
+            
+            // set boolean isDialog to false in GameStage
+            gameStage.setIsDialog(false);
         }    	
     }
 

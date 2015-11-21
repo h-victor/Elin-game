@@ -18,7 +18,7 @@ import com.uwsoft.editor.renderer.script.IScript;
  */
 
 public class MartenScript implements IScript {
-    private final GameStage stage;
+    private final GameStage gameStage;
 
     private int verticalSpeed;
     private float moveSpeed;
@@ -38,7 +38,7 @@ public class MartenScript implements IScript {
     private static boolean isHurt = false;
 
     public MartenScript(final GameStage gameStage) {
-        this.stage=gameStage;
+        this.gameStage=gameStage;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MartenScript implements IScript {
             setSpriterAnimationByName("debout");
         }
 
-        if((Gdx.input.isKeyJustPressed(Input.Keys.A))&&!isAttacking) 
+        if((Gdx.input.isKeyJustPressed(Input.Keys.A))&&!isAttacking && !gameStage.getIsDialog()) 
             attack();
         if(isCloseEnough()&&ElinScript.isBridge&&ElinScript.goMarten) 
             crossBrigde();
@@ -220,7 +220,7 @@ public class MartenScript implements IScript {
         final Vector2 rayTo = new Vector2((item.getX() + item.getWidth() / 2) * PhysicsBodyLoader.SCALE, 
                 (item.getY() - raySize) * PhysicsBodyLoader.SCALE);
         
-        stage.getWorld().rayCast(new RayCastCallback(){
+        gameStage.getWorld().rayCast(new RayCastCallback(){
             public float reportRayFixture(final Fixture fixture, final Vector2 point, final Vector2 normal, final float fraction){
                 verticalSpeed = 0;
                 item.setY(point.y/PhysicsBodyLoader.SCALE+0.1f);
@@ -235,10 +235,10 @@ public class MartenScript implements IScript {
         final Vector2 pointB = new Vector2(((item.getX()+spriterActor.getRight() + 5) * PhysicsBodyLoader.SCALE), 
                 (item.getY() + spriterActor.getHeight() / 2) * PhysicsBodyLoader.SCALE);
         
-        stage.getWorld().rayCast(new RayCastCallback() {
+        gameStage.getWorld().rayCast(new RayCastCallback() {
             public float reportRayFixture(final Fixture fixture, final Vector2 point, 
                     final Vector2 normal, final float fraction) {
-                for(final IBaseItem item: stage.sceneLoader.sceneActor.getItems()) {
+                for(final IBaseItem item: gameStage.sceneLoader.sceneActor.getItems()) {
                     if(item.getCustomVariables().getFloatVariable("cochonSpeed") != null && item.isComposite()) {
                         if(((CompositeItem)item).getX() * PhysicsBodyLoader.SCALE <= point.x && 
                                 ((CompositeItem)item).getRight() * PhysicsBodyLoader.SCALE >= point.x &&

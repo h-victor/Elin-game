@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
@@ -23,16 +27,22 @@ public class GameStage extends Overlap2DStage{
 
     private Accelerometer accelerometer_;
 
+    private boolean isDialog = true;
+    
     public GameStage(ResourceManager resourceManager){
         super();
         initSceneLoader(resourceManager);
-        initMainScene();
+        initMainScene();    
 
         accelerometer_ = new Accelerometer((OrthographicCamera)this.getCamera());
+        
+        // force the camera to be at this resolution (and be the same for all device) in all stage        
+        ((OrthographicCamera) this.getCamera()).setToOrtho(false, 1280, 720);
+        this.getCamera().update();
     }
 
     private void initMainScene() {
-        sceneLoader.loadScene("MainScene");//Load scene data: world physic , resolution, light 
+    	sceneLoader.loadScene("MainScene");//Load scene data: world physic , resolution, light 
         addActor(sceneLoader.sceneActor);
         elin=sceneLoader.sceneActor.getCompositeById("elin");
         marten= sceneLoader.sceneActor.getCompositeById("marten");
@@ -41,7 +51,7 @@ public class GameStage extends Overlap2DStage{
         save=new Save();
         martenScript=new MartenScript(this);
         elinScript= new ElinScript(this, this.getCamera());
-
+        
         elin.addScript(elinScript);
         marten.addScript(martenScript);
         for(IBaseItem item: sceneLoader.sceneActor.getItems()) {
@@ -141,5 +151,13 @@ public class GameStage extends Overlap2DStage{
      */
     public ElinScript getElinScript() {
         return elinScript;
+    }
+    
+    // know if there is a dialog
+    public boolean getIsDialog(){
+    	return isDialog;
+    }
+    public void setIsDialog(boolean isDialog){
+    	this.isDialog = isDialog;
     }
 }

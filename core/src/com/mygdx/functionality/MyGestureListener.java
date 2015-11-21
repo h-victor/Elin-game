@@ -46,12 +46,12 @@ public class MyGestureListener implements GestureListener {
 
 		return false;
 	}
-
+	
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		isTap = true;
 		//		System.out.println("tap ="+isTap);
-		if(count==2){
+		if(count==2 && !app.getGameStage_().getIsDialog()){
 			app.getGameStage_().getMartenScript().attack();
 		}
 		return true;
