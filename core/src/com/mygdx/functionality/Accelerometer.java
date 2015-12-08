@@ -61,13 +61,13 @@ public class Accelerometer {
         if(accelerometerX == 0 && accelerometerY == 0 && (accelerometerZ > 6)){ //== 10 || accelerometerZ == 9 || accelerometerZ == 8)){
             smartphoneFlatNormal = true;
         }
-        else if((accelerometerX > 6)/*== 10 || accelerometerX == 9 || accelerometerX == 8)*/ && accelerometerY == 0 && accelerometerZ < 8/*== 0*/){
+        else if((accelerometerX > 6)/*== 10 || accelerometerX == 9 || accelerometerX == 8)*/ && accelerometerY >= -1 && accelerometerY <= 1 && accelerometerZ < 8/*== 0*/) {
             smartphoneLandscapeNormal = true;
 
             wasSmartphoneLandscapeNormal = true;
             wasSmartphoneLandscapeInverse = false;
         }
-        else if(accelerometerX == 0 && (accelerometerY > 6)/*== 10 || accelerometerY == 9 || accelerometerY == 8)*/ && accelerometerZ < 8/*== 0*/){
+        else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY > 6)/*== 10 || accelerometerY == 9 || accelerometerY == 8)*/ && accelerometerZ < 8/*== 0*/){
             smartphonePortraitNormal = true;			
 
             wasSmartphonePortraitInverse = true;
@@ -78,13 +78,13 @@ public class Accelerometer {
         else if(accelerometerX == 0 && accelerometerY == 0 && (accelerometerZ < -6)/*== -10 || accelerometerZ == -9 || accelerometerZ == -8)*/){
             smartphoneFlatInverse = true;
         }
-        else if((accelerometerX < -6)/*== -10 || accelerometerX == -9 || accelerometerX == -8)*/ && accelerometerY == 0 && accelerometerZ < 8/*== 0*/){
+        else if((accelerometerX < -6)/*== -10 || accelerometerX == -9 || accelerometerX == -8)*/ && accelerometerY >= -1 && accelerometerY <= 1 && accelerometerZ < 8/*== 0*/){
             smartphoneLandscapeInverse = true;
 
             wasSmartphoneLandscapeNormal = false;
             wasSmartphoneLandscapeInverse = true;
         }
-        else if(accelerometerX == 0 && (accelerometerY < -6)/*== -10 || accelerometerY == -9 || accelerometerY == -8)*/ && accelerometerZ < 8/*== 0*/){
+        else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY < -6)/*== -10 || accelerometerY == -9 || accelerometerY == -8)*/ && accelerometerZ < 8/*== 0*/){
             smartphonePortraitInverse = true;			
 
             wasSmartphonePortraitInverse = false;

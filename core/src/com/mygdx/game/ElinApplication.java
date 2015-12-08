@@ -50,12 +50,13 @@ public class ElinApplication extends ApplicationAdapter {
 
     @Override
     public void render () {
-        Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+        Gdx.gl.glClearColor(0.5f, 0.8f, 1.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //actionResolver.showPressure();
-        System.out.println("Lux = " + sensor.getCurrentLux());
-        System.out.println("Proximity = " + sensor.getCurrentProximity());
+        //comentadas dos lineas
+        //System.out.println("Lux = " + sensor.getCurrentLux());
+        //System.out.println("Proximity = " + sensor.getCurrentProximity());
 
 /*        System.out.println("Gyroscope X = " + sensor.getGyroscopeX());
         System.out.println("Gyroscope Y = " + sensor.getGyroscopeY());
