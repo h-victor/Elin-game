@@ -160,4 +160,14 @@ public class GameStage extends Overlap2DStage{
     public void setIsDialog(boolean isDialog){
     	this.isDialog = isDialog;
     }
+    
+    public boolean isPortrait() {
+    	accelerometer_.getAccelerometerPosition();
+    	return  accelerometer_.isPortrait();
+    }
+    
+    public boolean isInverse() {
+    	accelerometer_.getAccelerometerPosition();
+    	return accelerometer_.isInverse();
+    }
 }

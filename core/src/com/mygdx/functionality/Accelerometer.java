@@ -209,4 +209,11 @@ public class Accelerometer {
 
         return isRaise;
     }
+    
+    public boolean isPortrait() {
+    	return (smartphonePortraitInverse || smartphonePortraitNormal);
+    }
+    public boolean isInverse() {
+    	return (smartphonePortraitInverse || smartphoneLandscapeInverse);
+    }
 }

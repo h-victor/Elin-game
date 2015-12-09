@@ -9,6 +9,8 @@ import com.uwsoft.editor.renderer.actor.CompositeItem;
 import com.uwsoft.editor.renderer.actor.SpriterActor;
 import com.uwsoft.editor.renderer.script.IScript;
 
+import sun.rmi.runtime.Log;
+
 public class ElinScript implements IScript{
     private GameStage gameStage;
     private float moveSpeed;
@@ -81,8 +83,8 @@ public class ElinScript implements IScript{
         /******elin Move Touched******/
         float moveSpeed = 220f * this.item.mulX;
 
-        if(Gdx.input.isTouched() && numberFinger() == 1 && !gameStage.getIsDialog()){
-            if(Gdx.input.getX() > camera.viewportWidth / 2){
+      if(Gdx.input.isTouched() && numberFinger() == 1 && !gameStage.getIsDialog()){
+            /*if(Gdx.input.getX() > camera.viewportWidth / 2){
                 item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
                 if(item.getScaleX()<0){
                     item.setScaleX(item.getScaleX()*-1f);
@@ -94,7 +96,78 @@ public class ElinScript implements IScript{
                     item.setScaleX(item.getScaleX()*-1f);
                 }
             }
-        }  
+        
+        
+        }  */
+        if (gameStage.isPortrait()) {
+        	
+    		if (!gameStage.isInverse()) {
+    		
+    			System.out.println("TOUCH: Portrait - Normal");
+    			if(Gdx.input.getY() > camera.viewportHeight / 2){
+	                item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()<0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+	            else if(Gdx.input.getY() < camera.viewportHeight / 2 ){
+	                item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()>0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+    		}
+    		else {
+    			System.out.println("Portrait - Inverse");
+    			if(Gdx.input.getY() < camera.viewportHeight / 2){
+	                item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()>0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+	            else if(Gdx.input.getY() > camera.viewportHeight / 2 ){
+	                item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()< 0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+    		}
+    	}
+    	else {
+    		if (!gameStage.isInverse()) {
+    			System.out.println("TOUCH: Landscape - Normal");
+    			if(Gdx.input.getX() > camera.viewportWidth / 2){
+	                item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()<0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+	            else if(Gdx.input.getX() < camera.viewportWidth / 2 ){
+	                item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()>0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+    			
+    		}
+    		else {
+    			
+    			System.out.println("TOUCH: Landscape - Inverse");
+    			if(Gdx.input.getX() < camera.viewportWidth / 2){
+	                item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()>0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+	            else if(Gdx.input.getX() > camera.viewportWidth / 2 ){
+	                item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+	                if(item.getScaleX()< 0){
+	                    item.setScaleX(item.getScaleX()*-1f);
+	                }
+	            }
+    		}
+    	}
+      }
     }
 
     public void reset(){
