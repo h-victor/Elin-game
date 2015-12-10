@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -19,15 +18,10 @@ public class ElinApplication extends ApplicationAdapter {
     private ResourceManager resourceManager;
     private InputMultiplexer inputMultiplexer;
     
-    	//public ActionResolver actionResolver;
 	private final LightSensorInterface sensor;
-    	public ElinApplication(/*ActionResolver actionResolver*/LightSensorInterface sensor){
-        	/*this.actionResolver = actionResolver;
-        	actionResolver.showToast("Hello");
-        	actionResolver.showPressure();*/
+    	public ElinApplication(LightSensorInterface sensor){
         	this.sensor= sensor;
     	}
-    	
     	
     @Override
     public void create () {
@@ -53,16 +47,6 @@ public class ElinApplication extends ApplicationAdapter {
         Gdx.gl.glClearColor(0.5f, 0.8f, 1.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //actionResolver.showPressure();
-        //comentadas dos lineas
-        //System.out.println("Lux = " + sensor.getCurrentLux());
-        //System.out.println("Proximity = " + sensor.getCurrentProximity());
-
-/*        System.out.println("Gyroscope X = " + sensor.getGyroscopeX());
-        System.out.println("Gyroscope Y = " + sensor.getGyroscopeY());
-        System.out.println("Gyroscope Z = " + sensor.getGyroscopeZ());
-*/        
-        
         if(MenuStageScript.startGameStage == true){ // if true, draw the MenuStage
             gameStage_.act(Gdx.graphics.getDeltaTime());
             gameStage_.draw();

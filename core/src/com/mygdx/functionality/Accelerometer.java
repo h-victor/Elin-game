@@ -15,6 +15,12 @@ public class Accelerometer {
     public boolean state1LandscapeNormal, state2FlatNormal, state3LandscapeInverse, state4FlatInverse, state5LandscapeNormal;
     public boolean state2FlatInverse, state4FlatNormal, state5LandscapeNormalInverse; // inverse return smartphone
 
+    
+    /* boolean to move the player in the good way in Elin Script */
+    /* don't work with the actual boolean because it implies conflicts in rotation*/
+    public boolean smartphoneLandscapeNormal2, smartphonePortraitNormal2;
+    public boolean smartphoneLandscapeInverse2, smartphonePortraitInverse2;
+    
     /* raise a little the smartphone */
     public boolean isRaise;
 
@@ -40,6 +46,7 @@ public class Accelerometer {
         isRaise = false;
         
         wasSmartphoneLandscapeNormal = true;
+        smartphoneLandscapeNormal2 = true;
     }
 
     public void getAccelerometerPosition(){
@@ -49,6 +56,7 @@ public class Accelerometer {
         accelerometerZ = (int) Gdx.input.getAccelerometerZ();
 
         /* Initialize boolean at false */
+        /* can't be in each function because it cause conflict in the rotation */
         smartphoneFlatNormal = false;
         smartphoneLandscapeNormal = false;
         smartphonePortraitNormal = false;
@@ -66,12 +74,18 @@ public class Accelerometer {
 
             wasSmartphoneLandscapeNormal = true;
             wasSmartphoneLandscapeInverse = false;
+            
+            smartphoneLandscapeNormal2 = true; smartphonePortraitNormal2 = false;
+            smartphoneLandscapeInverse2 = false; smartphonePortraitInverse2= false;
         }
         else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY > 6)/*== 10 || accelerometerY == 9 || accelerometerY == 8)*/ && accelerometerZ < 8/*== 0*/){
             smartphonePortraitNormal = true;			
 
             wasSmartphonePortraitInverse = true;
             wasSmartphonePortraitNormal= false;
+
+            smartphonePortraitNormal2 = true; smartphoneLandscapeNormal2 = false;
+            smartphonePortraitInverse2= false; smartphoneLandscapeInverse2 = false;            
         }
 
         /* Inverse mode */
@@ -83,18 +97,24 @@ public class Accelerometer {
 
             wasSmartphoneLandscapeNormal = false;
             wasSmartphoneLandscapeInverse = true;
+            
+            smartphoneLandscapeInverse2 = true; smartphonePortraitInverse2 = false;
+            smartphoneLandscapeNormal2 = false; smartphonePortraitNormal2 = false;
         }
         else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY < -6)/*== -10 || accelerometerY == -9 || accelerometerY == -8)*/ && accelerometerZ < 8/*== 0*/){
             smartphonePortraitInverse = true;			
 
             wasSmartphonePortraitInverse = false;
             wasSmartphonePortraitNormal= true;
+
+            smartphonePortraitInverse2 = true; smartphoneLandscapeInverse2 = false;
+            smartphonePortraitNormal2 = false; smartphoneLandscapeNormal2 = false;
         }
     }
 
     /* rotate camera to landscape to portrait */
     public void rotateCamera(){
-        /* Activate the rotation of the camera Normal Mode*/
+    	/* Activate the rotation of the camera Normal Mode*/
         if(smartphoneLandscapeNormal && isRotated){
             if(wasSmartphonePortraitNormal){
                 this.camera.rotate(camera.direction, 90f); 
@@ -210,10 +230,36 @@ public class Accelerometer {
         return isRaise;
     }
     
-    public boolean isPortrait() {
-    	return (smartphonePortraitInverse || smartphonePortraitNormal);
+    public boolean isPortraitNormal() {
+    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal2);
+    	return smartphonePortraitNormal2;
     }
-    public boolean isInverse() {
-    	return (smartphonePortraitInverse || smartphoneLandscapeInverse);
+    public boolean isLandscapeNormal() {
+    	System.out.println("isLandscapeNormal= " + smartphoneLandscapeNormal2);
+    	return smartphoneLandscapeNormal2;
     }
+    public boolean isPortraitInverse() {
+    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal2);
+    	return smartphonePortraitInverse2;
+    }
+    public boolean isLandscapeInvese() {
+    	System.out.println("isLandscapeNormal= " + smartphoneLandscapeNormal2);
+    	return smartphoneLandscapeInverse2;
+    }
+/*    public boolean isPortraitNormal() {
+    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal);
+    	return smartphonePortraitNormal;
+    }
+    public boolean isPortraitInverse() {
+    	System.out.println("isPortraitInverse= " + smartphonePortraitInverse);
+    	return smartphonePortraitInverse;
+    }
+    public boolean isLandscapeNormal() {
+       	System.out.println("isLandscapeNormal = " + smartphoneLandscapeNormal);
+    	return smartphoneLandscapeNormal;
+    }
+    public boolean isLandscapeInverse() {   	
+    	System.out.println("isLandscapeInverse= " + smartphoneLandscapeInverse);
+    	return smartphoneLandscapeInverse;
+    }*/
 }

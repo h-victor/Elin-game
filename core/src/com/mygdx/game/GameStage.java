@@ -4,10 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.functionality.Accelerometer;
 import com.uwsoft.editor.renderer.Overlap2DStage;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
@@ -161,13 +157,7 @@ public class GameStage extends Overlap2DStage{
     	this.isDialog = isDialog;
     }
     
-    public boolean isPortrait() {
-    	accelerometer_.getAccelerometerPosition();
-    	return  accelerometer_.isPortrait();
-    }
-    
-    public boolean isInverse() {
-    	accelerometer_.getAccelerometerPosition();
-    	return accelerometer_.isInverse();
+    public Accelerometer getAccelerometer(){
+    	return accelerometer_;
     }
 }
