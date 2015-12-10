@@ -8,7 +8,7 @@ To move to the second plan or to return to the first plan, use the Space Key.
 To execute the game on Linux, give access read/write to ./gradlew with "chmod +x ./gradlew".
 Then execute with "./gradlew desktop:run" to run it on desktop.
 
-More instruction on Libgdx site: 
+More instruction on Libgdx site->
     
     https://github.com/libgdx/libgdx/wiki/Gradle-on-the-Commandline
 
