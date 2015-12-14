@@ -131,7 +131,44 @@ public class ElinScript implements IScript{
 	                }
 	            }
 //    		}
-//    	}
+
+//@PEP----------------------------------------------------------->>>>
+            else if(gameStage.getAccelerometer().isLandscapeInverse()){
+//              System.out.println("Portrait - Inverse");
+                if(Gdx.input.getX/*Y*/() > camera.viewportWidth/*Height*/ / 2){
+                    item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+                    if(item.getScaleX()>0){
+                        item.setScaleX(item.getScaleX()*-1f);
+                    }
+                }
+                else if(Gdx.input.getX/*Y*/() < camera.viewportWidth/*Height*/ / 2 ){
+                    item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+                    if(item.getScaleX()< 0){
+                        item.setScaleX(item.getScaleX()*-1f);
+                    }
+                }
+
+            if (gameStage.getAccelerometer().isPortraitInverse()){//gameStage.isPortrait()) {
+                
+    //          if (!gameStage.isInverse()) {
+                
+                    System.out.println("TOUCH: Portrait - Normal");
+                    if(Gdx.input.getY() > camera.viewportHeight / 2){
+                        item.setX(item.getX() + Gdx.graphics.getDeltaTime()*moveSpeed);
+                        if(item.getScaleX()>0){
+                            item.setScaleX(item.getScaleX()*-1f);
+                        }
+                    }
+                    else if(Gdx.input.getY() < camera.viewportHeight / 2 ){
+                        item.setX(item.getX() - Gdx.graphics.getDeltaTime()*moveSpeed);
+                        if(item.getScaleX() < 0){
+                            item.setScaleX(item.getScaleX()*-1f);
+                        }
+                    }
+                }
+
+
+//---------------------------------------------------------------------------------------
 /*    	else {
     		if (!gameStage.isInverse()) {
     			System.out.println("TOUCH: Landscape - Normal");
