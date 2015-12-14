@@ -1,5 +1,5 @@
 package com.mygdx.functionality;
-
+/*esto es una prueba de commit*/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 
