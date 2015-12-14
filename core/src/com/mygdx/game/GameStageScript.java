@@ -80,11 +80,13 @@ public class GameStageScript implements IScript{
     /***** NE PAS TOUCHER********/
     private void cameraRotation() {
         if(landscape == true){
+            this.camera.translate(0, 0.4f * camera.viewportHeight,0);
             camera.rotate(camera.direction, 90f); 
             camera.update();
             landscape = false;
         }
         else if(landscape == false){
+            this.camera.translate(0, -0.4f * camera.viewportHeight,0);
             camera.rotate(camera.direction, -90f); 
             camera.update();
             landscape = true;

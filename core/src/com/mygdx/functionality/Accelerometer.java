@@ -1,5 +1,5 @@
 package com.mygdx.functionality;
-
+/*esto es una prueba de commit*/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 
@@ -15,12 +15,11 @@ public class Accelerometer {
     public boolean state1LandscapeNormal, state2FlatNormal, state3LandscapeInverse, state4FlatInverse, state5LandscapeNormal;
     public boolean state2FlatInverse, state4FlatNormal, state5LandscapeNormalInverse; // inverse return smartphone
 
-    
     /* boolean to move the player in the good way in Elin Script */
     /* don't work with the actual boolean because it implies conflicts in rotation*/
     public boolean smartphoneLandscapeNormal2, smartphonePortraitNormal2;
     public boolean smartphoneLandscapeInverse2, smartphonePortraitInverse2;
-    
+
     /* raise a little the smartphone */
     public boolean isRaise;
 
@@ -44,7 +43,7 @@ public class Accelerometer {
 
         /* raise a little the smartphone */
         isRaise = false;
-        
+
         wasSmartphoneLandscapeNormal = true;
         smartphoneLandscapeNormal2 = true;
     }
@@ -66,46 +65,34 @@ public class Accelerometer {
         smartphonePortraitInverse = false;
 
         /* Normal mode */
-        if(accelerometerX == 0 && accelerometerY == 0 && (accelerometerZ > 6)){ //== 10 || accelerometerZ == 9 || accelerometerZ == 8)){
+        if(accelerometerX == 0 && accelerometerY == 0 && accelerometerZ > 6){
             smartphoneFlatNormal = true;
         }
-        else if((accelerometerX > 6)/*== 10 || accelerometerX == 9 || accelerometerX == 8)*/ && accelerometerY >= -1 && accelerometerY <= 1 && accelerometerZ < 8/*== 0*/) {
+        else if(accelerometerX > 6 && (accelerometerY >= -1 && accelerometerY <= 1) && accelerometerZ < 8/*== 0*/) {
             smartphoneLandscapeNormal = true;
 
-            wasSmartphoneLandscapeNormal = true;
-            wasSmartphoneLandscapeInverse = false;
-            
             smartphoneLandscapeNormal2 = true; smartphonePortraitNormal2 = false;
             smartphoneLandscapeInverse2 = false; smartphonePortraitInverse2= false;
         }
-        else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY > 6)/*== 10 || accelerometerY == 9 || accelerometerY == 8)*/ && accelerometerZ < 8/*== 0*/){
+        else if((accelerometerX >= -1 && accelerometerX <= 1) && accelerometerY > 6 && accelerometerZ < 8/*== 0*/){
             smartphonePortraitNormal = true;			
-
-            wasSmartphonePortraitInverse = true;
-            wasSmartphonePortraitNormal= false;
 
             smartphonePortraitNormal2 = true; smartphoneLandscapeNormal2 = false;
             smartphonePortraitInverse2= false; smartphoneLandscapeInverse2 = false;            
         }
 
         /* Inverse mode */
-        else if(accelerometerX == 0 && accelerometerY == 0 && (accelerometerZ < -6)/*== -10 || accelerometerZ == -9 || accelerometerZ == -8)*/){
+        else if(accelerometerX == 0 && accelerometerY == 0 && accelerometerZ < -6){
             smartphoneFlatInverse = true;
         }
-        else if((accelerometerX < -6)/*== -10 || accelerometerX == -9 || accelerometerX == -8)*/ && accelerometerY >= -1 && accelerometerY <= 1 && accelerometerZ < 8/*== 0*/){
+        else if(accelerometerX < -6 && (accelerometerY >= -1 && accelerometerY <= 1) && accelerometerZ < 8/*== 0*/){
             smartphoneLandscapeInverse = true;
 
-            wasSmartphoneLandscapeNormal = false;
-            wasSmartphoneLandscapeInverse = true;
-            
             smartphoneLandscapeInverse2 = true; smartphonePortraitInverse2 = false;
             smartphoneLandscapeNormal2 = false; smartphonePortraitNormal2 = false;
         }
-        else if(accelerometerX >= -1 && accelerometerX <= 1 && (accelerometerY < -6)/*== -10 || accelerometerY == -9 || accelerometerY == -8)*/ && accelerometerZ < 8/*== 0*/){
+        else if((accelerometerX >= -1 && accelerometerX <= 1) && accelerometerY < -6 && accelerometerZ < 8/*== 0*/){
             smartphonePortraitInverse = true;			
-
-            wasSmartphonePortraitInverse = false;
-            wasSmartphonePortraitNormal= true;
 
             smartphonePortraitInverse2 = true; smartphoneLandscapeInverse2 = false;
             smartphonePortraitNormal2 = false; smartphoneLandscapeNormal2 = false;
@@ -114,47 +101,84 @@ public class Accelerometer {
 
     /* rotate camera to landscape to portrait */
     public void rotateCamera(){
-    	/* Activate the rotation of the camera Normal Mode*/
-        if(smartphoneLandscapeNormal && isRotated){
+        /* Activate the rotation of the camera Normal Mode*/
+        if(smartphoneLandscapeNormal /*&& isRotated*/){
             if(wasSmartphonePortraitNormal){
-                this.camera.rotate(camera.direction, 90f); 
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
+                this.camera.rotate(camera.direction, -90f);//90f); 
+                wasSmartphonePortraitNormal = false;
             }
             else if(wasSmartphonePortraitInverse){
-                this.camera.rotate(camera.direction, -90f);
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
+                this.camera.rotate(camera.direction, 90f);//-90f);
+                wasSmartphonePortraitInverse = false;
             }
-
+            else if(wasSmartphoneLandscapeInverse){
+                this.camera.rotate(camera.direction, 180f);
+                wasSmartphoneLandscapeInverse = false;
+            }
+            wasSmartphoneLandscapeNormal = true;
             this.camera.update();
-            isRotated = false;
+            // isRotated = false;
         }
-        else if(smartphonePortraitNormal && !isRotated){
+        else if(smartphonePortraitNormal /*&& !isRotated*/){
             if(wasSmartphoneLandscapeNormal){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, 90f); 
+                wasSmartphoneLandscapeNormal = false;
             }
-            else if(wasSmartphoneLandscapeInverse)
+            else if(wasSmartphoneLandscapeInverse){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, -90f);
-
+                wasSmartphoneLandscapeInverse = false;
+            }
+            else if(wasSmartphonePortraitInverse){
+                camera.rotate(camera.direction, 180f);
+                wasSmartphonePortraitInverse = false;
+            }
+            wasSmartphonePortraitNormal = true;
             camera.update();
-            isRotated = true;
+            // isRotated = true;
         }
 
         /* Activate the rotation of the camera Inverse Mode*/
-        else if(smartphoneLandscapeInverse && isRotated){
-            if(wasSmartphonePortraitInverse)
-                camera.rotate(camera.direction, 90f); 
-            else if(wasSmartphonePortraitNormal)
-                camera.rotate(camera.direction, -90f);
-
+        else if(smartphoneLandscapeInverse /*&& isRotated*/){
+            if(wasSmartphonePortraitInverse){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
+                camera.rotate(camera.direction, -90f);//90f);
+                wasSmartphonePortraitInverse = false;
+            }
+            else if(wasSmartphonePortraitNormal){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
+                camera.rotate(camera.direction, 90f);//-90f);
+                wasSmartphonePortraitNormal = false;
+            }
+            else if(wasSmartphoneLandscapeNormal){
+                camera.rotate(camera.direction, 180f);
+                wasSmartphoneLandscapeNormal = false;
+            }
+            wasSmartphoneLandscapeInverse = true;
             camera.update();
-            isRotated = false;
+            // isRotated = false;
         }
-        else if(smartphonePortraitInverse && !isRotated){
-            if(wasSmartphoneLandscapeNormal)
+        else if(smartphonePortraitInverse /*&& !isRotated*/){
+            if(wasSmartphoneLandscapeNormal){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, -90f); 
-            else if(wasSmartphoneLandscapeInverse)
+                wasSmartphoneLandscapeNormal = false;
+            }
+            else if(wasSmartphoneLandscapeInverse){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, 90f);
-
+                wasSmartphoneLandscapeInverse = false;
+            }
+            else if(wasSmartphonePortraitNormal){
+                camera.rotate(camera.direction, 180f);
+                wasSmartphonePortraitNormal = false;
+            }
+            wasSmartphonePortraitInverse = true;
             camera.update();
-            isRotated = true;
+            // isRotated = true;
         }
     }
 
@@ -229,37 +253,17 @@ public class Accelerometer {
 
         return isRaise;
     }
-    
+
     public boolean isPortraitNormal() {
-    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal2);
-    	return smartphonePortraitNormal2;
+        return smartphonePortraitNormal2;
     }
     public boolean isLandscapeNormal() {
-    	System.out.println("isLandscapeNormal= " + smartphoneLandscapeNormal2);
-    	return smartphoneLandscapeNormal2;
+        return smartphoneLandscapeNormal2;
     }
     public boolean isPortraitInverse() {
-    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal2);
-    	return smartphonePortraitInverse2;
+        return smartphonePortraitInverse2;
     }
     public boolean isLandscapeInvese() {
-    	System.out.println("isLandscapeNormal= " + smartphoneLandscapeNormal2);
-    	return smartphoneLandscapeInverse2;
+        return smartphoneLandscapeInverse2;
     }
-/*    public boolean isPortraitNormal() {
-    	System.out.println("isPortraitNormal = " + smartphonePortraitNormal);
-    	return smartphonePortraitNormal;
-    }
-    public boolean isPortraitInverse() {
-    	System.out.println("isPortraitInverse= " + smartphonePortraitInverse);
-    	return smartphonePortraitInverse;
-    }
-    public boolean isLandscapeNormal() {
-       	System.out.println("isLandscapeNormal = " + smartphoneLandscapeNormal);
-    	return smartphoneLandscapeNormal;
-    }
-    public boolean isLandscapeInverse() {   	
-    	System.out.println("isLandscapeInverse= " + smartphoneLandscapeInverse);
-    	return smartphoneLandscapeInverse;
-    }*/
 }
