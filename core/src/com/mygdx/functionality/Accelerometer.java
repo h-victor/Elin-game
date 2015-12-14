@@ -263,7 +263,7 @@ public class Accelerometer {
     public boolean isPortraitInverse() {
         return smartphonePortraitInverse2;
     }
-    public boolean isLandscapeInvese() {
+    public boolean isLandscapeInverse() {
         return smartphoneLandscapeInverse2;
     }
 }
