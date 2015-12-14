@@ -104,10 +104,12 @@ public class Accelerometer {
         /* Activate the rotation of the camera Normal Mode*/
         if(smartphoneLandscapeNormal /*&& isRotated*/){
             if(wasSmartphonePortraitNormal){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
                 this.camera.rotate(camera.direction, -90f);//90f); 
                 wasSmartphonePortraitNormal = false;
             }
             else if(wasSmartphonePortraitInverse){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
                 this.camera.rotate(camera.direction, 90f);//-90f);
                 wasSmartphonePortraitInverse = false;
             }
@@ -121,10 +123,12 @@ public class Accelerometer {
         }
         else if(smartphonePortraitNormal /*&& !isRotated*/){
             if(wasSmartphoneLandscapeNormal){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, 90f); 
                 wasSmartphoneLandscapeNormal = false;
             }
             else if(wasSmartphoneLandscapeInverse){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, -90f);
                 wasSmartphoneLandscapeInverse = false;
             }
@@ -140,10 +144,12 @@ public class Accelerometer {
         /* Activate the rotation of the camera Inverse Mode*/
         else if(smartphoneLandscapeInverse /*&& isRotated*/){
             if(wasSmartphonePortraitInverse){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, -90f);//90f);
                 wasSmartphonePortraitInverse = false;
             }
             else if(wasSmartphonePortraitNormal){
+                this.camera.translate(0, -0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, 90f);//-90f);
                 wasSmartphonePortraitNormal = false;
             }
@@ -157,10 +163,12 @@ public class Accelerometer {
         }
         else if(smartphonePortraitInverse /*&& !isRotated*/){
             if(wasSmartphoneLandscapeNormal){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, -90f); 
                 wasSmartphoneLandscapeNormal = false;
             }
             else if(wasSmartphoneLandscapeInverse){
+                this.camera.translate(0, 0.4f * camera.viewportHeight,0);
                 camera.rotate(camera.direction, 90f);
                 wasSmartphoneLandscapeInverse = false;
             }
