@@ -10,10 +10,11 @@ public class Accelerometer {
     public boolean wasSmartphonePortraitInverse, wasSmartphonePortraitNormal;
     public boolean wasSmartphoneLandscapeInverse, wasSmartphoneLandscapeNormal;
     public boolean isRotated;
+    //past and present status
+    public boolean s0 = false,s1=false,s2=false,s3=false,s4=false,def=true;
+    public boolean s0i = false,s1i=false,s2i=false,s3i=false,s4i=false;
 
-    /* return smartphone */
-    public boolean state1LandscapeNormal, state2FlatNormal, state3LandscapeInverse, state4FlatInverse, state5LandscapeNormal;
-    public boolean state2FlatInverse, state4FlatNormal, state5LandscapeNormalInverse; // inverse return smartphone
+   
 
     /* boolean to move the player in the good way in Elin Script */
     /* don't work with the actual boolean because it implies conflicts in rotation*/
@@ -29,17 +30,7 @@ public class Accelerometer {
         this.camera = camera;
         isRotated = false;
 
-        /* return smartphone */
-        state1LandscapeNormal = false;
-        state2FlatNormal = false;
-        state3LandscapeInverse = false;
-        state4FlatInverse = false;
-        state5LandscapeNormal = false;
-
-        /* Inverse return smartphone */
-        state2FlatInverse = false;
-        state4FlatNormal = false;
-        state5LandscapeNormalInverse = false;
+       
 
         /* raise a little the smartphone */
         isRaise = false;
@@ -97,6 +88,87 @@ public class Accelerometer {
             smartphonePortraitInverse2 = true; smartphoneLandscapeInverse2 = false;
             smartphonePortraitNormal2 = false; smartphoneLandscapeNormal2 = false;
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //detect status for going to past
+        
+        
+        if ((accelerometerZ > 7 && accelerometerZ < 11) && accelerometerX <= 0 && (s4 == true || s0 == true || def == true)) {
+        	System.out.println("STATES INFO: 0");	
+        	s0 = true;
+        		s1 = false; s2 = false; s3 = false; s4 = false; def=false;
+        }
+        else if ((accelerometerZ > -1 && accelerometerZ < 8) && accelerometerX < 0 && (s0 == true || s1 == true)) {
+        	System.out.println("STATES INFO: 1");
+        	s1 = true;
+    		s0 = false; s2 = false; s3 = false; s4 = false; 
+        }
+        else if ((accelerometerZ  >  -11 && accelerometerZ < 1) && accelerometerX < 0 && (s1 == true || s2 == true)) {
+        	System.out.println("STATES INFO: 2");
+        	s2 = true;
+    		s0 = false; s1 = false; s3 = false; s4 = false;
+        }
+        else if ((accelerometerZ  >  -11 && accelerometerZ < 1) && accelerometerX >= 0 && (s2 == true || s3 == true)) {
+        	System.out.println("STATES INFO: 3");
+        	s3 = true;
+    		s0 = false; s1 = false; s2 = false; s4 = false;
+        }
+        else if ((accelerometerZ  <  11 && accelerometerZ > 0) && accelerometerX > 0 && (s3 == true || s4 == true)) {
+        	System.out.println("STATES INFO: 4");
+        	s4 = true;
+    		s0 = false; s1 = false; s2 = false; s3 = false;
+        }
+        else {
+        	s0 = false; s1 = false; s2 = false; s3 = false; s4 = false; def = true;
+        }
+        
+        //detect status for returning to present
+        
+        
+        if ((accelerometerZ  <  11 && accelerometerZ > 0) && accelerometerX > 0 && (s4i == true || s0i == true  || def == true)) {
+        	System.out.println("STATES INFO: 0 i");	
+        	    s0i = true;
+        		s1i = false; s2i = false; s3i = false; s4i = false; def=false;
+        }
+        else if ((accelerometerZ  >  -11 && accelerometerZ < 1) && accelerometerX >= 0 && (s0i == true || s1i == true)) {
+        	System.out.println("STATES INFO: 1 i");
+        	s1i = true;
+    		s0i = false; s2i = false; s3i = false; s4i = false; 
+        }
+        else if ((accelerometerZ  >  -11 && accelerometerZ < 1) && accelerometerX < 0 && (s1i == true || s2i == true)) {
+        	System.out.println("STATES INFO: 2 i");
+        	s2i = true;
+    		s0i = false; s1i = false; s3i = false; s4i = false;
+        }
+        else if ((accelerometerZ > -1 && accelerometerZ < 8) && accelerometerX < 0 && (s2i == true || s3i == true)) {
+        	System.out.println("STATES INFO: 3 i");
+        	s3i = true;
+    		s0i = false; s1i = false; s2i = false; s4i = false;
+        }
+        else if ((accelerometerZ > 7 && accelerometerZ < 11) && accelerometerX <= 0 && (s3i == true || s4i == true)) {
+        	System.out.println("STATES INFO: 4 i");
+        	s4i = true;
+    		s0i = false; s1i = false; s2i = false; s3i = false;
+        }
+        else {
+        	s0i = false; s1i = false; s2i = false; s3i = false; s4i = false; def = true;
+        }
+        
+        
+        
+        
+    }
+    
+    private void clearStatus() {
+    	s0 = false; s1 = false; s2 = false; s3 = false; s4 = false; def = true;
+    	s0i = false; s1i = false; s2i = false; s3i = false; s4i = false;
     }
 
     /* rotate camera to landscape to portrait */
@@ -184,58 +256,22 @@ public class Accelerometer {
 
     /*******Function Return the smartphone*******/
     public boolean returnSmartphoneNormal(){
-        if(smartphoneLandscapeNormal && !state4FlatInverse){
-            state1LandscapeNormal = true;
-
-            state5LandscapeNormal = false;
-        }
-
-        else if(smartphoneFlatNormal && state1LandscapeNormal)			
-            state2FlatNormal = true;
-
-        else if(smartphoneLandscapeInverse && state2FlatNormal)
-            state3LandscapeInverse = true;
-
-        else if(smartphoneFlatInverse && state3LandscapeInverse)
-            state4FlatInverse = true;
-
-        else if(smartphoneLandscapeNormal && state4FlatInverse){
-            state5LandscapeNormal = true;
-
-            state2FlatNormal = false;
-            state3LandscapeInverse = false;
-            state4FlatInverse = false;
-        }
-
-        return state5LandscapeNormal;
+      
+    	if (s4 == true) {
+    		clearStatus();
+    		return true;
+    	}
+    	return false;
     }
 
 
     public boolean returnSmartphoneinverse(){
-        if(smartphoneLandscapeNormal && !state4FlatNormal){
-            state1LandscapeNormal = true;
-
-            state5LandscapeNormalInverse = false;
-        }
-
-        else if(smartphoneFlatInverse && state1LandscapeNormal)			
-            state2FlatInverse = true;
-
-        else if(smartphoneLandscapeInverse && state2FlatInverse)
-            state3LandscapeInverse = true;
-
-        else if(smartphoneFlatNormal && state3LandscapeInverse)
-            state4FlatNormal = true;
-
-        else if(smartphoneLandscapeNormal && state4FlatNormal){
-            state5LandscapeNormalInverse = true;
-
-            state2FlatInverse = false;
-            state3LandscapeInverse = false;
-            state4FlatNormal = false;
-        }
-
-        return state5LandscapeNormalInverse;
+       
+    	if (s4i == true) {
+    		clearStatus();
+    		return true;
+    	}
+    	return false;
     }
 
 

@@ -81,12 +81,12 @@ public class GameStage extends Overlap2DStage{
         accelerometer_.getAccelerometerPosition();
         
         /* Go to past */
-        if(accelerometer_.returnSmartphoneNormal() && !isTimeTravaler){
+        if(accelerometer_.returnSmartphoneNormal() && !isPast){
             goToPast();
             Gdx.input.vibrate(1000);
         }
         /* Return to present */
-        if(accelerometer_.returnSmartphoneinverse() && !isTimeTravaler){
+        if(accelerometer_.returnSmartphoneinverse() && isPast){
             returnToPresent();
             Gdx.input.vibrate(1000);
         }
